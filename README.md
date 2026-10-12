@@ -6,6 +6,7 @@ Ce site présente mon parcours, mes compétences et mes projets.
 
 - `index.html` : mon portfolio personnel.
 - `projet-ecoute-coran/index.html` : le site An•noor pour chercher et écouter des sourates.
+- `projet-citations-informatique/index.html` : une page de citations et de bandes dessinées sur l’informatique.
 - Les autres pages du dossier An•noor présentent mon profil, une biographie, des vidéos et un verset.
 
 ## Fonctions d’An•noor

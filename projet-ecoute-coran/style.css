@@ -137,6 +137,12 @@ body::before,
     background: #426b55;
 }
 
+.menu a.portfolio-link {
+    border: 1px solid #a9c2b1;
+    color: #ffffff;
+    font-weight: 700;
+}
+
 .menu a::after {
     display: none;
 }
@@ -310,9 +316,11 @@ footer {
     .player-right {
         grid-column: 1 / -1;
         display: flex;
+        align-items: center;
         justify-content: space-between;
         width: 100%;
         gap: 8px;
+        min-width: 0;
     }
 
     .time-display {
@@ -322,7 +330,10 @@ footer {
     }
 
     #volume {
-        width: min(90px, 35vw);
+        flex: 0 1 100px;
+        width: clamp(75px, 28vw, 100px);
+        min-width: 70px;
+        margin: 0 2px 0 8px;
     }
 
     body {
@@ -353,6 +364,26 @@ footer {
 
     .traduction {
         font-size: 15px;
+    }
+}
+
+@media (max-width: 380px) {
+    .quran-player {
+        padding: 9px 10px;
+    }
+
+    .player-right {
+        gap: 4px;
+    }
+
+    .time-display {
+        font-size: 11px;
+    }
+
+    #volume {
+        width: 74px;
+        min-width: 65px;
+        margin-left: 4px;
     }
 }
 
