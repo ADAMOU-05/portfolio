@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qur'an</title>
+    <title>An•noor</title>
 
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/global.css">
@@ -17,9 +17,6 @@
 
     <link rel="stylesheet" href="css/components/player.css">
     <link rel="stylesheet" href="css/components/sourate-card.css">
-    <link rel="stylesheet" href="css/components/clock.css">
-    <link rel="stylesheet" href="css/components/meteo.css">
-
     <link rel="stylesheet" href="css/pages/home.css">
     <link rel="stylesheet" href="css/pages/quran.css">
     <link rel="stylesheet" href="style.css">
@@ -109,70 +106,19 @@
 
 
 <body>
-    <div id="loader">
-        <div class="loader-circle"></div>
-        <p>Chargement du Coran...</p>
-    </div>
-    <div class="sun"></div>
-    <div class="stars"></div>
-
-
-
     <header class="header_nav">
         <nav class="header_menu">
-            <h1 class="logo">An•noor</h1>
-            <!-- HAMBURGER -->
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <a class="logo" href="index.html">An•noor</a>
 
-            <!-- MENU -->
+            <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+
             <ul class="menu" id="menu">
-                <li><a href="index.html#quran">&#128218; Coran</a></li>
-
-                <li>
-                    <a href="#">&#9829; Biographie</a>
-                    <ul class="sous-menu">
-                        <li><a href="biographie.html#section-biographie">Al-Sudais</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">À propos</a>
-                    <ul class="sous-menu">
-                        <li><a href="qui-suis-je.html#section-qui-suis-je">Qui suis-je</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#">Humanitaire</a>
-                    <ul class="sous-menu">
-                        <li><a href="https://humanappeal.fr/appels-aux-dons/parrainage-orphelins">Human-Appeal</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#">&#9742; Contact</a>
-                    <ul class="sous-menu">
-                        <li><a href="mailto:adamoubabaina7@gmail.com">Email</a></li>
-                        <li><a href="tel:+33 6 03 89 67 01">Téléphone</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#">Récitations Populaires</a>
-                    <ul class="sous-menu">
-                        <li><a href="liens-video.html#section-liens-video">&#127909; Liens Vidéo</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#">Les versets</a>
-                    <ul class="sous-menu">
-                        <li><a href="ayah-al-kursi.html#section-ayah-al-kursi">&#128336; Al-Kursi</a></li>
-                    </ul>
-                </li>
+                <li><a href="#list">Sourates</a></li>
+                <li><a href="ayah-al-kursi.html">Verset</a></li>
+                <li><a href="biographie.html">Biographie</a></li>
+                <li><a href="qui-suis-je.html">À propos</a></li>
+                <li><a href="liens-video.html">Vidéos</a></li>
+                <li><a href="mailto:adamoubabaina7@gmail.com">Contact</a></li>
             </ul>
 
         </nav>
@@ -180,17 +126,7 @@
     <div class="container">
 
         <header class="section-header">
-            <div d="meteo-card" style="font-family: Arial, sans-serif; border:1px solid #ccc; padding:5px; border-radius:10px; width: 100px; text-align:center; background:#015766;">
-                <div id="ville">Vendôme</div>
-                <div id="temperature">chargement...</div>
-            </div>
-            <div id="clock"></div>
-
             <p id="days"></p>
-
-            <p id="new-year"></p>
-
-            <p id="date-hijr"></p>
         </header>
 
 
@@ -199,14 +135,14 @@
 
             <p>
 
-                Le Coran est le livre sacré de l'islam, c'est la parole de Dieu révélée au prophète Muhammad ﷺ. Il est composé de 114 chapitres appelés sourates. Le Coran est récité et étudié par des millions de musulmans à travers le monde.
+                Le Coran est le livre sacré de l’islam. Selon la foi musulmane, il a été révélé au prophète Muhammad ﷺ. Il contient 114 chapitres appelés sourates. Les musulmans le récitent et l’étudient dans le monde entier.
 
             </p>
 
         </section>
 
         <section class="coran-section">
-            <h2>📖 Verset du jour</h2>
+            <h2>📖 Un verset à découvrir</h2>
             <div class="citation">
                 <p class="arabe" id="verset-ar"></p>
                 <p class="traduction" id="verset-fr"></p>
@@ -214,21 +150,14 @@
             </div>
         </section>
 
-        <section class="section-countdowns">
-            <p id="ramadan-countdown"></p>
-            <p id="aid-al-fitr-countdown"></p>
-            <p id="aid-al-adha-countdown"></p>
-        </section>
-
-
         <div style="text-align:center;margin:30px;">
 
-            <input id="search" type="text" placeholder="Rechercher une sourate..." style="padding:10px;width:300px;border-radius:8px;border:1px solid #ccc;">
+            <input id="search" type="text" placeholder="Chercher une sourate..." style="padding:10px;width:300px;border-radius:8px;border:1px solid #ccc;">
         </div>
         <figure>
             <img src="i-abdul-rahman-al-sudais.png" alt="abdul-rahman-al-sudais">
             <figcaption>
-                la photo de abdul-rahman-al-sudais
+                Photo d’Abdul-Rahman Al-Sudais
             </figcaption>
         </figure>
         <main id="list">
@@ -237,7 +166,7 @@
         <footer>
             <div class="footer-contact">
 
-                <h3 class="contact-title">Contact</h3>
+                <h3 class="contact-title">Pour me contacter</h3>
 
                 <div class="contact-items">
 
@@ -269,7 +198,7 @@
             </div>
 
             <p class="footer-text">
-                Suivez nous sur nos réseaux pour écoutez et méditez les sourates du Coran avec une expérience audio moderne et apaisante.
+                Retrouvez nos réseaux sociaux pour écouter les sourates du Coran et prendre un moment de réflexion.
             </p>
 
             <div class="social-links">
@@ -288,7 +217,7 @@
             <div class="footer-divider"></div>
 
             <div class="footer-copy">
-                © 2026 AN•NOOR• Tous droits réservés
+                © 2026 An•noor
             </div>
 
     </div>
@@ -308,13 +237,8 @@
 
 
         <div class="player-center">
-            <div id="buttons" class="btn-container"></div>
-            <button class="btn-future" onclick="playSequential()">
-            <i class="fa-solid fa-list-ol"></i></button>
-            <button class="btn-future" onclick="playRandom()">
-            <i class="fa-solid fa-shuffle"></i></button>
             <button id="prev">⏮</button>
-            <button id="playPause">▶️</button>
+            <button id="playPause" aria-label="Lire ou mettre en pause">▶</button>
             <button id="next">⏭</button>
             <div class="progress-container">
                 <div id="progress"></div>
@@ -337,13 +261,7 @@
         </div>
 
     </div>
-    <script src="jav.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-
-    <div id="particles"></div>
-    <canvas id="galaxy"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128.min.js"></script>
     <script src="list-sourates.js"></script>
-    <script src="btn.js"></script>
+    <script src="jav.js"></script>
 </body>
 </html>

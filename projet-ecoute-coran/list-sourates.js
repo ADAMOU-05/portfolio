@@ -117,16 +117,19 @@ const sourates =[
 "An-Nas — الناس"
 ];
 
-sourates.forEach((name,i)=>{
+// Crée une carte pour chaque sourate de la liste.
+sourates.forEach(function (name, index) {
+    const number = String(index + 1).padStart(3, "0");
+    const card = document.createElement("div");
+    const title = document.createElement("p");
 
-let num=(i+1).toString().padStart(3,"0");
+    card.classList.add("sourate");
+    card.dataset.src = "s/" + number + ".mp3";
+    title.classList.add("title");
+    title.textContent = number + ". " + name;
 
-list.innerHTML+=`
-<div class="sourate" data-src="s/${num}.mp3">
-<p class="title">${num}. ${name}</p>
-</div>
-`;
-
+    card.appendChild(title);
+    list.appendChild(card);
 });
 
 

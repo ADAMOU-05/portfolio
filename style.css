@@ -2,14 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --ink: #17242b;          /* Texte principal */
-  --muted: #5d6c72;        /* Texte secondaire */
-  --paper: #fbfaf7;        /* Fond clair de la page */
+  --ink: #25332d;          /* Texte principal */
+  --muted: #5d6862;        /* Texte secondaire */
+  --paper: #f4f6f5;        /* Fond clair de la page */
   --white: #ffffff;
-  --accent: #b8f36b;       /* Vert utilisé pour les détails */
-  --accent-dark: #527b2b;  /* Vert plus foncé pour garder un bon contraste */
-  --line: #dfe5e2;         /* Traits de séparation */
-  --dark: #18333a;         /* Boutons et grands aplats foncés */
+  --accent: #dcebe2;       /* Vert clair pour les détails */
+  --accent-dark: #3f7057;  /* Vert foncé pour les liens */
+  --line: #dce3df;         /* Traits de séparation */
+  --dark: #315341;         /* Boutons et grands aplats foncés */
   --content: 1000px;       /* Largeur maximale du contenu */
 }
 
@@ -215,7 +215,7 @@ a:focus-visible {
 
 .button-download:hover {
   border-color: #82947f;
-  background: #eef1eb;
+  background: #eaf0ec;
 }
 
 .text-link {

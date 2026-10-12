@@ -1,619 +1,224 @@
-/* =====================================================
-🚀 LOADER
-===================================================== */
+// Ce fichier regroupe les fonctions principales du site An•noor.
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", function () {
+    setupMenu();
+    setupSearch();
+    setupPlayer();
+    showToday();
+    showVerse();
+    setupBackToTop();
 
-    const loader = document.getElementById("loader");
-
-    if (!loader) return;
-
-    setTimeout(() => {
-
-        loader.style.opacity = "0";
-
-        setTimeout(() => {
-
-            loader.style.display = "none";
-
-        }, 500);
-
-    }, 800);
-
+    // Affiche le verset quand la page est prête.
+    const verseSection = document.querySelector(".coran-section");
+    if (verseSection) {
+        verseSection.classList.add("visible");
+    }
 });
 
-
-/* =====================================================
-🚀 INITIALISATION GLOBALE
-===================================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    initMenu();
-    initSearch();
-    initClock();
-    initDates();
-    initHijriDate();
-    initVerse();
-    initPlayer();
-    initScrollTop();
-    initWeather();
-    initScrollAnimation();
-    initFestivalsCountdown();
-    initCardEffects();
-    initStars();
-
-});
-
-
-/* =====================================================
-📱 MENU HAMBURGER
-===================================================== */
-
-function initMenu() {
-
-    const hamburger = document.querySelector(".hamburger");
+// Ouvre et ferme le menu sur téléphone.
+function setupMenu() {
+    const menuButton = document.querySelector(".hamburger");
     const menu = document.querySelector(".menu");
 
-    if (!hamburger || !menu) return;
+    if (!menuButton || !menu) return;
 
-    hamburger.addEventListener("click", (e) => {
-
-        e.stopPropagation();
-
-        hamburger.classList.toggle("active");
+    menuButton.addEventListener("click", function () {
         menu.classList.toggle("active");
-
+        menuButton.classList.toggle("active");
+        menuButton.setAttribute("aria-expanded", menu.classList.contains("active"));
+        menuButton.setAttribute("aria-label", menu.classList.contains("active") ? "Fermer le menu" : "Ouvrir le menu");
+        menuButton.textContent = menu.classList.contains("active") ? "×" : "☰";
     });
 
-    document.addEventListener("click", (e) => {
-
-        if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-
+    // Ferme le menu après avoir choisi une page.
+    menu.addEventListener("click", function (event) {
+        if (event.target.closest("a")) {
             menu.classList.remove("active");
-            hamburger.classList.remove("active");
-
+            menuButton.classList.remove("active");
+            menuButton.setAttribute("aria-expanded", "false");
+            menuButton.setAttribute("aria-label", "Ouvrir le menu");
+            menuButton.textContent = "☰";
         }
-
     });
-
 }
 
-
-/* =====================================================
-🔎 RECHERCHE SOURATE
-===================================================== */
-
-function initSearch() {
-
-    const search = document.getElementById("search");
-
-    if (!search) return;
-
+// Garde seulement les sourates qui correspondent à la recherche.
+function setupSearch() {
+    const searchInput = document.getElementById("search");
     const sourates = document.querySelectorAll(".sourate");
 
-    search.addEventListener("input", () => {
+    if (!searchInput) return;
 
-        const value = search.value.toLowerCase();
+    searchInput.addEventListener("input", function () {
+        const searchText = searchInput.value.toLowerCase();
 
-        sourates.forEach(s => {
-
-            const text = s.innerText.toLowerCase();
-
-            s.style.display = text.includes(value) ? "block" : "none";
-
+        sourates.forEach(function (sourate) {
+            const name = sourate.textContent.toLowerCase();
+            sourate.style.display = name.includes(searchText) ? "block" : "none";
         });
-
     });
-
 }
 
+// Affiche la date du jour.
+function showToday() {
+    const dateElement = document.getElementById("days");
+    if (!dateElement) return;
 
-/* =====================================================
-📅 DATE FR
-===================================================== */
-
-function initDates() {
-
-    const el = document.getElementById("days");
-    if (!el) return;
-
-    const date = new Date();
-
-    el.textContent = "Aujourd'hui nous sommes : " + date.toLocaleDateString("fr-FR", {
-
+    dateElement.textContent = new Date().toLocaleDateString("fr-FR", {
         weekday: "long",
         day: "numeric",
         month: "long",
         year: "numeric"
-
     });
-
 }
 
+// Affiche un verset différent à chaque actualisation de la page.
+function showVerse() {
+    const arabicText = document.getElementById("verset-ar");
+    const frenchText = document.getElementById("verset-fr");
+    const reference = document.getElementById("reference");
 
-function initHijriDate() {
+    if (!arabicText || !frenchText || !reference) return;
 
-    const el = document.getElementById("date-hijr");
-    if (!el) return;
-
-    const today = new Date();
-
-    const formatter = new Intl.DateTimeFormat("fr-u-ca-islamic", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
-
-    let hijri = formatter.format(today).replace(" AH", "");
-
-    el.textContent = "Aujourdh'ui nous sommes le:" +
-        hijri;
-}
-
-
-/* =====================================================
-🕒 HORLOGE
-===================================================== */
-
-function initClock() {
-
-    const el = document.getElementById("clock");
-
-    if (!el) return;
-
-    function update() {
-
-        el.textContent = "Heure : " + new Date().toLocaleTimeString("fr-FR");
-
-    }
-
-    update();
-
-    setInterval(update, 1000);
-
-}
-
-
-/* =====================================================
-📖 VERSET DU JOUR
-===================================================== */
-
-function initVerse() {
-
-    const versets = [
-
-        { ar: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", fr: "Avec la difficulté vient la facilité.", ref: "94:6" },
-        { ar: "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ", fr: "Allah est la lumière des cieux et de la terre.", ref: "24:35" },
-        { ar: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", fr: "Les cœurs se tranquillisent par le rappel d’Allah.", ref: "13:28" },
-        { ar: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", fr: "Allah n'impose rien au-delà de la capacité.", ref: "2:286" }
-
+    const verses = [
+        { arabic: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", french: "Avec la difficulté vient la facilité.", source: "Sourate 94, verset 6" },
+        { arabic: "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ", french: "Allah est la lumière des cieux et de la terre.", source: "Sourate 24, verset 35" },
+        { arabic: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", french: "Les cœurs trouvent la paix dans le rappel d’Allah.", source: "Sourate 13, verset 28" },
+        { arabic: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", french: "Allah n’impose à personne une charge supérieure à sa capacité.", source: "Sourate 2, verset 286" }
     ];
 
-    const index = new Date().getDate() % versets.length;
+    let verseIndex = Math.floor(Math.random() * verses.length);
 
-    const v = versets[index];
+    // Si le hasard choisit le même verset, on passe au suivant.
+    try {
+        const previousIndex = localStorage.getItem("lastVerseIndex");
 
-    document.getElementById("verset-ar").textContent = v.ar;
-    document.getElementById("verset-fr").textContent = v.fr;
-    document.getElementById("reference").textContent = v.ref;
+        if (previousIndex !== null && verseIndex === Number(previousIndex)) {
+            verseIndex = (verseIndex + 1) % verses.length;
+        }
 
+        localStorage.setItem("lastVerseIndex", verseIndex);
+    } catch (error) {
+        // Le choix aléatoire fonctionne aussi si le navigateur bloque le stockage.
+    }
+
+    const verse = verses[verseIndex];
+
+    arabicText.textContent = verse.arabic;
+    frenchText.textContent = verse.french;
+    reference.textContent = verse.source;
 }
 
-
-/* =====================================================
-🎧 PLAYER CORAN (VERSION OPTIMISÉE)
-===================================================== */
-
-function initPlayer() {
-
-    const player = document.getElementById("player");
-    if (!player) return;
-
+// Permet de choisir et de contrôler les récitations.
+function setupPlayer() {
+    const audio = document.getElementById("player");
+    const sourates = document.querySelectorAll(".sourate");
     const title = document.getElementById("currentTrack");
-    const playBtn = document.getElementById("playPause");
-    const nextBtn = document.getElementById("next");
-    const prevBtn = document.getElementById("prev");
-
-    const volume = document.getElementById("volume");
-
+    const playButton = document.getElementById("playPause");
+    const nextButton = document.getElementById("next");
+    const previousButton = document.getElementById("prev");
+    const volumeInput = document.getElementById("volume");
     const progress = document.getElementById("progress");
     const progressContainer = document.querySelector(".progress-container");
+    const currentTime = document.getElementById("currentTime");
+    const duration = document.getElementById("duration");
 
-    const currentTimeEl = document.getElementById("currentTime");
-    const durationEl = document.getElementById("duration");
+    if (!audio || sourates.length === 0) return;
 
-    const sourates = [...document.querySelectorAll(".sourate")];
+    let currentIndex = 0;
 
-    let index = 0;
-    let playlist = [];
+    function playSourate(index) {
+        currentIndex = index;
+        const selectedSourate = sourates[currentIndex];
+        const name = selectedSourate.querySelector(".title").textContent;
 
-    /* création playlist */
-
-    sourates.forEach((s, i) => {
-
-        playlist.push({
-            src: s.dataset.src,
-            title: s.querySelector(".title").textContent
-        });
-
-        /* click sourate */
-
-        s.addEventListener("click", () => {
-
-            index = i;
-            loadTrack();
-            play();
-
-        });
-
-    });
-
-
-    /* charger sourate */
-
-    function loadTrack() {
-
-        player.src = playlist[index].src;
-
-        if (title) {
-
-            title.textContent = "Lecture : " + playlist[index].title;
-
-        }
-
-        localStorage.setItem("lastSourate", index);
-
+        audio.src = selectedSourate.dataset.src;
+        title.textContent = "Lecture : " + name;
+        audio.play();
     }
 
-
-    /* play */
-
-    function play() {
-
-        player.play();
-        playBtn.textContent = "⏸";
-
+    function playNext() {
+        const nextIndex = (currentIndex + 1) % sourates.length;
+        playSourate(nextIndex);
     }
-
-
-    
-
-    /* next */
-
-    nextBtn.addEventListener("click", () => {
-
-        index++;
-
-        if (index >= playlist.length) {
-
-            index = 0;
-
-        }
-
-        loadTrack();
-        play();
-
-    });
-
-
-    /* prev */
-
-    prevBtn.addEventListener("click", () => {
-
-        index--;
-
-        if (index < 0) {
-
-            index = playlist.length - 1;
-
-        }
-
-        loadTrack();
-        play();
-
-    });
-
-
-    /* lecture auto suivante */
-
-    player.addEventListener("ended", () => {
-
-        nextBtn.click();
-
-    });
-
-
-    /* volume */
-
-    if (volume) {
-
-        volume.addEventListener("input", () => {
-
-            player.volume = volume.value;
-
-        });
-
-    }
-
-
-    /* progress */
-
-    player.addEventListener("timeupdate", () => {
-
-        if (!player.duration) return;
-
-        const percent = (player.currentTime / player.duration) * 100;
-
-        if (progress) {
-
-            progress.style.width = percent + "%";
-
-        }
-
-        if (currentTimeEl) {
-
-            currentTimeEl.textContent = formatTime(player.currentTime);
-
-        }
-
-    });
-
-
-    player.addEventListener("loadedmetadata", () => {
-
-        if (durationEl) {
-
-            durationEl.textContent = formatTime(player.duration);
-
-        }
-
-    });
-
-
-    /* click barre */
-
-    if (progressContainer) {
-
-        progressContainer.addEventListener("click", (e) => {
-
-            const width = progressContainer.clientWidth;
-            const clickX = e.offsetX;
-
-            player.currentTime = (clickX / width) * player.duration;
-
-        });
-
-    }
-
-
-    /* format temps */
 
     function formatTime(seconds) {
-
-        const min = Math.floor(seconds / 60);
-        const sec = Math.floor(seconds % 60);
-
-        return min + ":" + (sec < 10 ? "0" + sec : sec);
-
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, "0");
+        return minutes + ":" + remainingSeconds;
     }
 
-
-    /* mémoire dernière sourate */
-
-    const saved = localStorage.getItem("lastSourate");
-
-    if (saved) {
-
-        index = parseInt(saved);
-        loadTrack();
-
-    }
-
-}
-
-
-/* =====================================================
-⬆️ SCROLL TOP
-===================================================== */
-
-function initScrollTop() {
-
-    const btn = document.getElementById("scrolltop");
-
-    if (!btn) return;
-
-    window.addEventListener("scroll", () => {
-
-        btn.style.display = window.scrollY > 300 ? "block" : "none";
-
-    });
-
-    btn.addEventListener("click", (e) => {
-
-        e.preventDefault();
-
-        window.scrollTo({
-
-            top: 0,
-            behavior: "smooth"
-
+    // Clique sur une sourate pour la lancer.
+    sourates.forEach(function (sourate, index) {
+        sourate.addEventListener("click", function () {
+            playSourate(index);
         });
-
     });
 
-}
-
-
-/* =====================================================
-🌤 METEO
-===================================================== */
-
-async function initWeather() {
-
-    const apiKey = "a1e79e7d5aaf6620f2817358b3f463b6";
-    const city = "Vendôme";
-
-    const url = `
-    https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${apiKey}`;
-
-    try {
-
-        const response = await fetch(url);
-
-        const data = await response.json();
-
-        document.getElementById("temperature").textContent = Math.round(data.main.temp) + "°";
-
-        document.getElementById("description").textContent = data.weather[0].description;
-
-        document.getElementById("ville").textContent = data.name;
-
-    } catch (e) {
-
-        console.log("Erreur météo :", e);
-
-}
-
-}
-
-
-/* =====================================================
-🎉 COMPTE A REBOURS FETES ISLAMIQUES
-===================================================== */
-
-function initFestivalsCountdown() {
-
-    const ramadan = new Date("2027-02-18");
-    const fitr = new Date("2027-03-19");
-    const adha = new Date("2026-05-26");
-
-    function update(target, id, name, emoji) {
-
-        const el = document.getElementById(id);
-        if (!el) return;
-
-        const now = new Date();
-        const diff = target - now;
-
-        if (diff <= 0) {
-
-            el.textContent = `${emoji} ${name} Mubarak !`;
-            return;
-
+    playButton.addEventListener("click", function () {
+        if (!audio.src) {
+            playSourate(currentIndex);
+        } else if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
         }
-
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor(diff % 86400000 / 3600000);
-        const m = Math.floor(diff % 3600000 / 60000);
-        const s = Math.floor(diff % 60000 / 1000);
-
-        el.textContent = `${name} : ${d}j ${h}h ${m}m ${s}s`;
-
-    }
-
-    setInterval(() => {
-
-        update(ramadan, "ramadan-countdown", "Ramadan", "🌙");
-        update(fitr, "aid-al-fitr-countdown", "Aid al-Fitr", "🎉");
-        update(adha, "aid-al-adha-countdown", "Aid al-Adha", "🐑");
-
-    }, 1000);
-
-}
-
-
-/* =====================================================
-✨ ANIMATION SCROLL
-===================================================== */
-
-function initScrollAnimation() {
-
-    const elements = document.querySelectorAll(".sourate");
-
-    const observer = new IntersectionObserver(entries => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("visible");
-
-            }
-
-        });
-
-    }, { threshold: 0.2 });
-
-    elements.forEach(el => observer.observe(el));
-
-}
-
-
-/* =====================================================
-✨ EFFET CARTE 3D
-===================================================== */
-
-function initCardEffects() {
-
-    document.querySelectorAll(".sourate").forEach(card => {
-
-        card.addEventListener("mousemove", e => {
-
-            const rect = card.getBoundingClientRect();
-
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = -(y - centerY) / 12;
-            const rotateY = (x - centerX) / 12;
-
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-
-        });
-
-        card.addEventListener("mouseleave", () => {
-
-            card.style.transform = "rotateX(0) rotateY(0) scale(1)";
-
-        });
-
     });
 
-}
+    nextButton.addEventListener("click", playNext);
 
+    previousButton.addEventListener("click", function () {
+        const previousIndex = (currentIndex - 1 + sourates.length) % sourates.length;
+        playSourate(previousIndex);
+    });
 
-/* =====================================================
-⭐ BACKGROUND ETOILES
-===================================================== */
+    audio.addEventListener("play", function () {
+        playButton.textContent = "Ⅱ";
+    });
 
-function initStars() {
+    audio.addEventListener("pause", function () {
+        playButton.textContent = "▶";
+    });
 
-    const stars = document.createElement("div");
+    audio.addEventListener("ended", playNext);
 
-    stars.classList.add("stars-dynamic");
-
-    document.body.appendChild(stars);
-
-    for (let i = 0; i < 80; i++) {
-
-        let star = document.createElement("div");
-
-        star.classList.add("star");
-
-        star.style.left = Math.random() * 100 + "%";
-        star.style.top = Math.random() * 100 + "%";
-
-        star.style.animationDelay = Math.random() * 5 + "s";
-
-        stars.appendChild(star);
-
+    if (volumeInput) {
+        volumeInput.addEventListener("input", function () {
+            audio.volume = volumeInput.value;
+        });
     }
 
+    audio.addEventListener("timeupdate", function () {
+        if (!audio.duration) return;
+
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = percent + "%";
+        currentTime.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener("loadedmetadata", function () {
+        duration.textContent = formatTime(audio.duration);
+    });
+
+    if (progressContainer) {
+        progressContainer.addEventListener("click", function (event) {
+            if (!audio.duration) return;
+
+            const rectangle = progressContainer.getBoundingClientRect();
+            const clickPosition = event.clientX - rectangle.left;
+            const percent = clickPosition / rectangle.width;
+            audio.currentTime = percent * audio.duration;
+        });
+    }
 }
-window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.coran-section').forEach(el => el.classList.add('visible'));
-});
+
+// Remonte en haut de la page avec le bouton flèche.
+function setupBackToTop() {
+    const button = document.getElementById("scrolltop");
+    if (!button) return;
+
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+}

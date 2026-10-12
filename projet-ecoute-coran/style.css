@@ -15,7 +15,7 @@
     cursor: pointer;
 
     background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-    color: black;
+    color: #031472;
     font-weight: 600;
 
     display: flex;
@@ -28,4 +28,237 @@
 .player-section .btn-future:hover {
     transform: scale(1.1);
     box-shadow: 0 0 30px var(--color-primary);
+}
+/* Arrière-plan clair et couleurs simples du site. */
+body {
+    background: #f4f6f5;
+    color: #25332d;
+}
+
+#days {
+    margin: 16px auto;
+    color: #45564c;
+    font-size: 16px;
+    text-align: center;
+}
+
+body::before,
+.sun,
+.stars,
+.stars-dynamic,
+#galaxy,
+#particles {
+    display: none !important;
+}
+
+.header_nav {
+    background: #315341;
+    border-bottom: 1px solid #dce3df;
+    backdrop-filter: none;
+}
+
+.logo,
+.menu a {
+    color: #ffffff;
+}
+
+.menu a::after {
+    background: #cfe3d7;
+}
+
+.header_nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header_menu {
+    position: relative;
+    width: min(100%, 1200px);
+    min-height: 68px;
+    padding: 10px 20px;
+}
+
+.logo {
+    padding: 0;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.logo::after {
+    display: none;
+}
+
+.menu {
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.menu a:hover {
+    background: #426b55;
+}
+
+.menu a::after {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    padding: 7px 12px;
+    border: 1px solid #688876;
+    border-radius: 6px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.section-description,
+.coran-section,
+.sourate,
+.citation {
+    background: #ffffff;
+    border: 1px solid #dce3df;
+    box-shadow: 0 4px 12px rgba(30, 50, 40, 0.08);
+    backdrop-filter: none;
+    color: #25332d;
+}
+
+.sourate {
+    opacity: 1;
+    transform: none;
+}
+
+.coran-section {
+    opacity: 1;
+    transform: none;
+}
+
+.coran-section > h2,
+.arabe,
+.traduction,
+#reference {
+    color: #25332d;
+}
+
+.sourate:hover,
+.coran-section:hover {
+    background: #f9fbfa;
+    box-shadow: 0 6px 16px rgba(30, 50, 40, 0.12);
+    transform: translateY(-3px);
+}
+
+.quran-player {
+    background: #ffffff;
+    border: 1px solid #dce3df;
+    box-shadow: 0 4px 12px rgba(30, 50, 40, 0.12);
+    backdrop-filter: none;
+    color: #25332d;
+}
+
+.time-display {
+    color: #5d6862;
+}
+
+.progress-container {
+    background: #e3e9e5;
+}
+
+#progress {
+    background: #5d6862;
+    box-shadow: none;
+}
+
+.player-center button {
+    background: #eaf0ec;
+    color: #25332d;
+}
+
+.player-center #playPause {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: #315341;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+#volume {
+    accent-color: #4b8068;
+}
+
+footer {
+    background: #315341;
+    border-color: #dce3df;
+    color: #ffffff;
+    backdrop-filter: none;
+}
+
+.footer-contact {
+    background: #426b55;
+    border: 1px solid #688876;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.footer-title,
+.contact-title {
+    color: #ffffff;
+    text-shadow: none;
+}
+
+.footer-text {
+    color: #e5eee9;
+}
+
+@media (max-width: 700px) {
+    .quran-player {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 850px) {
+    .header_menu {
+        flex-wrap: wrap;
+    }
+
+    .hamburger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 20px 14px;
+        background: #315341;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu a {
+        padding: 12px 8px;
+        border-bottom: 1px solid #426b55;
+        border-radius: 0;
+    }
 }
