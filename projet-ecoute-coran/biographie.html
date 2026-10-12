@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biographie - Abdul-Rahman Al-Sudais</title>
+
+<style>
+
+/* Reset simple */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+/* Corps de la page */
+body{
+font-family: Arial, Helvetica, sans-serif;
+background:#f5f7fa;
+color:#222;
+padding:40px 20px;
+line-height:1.7;
+}
+
+/* Titre */
+h1{
+text-align:center;
+font-size:2.5rem;
+margin-bottom:40px;
+color:#0a84ff;
+}
+
+/* Section */
+section{
+max-width:800px;
+margin:auto;
+}
+
+/* Paragraphes */
+.p-wrapper{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+margin-bottom:20px;
+opacity:0;
+transform:translateY(20px);
+transition:0.6s;
+}
+
+.p-wrapper.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+/* Texte */
+p{
+font-size:1.1rem;
+}
+
+/* Bouton retour */
+.btn-retour{
+display:inline-block;
+background:#0a84ff;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin-bottom:30px;
+transition:0.3s;
+}
+
+.btn-retour:hover{
+background:#0066cc;
+}
+
+/* Responsive */
+@media(max-width:600px){
+
+body{
+padding:20px 10px;
+}
+
+h1{
+font-size:2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<button onclick="window.location.href='index.html'" class="btn-retour">
+↩ Retour à l'accueil
+</button>
+
+<h1>La biographie de Abdul-Rahman Al-Sudais</h1>
+
+<section>
+
+<div class="p-wrapper">
+<p>
+Abdul Rahman Al Sudais est le premier imam de la Grande mosquée de La Mecque.
+C'est un grand réciteur du Saint Coran reconnu dans le monde entier.
+</p>
+</div>
+
+<div class="p-wrapper">
+<p>
+D'origine du clan Anza, Abdul Rahman Al Sudais est né en Arabie Saoudite.
+</p>
+</div>
+
+<div class="p-wrapper">
+<p>
+Il a mémorisé le Coran à l'âge de 12 ans et a obtenu son diplôme en 1979
+à l'institution scientifique de Riyad avec la mention « Excellent ».
+</p>
+</div>
+
+<div class="p-wrapper">
+<p>
+En 1983, il commence ses études universitaires et obtient une licence
+et une maîtrise en charia à l'université islamique Imam Muhammad ben Saud en 1987.
+</p>
+</div>
+
+<div class="p-wrapper">
+<p>
+Il obtient ensuite son doctorat en charia islamique à l'université Umm al-Qura en 1995.
+</p>
+</div>
+
+<div class="p-wrapper">
+<p>
+Il est célèbre pour sa voix émouvante et sa récitation exceptionnelle du Coran.
+En 2005, il reçoit le prix de la « personnalité islamique de l'année »
+au concours international de récitation du Coran à Dubaï.
+</p>
+</div>
+
+</section>
+
+<script>
+
+/* Animation simple au scroll */
+const elements = document.querySelectorAll('.p-wrapper');
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+});
+
+elements.forEach(el=>observer.observe(el));
+
+</script>
+
+</body>
+</html>

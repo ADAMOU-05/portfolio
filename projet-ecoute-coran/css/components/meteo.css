@@ -1,0 +1,42 @@
+/* Carte météo */
+#meteo-card {
+  
+  font-family: Arial, sans-serif;
+  margin-top:-190px;
+  width: 140px;
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #016e73 0%, #014d52 100%);
+  color: #e6fffb;
+  box-shadow: 0 8px 24px rgba(1,86,102,0.28);
+  border: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  
+}
+
+/* Ville */
+#meteo-card #ville {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* Température */
+#meteo-card #temperature {
+  font-size: 18px;
+  font-weight: 700;
+  background: rgba(255,255,255,0.06);
+  padding: 6px 8px;
+  border-radius: 8px;
+  display: inline-block;
+  min-width: 58px;
+}
+
+/* État responsive */
+@media (max-width: 480px) {
+  h1 { font-size: 28px; }
+  #meteo-card { width: 120px; padding: 8px; }
+  #meteo-card #temperature { font-size: 16px; min-width: 50px; }
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liens Vidéo Pro</title>
+<style>
+/* Reset & base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg,#dfe9f3,#ffffff);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Main container */
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    color: #0c4586;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Bouton retour */
+.btn-retour{
+display:inline-block;
+background:#0a84ff;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin-bottom:30px;
+transition:0.3s;
+}
+
+.btn-retour:hover{
+background:#0066cc;
+}
+
+/* Video cards grid */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Single video card */
+.video-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.video-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #0c4586;
+}
+
+.video-card p {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* Bouton ouvrir YouTube */
+.video-card a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #0c4586;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.video-card a:hover {
+    background-color: #096ddf;
+    transform: scale(1.05);
+}
+
+/* Section versets inspirants */
+section#versets-inspirant {
+    background: rgba(12,69,134,0.1);
+    color: #0c4586;
+    max-width: 800px;
+    margin: 50px auto 0;
+    padding: 25px 30px;
+    border-radius: 12px;
+    text-align: center;
+    font-style: italic;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+section#versets-inspirant:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+/* Responsive */
+@media(max-width:600px){
+    header h1 { font-size: 2rem; }
+    header p { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<main>
+
+<button onclick="window.location.href='index.html'" class="btn-retour">
+↩ Retour à l'accueil
+</button>
+</div>
+<header>
+    <h1>Liens Vidéo Inspirants</h1>
+    <p>Découvrez une sélection de vidéos liées au Coran, à la spiritualité et à la sagesse. Ces ressources vous guideront pour approfondir votre compréhension et votre connexion.</p>
+</header>
+
+<div class="video-grid">
+
+    <div class="video-card">
+        <h3>Mishary Alafasy</h3>
+        <p>Profitez des récitations apaisantes de Mishary Alafasy, un célèbre réciteur du Coran.</p>
+        <a href="https://youtube.com/@alafasy?si=pq8ZnBtADNDZGx34" target="_blank">Voir sur YouTube</a>
+    </div>
+
+    <div class="video-card">
+        <h3>Saudi Quran TV</h3>
+        <p>Découvrez des vidéos de récitation du Coran et des programmes religieux.</p>
+        <a href="https://www.youtube.com/@SaudiQuranTv" target="_blank">Voir sur YouTube</a>
+    </div>
+
+    <div class="video-card">
+        <h3>Islamic Guidance</h3>
+        <p>Conférences, sermons et discussions sur les enseignements islamiques.</p>
+        <a href="https://www.youtube.com/@IslamicGuidance" target="_blank">Voir sur YouTube</a>
+    </div>
+
+    <div class="video-card">
+        <h3>Religious Story TV</h3>
+        <p>Collection de vidéos inspirantes sur la foi et les valeurs islamiques.</p>
+        <a href="https://www.youtube.com/@ReligiousStoryTV" target="_blank">Voir sur YouTube</a>
+    </div>
+
+</div>
+
+<section id="versets-inspirant">
+    <p>"Sourate Hūd, Verset 3"</p>
+    <p>“Demandez pardon à votre Seigneur; ensuite, revenez à Lui. Il vous accordera une belle jouissance jusqu'à un terme fixé, et Il accordera à chaque méritant l'honneur qu'il mérite. Mais si vous tournez le dos, je crains alors pour vous le châtiment d'un grand jour.”</p>
+</section>
+
+</main>
+<script>
+
+/* Animation simple au scroll */
+const elements = document.querySelectorAll('.p-wrapper');
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+});
+
+elements.forEach(el=>observer.observe(el));
+
+</script>
+</body>
+</html>

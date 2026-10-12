@@ -1,0 +1,55 @@
+
+/* =========================================================
+14️⃣ HORLOGE
+========================================================= */
+#clock {
+    font-size:20px;
+    font-weight:100;
+    padding: 5px 10px;
+    top:auto;
+    display: flex;
+    align-items:left;
+    justify-content: center;
+    border-radius: 15px;
+    width: 50%;
+
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Texte */
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 200, 0.7);
+
+    /* Ombre douce pour "flottement" */
+    box-shadow: 0 4px 10px rgba(0, 255, 200, 0.2),
+                0 0 30px rgba(0, 255, 200, 0.1);
+
+    /* Position / priorité */
+    position:unset;
+    top: 0; /* ← ici tu peux ajuster pour le descendre */
+    left: 0px;
+    z-index: 1100;
+
+    /* Animation hover subtile */
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+#clock:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 255, 200, 0.4),
+                0 0 40px rgba(0, 255, 200, 0.2);
+}
+
+
+/* Responsive */
+@media (max-width: 600px) {
+    #clock {
+        font-size: 22px;
+        padding: 8px 15px;
+        top: 80px; /* réduit pour mobile */
+        right: 15px;
+    }
+    }

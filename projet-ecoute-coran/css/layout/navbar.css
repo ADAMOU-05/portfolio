@@ -1,0 +1,117 @@
+.header_nav{
+
+position:static;
+top:0;
+left:0;
+width:100%;
+
+background:rgba(10,10,10,0.6);
+backdrop-filter:blur(25px);
+
+border-bottom:1px solid rgba(255,255,255,0.08);
+
+z-index:1000;
+transition:var(--transition);
+}
+
+.header_menu{
+
+max-width:1300px;
+margin:auto;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:18px 30px;
+}
+:root{
+  --transition: 0.3s ease;
+}
+
+/* Logo matching .menu link underline behavior */
+.logo{
+  color: white;
+  font-size: 25px;
+  position:relative;
+  font-weight: 500;
+  position: relative;
+  padding: 15px;
+  display: inline-block;
+  transition: color var(--transition);
+}
+
+/* Underline */
+.logo::after{
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffc8, #00a6ff);
+  transition: width var(--transition);
+}
+
+/* Hover / focus expand underline */
+.logo:hover::after,
+.logo:focus::after{
+  width: 100%;
+}
+
+/* Keyboard focus ring */
+.logo:focus{
+  outline: 2px solid rgba(0,167,255,0.18);
+  outline-offset: 4px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  :root{ --transition: 0.001s linear; }
+  .logo{ transition: none; }
+  .logo::after{ transition: none; width: 100%; }
+}
+
+.menu{
+display:flex;
+gap:40px;
+list-style:none;
+}
+
+.menu a{
+
+color:white;
+text-decoration:none;
+
+font-size:15px;
+font-weight:500;
+
+position:relative;
+padding:5px;
+
+transition:var(--transition);
+}
+
+.menu a::after{
+
+content:"";
+
+position:absolute;
+bottom:-6px;
+left:0;
+
+width:0%;
+height:2px;
+
+background:linear-gradient(90deg,#00ffc8,#00a6ff);
+
+transition:0.4s
+}
+
+.menu a:hover::after{
+width:100%;
+}
+
+.menu.active{
+right:0;
+}

@@ -1,0 +1,223 @@
+/* =========================================================
+PLAYER GLOBAL
+========================================================= */
+
+.quran-player{
+
+position:fixed;
+bottom:20px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:92%;
+max-width:900px;
+
+height:70px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+gap:15px;
+
+padding:10px 20px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,0.08);
+
+backdrop-filter:blur(25px);
+
+border:1px solid rgba(255,255,255,0.15);
+
+color:white;
+
+z-index:999;
+
+box-shadow:
+var(--shadow-soft),
+0 0 40px rgba(0,255,200,0.1);
+
+transition:var(--transition);
+
+}
+
+/* hover */
+
+.quran-player:hover{
+
+transform:translateX(-50%) scale(1.02);
+
+}
+
+/* =========================================================
+PLAYER CONTROLS
+========================================================= */
+
+.player-controls{
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+/* boutons */
+
+
+
+.player-center button { background: #ffd966; border: none; padding: 10px 15px; margin: 0 5px; font-size: 1.2rem; border-radius: 50%; cursor: pointer; transition: all 0.2s ease-in-out; }
+
+/* hover boutons */
+
+.player-controls button:hover{
+
+transform:scale(1.1) translateY(-2px);
+
+background:rgba(0,255,200,0.15);
+
+border-color:rgba(0,255,200,0.4);
+
+box-shadow:
+0 0 12px rgba(0,255,200,0.6),
+0 0 25px rgba(0,255,200,0.3);
+
+}
+
+/* =========================================================
+PLAYER CENTER
+========================================================= */
+
+.player-center{
+
+flex:1;
+
+display:flex;
+align-items:center;
+gap:12px;
+
+}
+
+/* =========================================================
+BARRE DE PROGRESSION
+========================================================= */
+
+.progress-container{
+
+flex:1;
+
+height:6px;
+
+background:rgba(255,255,255,0.15);
+
+border-radius:10px;
+
+overflow:hidden;
+
+cursor:pointer;
+
+position:relative;
+
+}
+
+/* barre active */
+
+#progress{
+
+height:100%;
+
+width:0%;
+
+background:linear-gradient(
+90deg,
+#00ffc8,
+#00a67d
+);
+
+border-radius:10px;
+
+box-shadow:
+0 0 10px rgba(0,255,200,0.6);
+
+transition:width 0.2s linear;
+
+}
+
+/* =========================================================
+TEMPS AUDIO
+========================================================= */
+
+.time-display{
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+font-size:13px;
+
+color:var(--color-muted);
+
+font-weight:500;
+
+letter-spacing:1px;
+
+}
+
+/* =========================================================
+PARTIE DROITE
+========================================================= */
+
+.player-right{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+}
+
+/* volume */
+
+#volume{
+
+width:90px;
+
+cursor:pointer;
+
+accent-color:#00ffc8;
+
+}
+
+/* =========================================================
+RESPONSIVE MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+.quran-player{
+
+flex-direction:column;
+
+height:auto;
+
+gap:10px;
+
+padding:15px;
+
+}
+
+.player-center{
+
+width:100%;
+
+}
+
+.progress-container{
+
+width:100%;
+
+}
+
+}
