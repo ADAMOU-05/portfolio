@@ -124,74 +124,10 @@ sourates.forEach(function (name, index) {
     const title = document.createElement("p");
 
     card.classList.add("sourate");
-    card.dataset.src = "s/" + number + ".mp3";
+    card.dataset.number = String(index + 1);
     title.classList.add("title");
     title.textContent = number + ". " + name;
 
     card.appendChild(title);
     list.appendChild(card);
 });
-
-
-let currentSource = null;
-
-// Création du contexte audio
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-// Cache pour stocker les buffers audio
-const audioCache = new Map();
-
-// Précharge un fichier audio
-async function preloadAudio(url) {
-    if (audioCache.has(url)) return audioCache.get(url);
-
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-    audioCache.set(url, audioBuffer);
-    return audioBuffer;
-}
-
-// Précharge plusieurs fichiers
-async function preloadMultipleAudios(urls) {
-    await Promise.all(urls.map(preloadAudio));
-    console.log("Tous les audios sont préchargés !");
-}
-
-// Lecture depuis le cache
-function playAudio(url) {
-    const buffer = audioCache.get(url);
-    if (!buffer) return console.warn("Audio non trouvé :", url);
-
-    if (currentSource) currentSource.stop();
-
-    const source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioContext.destination);
-    source.start(0);
-
-    currentSource = source;
-}
-
-// Playlist adaptée à ton dossier s/
-const playlist = [
-    { title: "Al-Fatiha — الفاتحة 1", url: "s/001.mp3" },
-    { title: "Al-Baqara — البقرة2", url: "s/002.mp3" },
-    { title: "Al-Imran — 3آل عمران", url: "s/003.mp3" }
-];
-
-// Boutons
-sourates.forEach((s, i) => {
-    s.addEventListener("click", () => {
-        playAudio(playlist[i].url);
-
-        document.getElementById("currentTrack").textContent =
-            "Lecture : " + playlist[i].title;
-    });
-});
-
-// Préchargement au démarrage
-(async () => {
-    await preloadMultipleAudios(playlist.map(p => p.url));
-})();

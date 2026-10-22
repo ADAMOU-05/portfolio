@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setupMenu();
     setupSearch();
     setupPlayer();
+    setupReciters();
     showToday();
     showVerse();
     setupBackToTop();
@@ -122,19 +123,53 @@ function setupPlayer() {
     const progressContainer = document.querySelector(".progress-container");
     const currentTime = document.getElementById("currentTime");
     const duration = document.getElementById("duration");
+    const reciterSelect = document.getElementById("reciter");
 
     if (!audio || sourates.length === 0) return;
 
     let currentIndex = 0;
+    let audioQueue = [];
+    let queueIndex = 0;
+    let requestNumber = 0;
 
-    function playSourate(index) {
+    async function playCurrentAyah() {
+        const audioUrl = audioQueue[queueIndex];
+        if (!audioUrl) return;
+        audio.src = audioUrl;
+        try {
+            await audio.play();
+        } catch (error) {
+            title.textContent = "Appuie sur lecture pour démarrer l’audio";
+        }
+    }
+
+    async function playSourate(index, shouldPlay) {
         currentIndex = index;
         const selectedSourate = sourates[currentIndex];
         const name = selectedSourate.querySelector(".title").textContent;
+        const thisRequest = ++requestNumber;
+        const edition = reciterSelect ? reciterSelect.value : "ar.alafasy";
+        title.textContent = "Chargement : " + name;
+        audio.pause();
 
-        audio.src = selectedSourate.dataset.src;
-        title.textContent = "Lecture : " + name;
-        audio.play();
+        try {
+            const response = await fetch("https://api.alquran.cloud/v1/surah/" + selectedSourate.dataset.number + "/" + edition);
+            if (!response.ok) throw new Error("API indisponible");
+            const result = await response.json();
+            if (result.code !== 200 || !result.data || !Array.isArray(result.data.ayahs)) throw new Error("Audio introuvable");
+            if (thisRequest !== requestNumber) return;
+
+            audioQueue = result.data.ayahs.map(function (ayah) { return ayah.audio; }).filter(Boolean);
+            if (audioQueue.length === 0) throw new Error("Aucun audio disponible");
+            queueIndex = 0;
+            title.textContent = "Lecture : " + name;
+            audio.src = audioQueue[queueIndex];
+            if (shouldPlay !== false) await playCurrentAyah();
+        } catch (error) {
+            if (thisRequest !== requestNumber) return;
+            audioQueue = [];
+            title.textContent = "Audio indisponible. Vérifie ta connexion.";
+        }
     }
 
     function playNext() {
@@ -180,7 +215,21 @@ function setupPlayer() {
         playButton.textContent = "▶";
     });
 
-    audio.addEventListener("ended", playNext);
+    audio.addEventListener("ended", function () {
+        if (queueIndex < audioQueue.length - 1) {
+            queueIndex += 1;
+            playCurrentAyah();
+        } else {
+            playNext();
+        }
+    });
+
+    if (reciterSelect) {
+        reciterSelect.addEventListener("change", function () {
+            if (!audio.getAttribute("src")) return;
+            playSourate(currentIndex, !audio.paused);
+        });
+    }
 
     if (volumeInput) {
         volumeInput.addEventListener("input", function () {
@@ -209,6 +258,83 @@ function setupPlayer() {
             const percent = clickPosition / rectangle.width;
             audio.currentTime = percent * audio.duration;
         });
+    }
+}
+
+// Récupère la liste des récitateurs arabophones disponibles.
+async function setupReciters() {
+    const select = document.getElementById("reciter");
+    if (!select) return;
+
+    const frenchNames = {
+        "ar.alafasy": "Mishary Al-Afasy",
+        "ar.husary": "Mahmoud Al-Housary",
+        "ar.minshawi": "Mohamed Al-Minchaoui",
+        "ar.minshawimujawwad": "Mohamed Al-Minchaoui (Mujawwad)",
+        "ar.sudais": "Abderrahman As-Soudaïs",
+        "ar.shuraim": "Saoud Ach-Chouraïm",
+        "ar.abdulbasit": "Abdelbassit Abdessamad",
+        "ar.abdulbasitmujawwad": "Abdelbassit (Mujawwad)",
+        "ar.ajamy": "Ahmed Al-Ajami",
+        "ar.muhammadayoub": "Mohamed Ayoub",
+        "ar.hudhaify": "Ali Al-Houdhaïfi",
+        "ar.muhammadjibreel": "Mohamed Jibril",
+        "ar.parhizgar": "Mahmoud Parhizgar (Muallim)"
+    };
+
+    function frenchifyReciterName(name, identifier) {
+        const sourceName = name || identifier.split(".").pop();
+        const spellings = [
+            [/Abdul\s*Rahman/gi, "Abderrahman"],
+            [/Abdur\s*Rahman/gi, "Abderrahman"],
+            [/Abdul\s*Basit/gi, "Abdelbassit"],
+            [/Abdus\s*Samad/gi, "Abdessamad"],
+            [/Muhammad|Mohammed/gi, "Mohamed"],
+            [/Mishary/gi, "Mishary"],
+            [/Alafasy/gi, "Al-Afasy"],
+            [/Husary/gi, "Housary"],
+            [/Minshawi/gi, "Minchaoui"],
+            [/Sudais/gi, "Soudaïs"],
+            [/Shuraim/gi, "Chouraïm"],
+            [/Ajamy/gi, "Ajami"],
+            [/Hudhaify/gi, "Houdhaïfi"],
+            [/Jibreel/gi, "Jibril"],
+            [/Mujawwad/gi, "Mujawwad"],
+            [/Mahmoud/gi, "Mahmoud"],
+            [/Ahmed/gi, "Ahmed"],
+            [/Saud/gi, "Saoud"]
+        ];
+
+        return spellings.reduce(function (frenchName, spelling) {
+            return frenchName.replace(spelling[0], spelling[1]);
+        }, sourceName);
+    }
+
+    try {
+        const response = await fetch("https://api.alquran.cloud/v1/edition?format=audio&language=ar&type=versebyverse");
+        if (!response.ok) throw new Error("Liste indisponible");
+        const result = await response.json();
+        if (result.code !== 200 || !Array.isArray(result.data)) throw new Error("Liste invalide");
+
+        const reciters = result.data.filter(function (edition) {
+            return edition.format === "audio" && edition.language === "ar";
+        });
+        if (reciters.length === 0) throw new Error("Aucun récitateur trouvé");
+
+        const currentValue = select.value;
+        select.replaceChildren();
+        reciters.forEach(function (reciter) {
+            const option = document.createElement("option");
+            option.value = reciter.identifier;
+            option.textContent = frenchNames[reciter.identifier] || frenchifyReciterName(reciter.name, reciter.identifier);
+            select.appendChild(option);
+        });
+
+        if (reciters.some(function (reciter) { return reciter.identifier === currentValue; })) {
+            select.value = currentValue;
+        }
+    } catch (error) {
+        // Les deux choix intégrés dans le HTML restent disponibles sans la liste API.
     }
 }
 
