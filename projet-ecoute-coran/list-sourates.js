@@ -120,14 +120,13 @@ const sourates =[
 // Crée une carte pour chaque sourate de la liste.
 sourates.forEach(function (name, index) {
     const number = String(index + 1).padStart(3, "0");
-    const card = document.createElement("div");
-    const title = document.createElement("p");
+    const card = document.createElement("button");
 
     card.classList.add("sourate");
+    card.type = "button";
     card.dataset.number = String(index + 1);
-    title.classList.add("title");
-    title.textContent = number + ". " + name;
-
-    card.appendChild(title);
+    card.setAttribute("aria-label", "Écouter la sourate " + name);
+    card.innerHTML = '<span class="title"></span>';
+    card.querySelector(".title").textContent = number + ". " + name;
     list.appendChild(card);
 });

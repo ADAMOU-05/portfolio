@@ -1,350 +1,711 @@
-// Ce fichier regroupe les fonctions principales du site An•noor.
+/* =========================================================
+   AN•NOOR — JavaScript principal
+   Menu • Recherche • Date • Versets • Audio • Récitateurs
+   ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-    setupMenu();
-    setupSearch();
-    setupPlayer();
-    setupReciters();
-    showToday();
-    showVerse();
-    setupBackToTop();
+const QURAN_API = "https://api.alquran.cloud/v1";
 
-    // Affiche le verset quand la page est prête.
-    const verseSection = document.querySelector(".coran-section");
-    if (verseSection) {
-        verseSection.classList.add("visible");
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  setupMenu();
+  setupSearch();
+  setupPlayer();
+  setupReciters();
+  showToday();
+  showVerse();
+  setupBackToTop();
+
+  const verseSection = document.querySelector(".coran-section");
+  if (verseSection) verseSection.classList.add("visible");
 });
 
-// Ouvre et ferme le menu sur téléphone.
+/* =========================================================
+   MENU MOBILE
+   ========================================================= */
+
 function setupMenu() {
-    const menuButton = document.querySelector(".hamburger");
-    const menu = document.querySelector(".menu");
+  const button = document.querySelector(".hamburger");
+  const menu = document.querySelector(".menu");
 
-    if (!menuButton || !menu) return;
+  if (!button || !menu) return;
 
-    menuButton.addEventListener("click", function () {
-        menu.classList.toggle("active");
-        menuButton.classList.toggle("active");
-        menuButton.setAttribute("aria-expanded", menu.classList.contains("active"));
-        menuButton.setAttribute("aria-label", menu.classList.contains("active") ? "Fermer le menu" : "Ouvrir le menu");
-        menuButton.textContent = menu.classList.contains("active") ? "×" : "☰";
-    });
+  function closeMenu() {
+    menu.classList.remove("active");
+    button.classList.remove("active");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Ouvrir le menu");
+    button.textContent = "☰";
+  }
 
-    // Ferme le menu après avoir choisi une page.
-    menu.addEventListener("click", function (event) {
-        if (event.target.closest("a")) {
-            menu.classList.remove("active");
-            menuButton.classList.remove("active");
-            menuButton.setAttribute("aria-expanded", "false");
-            menuButton.setAttribute("aria-label", "Ouvrir le menu");
-            menuButton.textContent = "☰";
-        }
-    });
+  button.setAttribute("aria-expanded", "false");
+  button.setAttribute("aria-label", "Ouvrir le menu");
+
+  button.addEventListener("click", () => {
+    const open = !menu.classList.contains("active");
+
+    menu.classList.toggle("active", open);
+    button.classList.toggle("active", open);
+    button.setAttribute("aria-expanded", String(open));
+    button.setAttribute(
+      "aria-label",
+      open ? "Fermer le menu" : "Ouvrir le menu"
+    );
+    button.textContent = open ? "×" : "☰";
+  });
+
+  menu.addEventListener("click", event => {
+    if (event.target.closest("a")) closeMenu();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeMenu();
+  });
 }
 
-// Garde seulement les sourates qui correspondent à la recherche.
+/* =========================================================
+   RECHERCHE DES SOURATES
+   Fonctionne avec les cartes dynamiques.
+   ========================================================= */
+
+function normalizeText(text) {
+  return String(text || "")
+    .toLocaleLowerCase("fr")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
 function setupSearch() {
-    const searchInput = document.getElementById("search");
+  const input = document.getElementById("search");
+  const noResults = document.getElementById("no-results");
+
+  if (!input) return;
+
+  function filterSourates() {
+    const query = normalizeText(input.value);
     const sourates = document.querySelectorAll(".sourate");
+    let visibleCount = 0;
 
-    if (!searchInput) return;
+    sourates.forEach(sourate => {
+      const matches = normalizeText(sourate.textContent).includes(query);
 
-    searchInput.addEventListener("input", function () {
-        const searchText = searchInput.value.toLowerCase();
-
-        sourates.forEach(function (sourate) {
-            const name = sourate.textContent.toLowerCase();
-            sourate.style.display = name.includes(searchText) ? "block" : "none";
-        });
+      sourate.hidden = !matches;
+      if (matches) visibleCount++;
     });
+
+    if (noResults) noResults.hidden = visibleCount > 0;
+  }
+
+  input.addEventListener("input", filterSourates);
+  filterSourates();
+
+  const list = document.getElementById("list");
+
+  if (list && "MutationObserver" in window) {
+    const observer = new MutationObserver(filterSourates);
+    observer.observe(list, { childList: true, subtree: true });
+  }
 }
 
-// Affiche la date du jour.
+/* =========================================================
+   DATE DU JOUR
+   ========================================================= */
+
 function showToday() {
-    const dateElement = document.getElementById("days");
-    if (!dateElement) return;
+  const element = document.getElementById("days");
+  if (!element) return;
 
-    dateElement.textContent = new Date().toLocaleDateString("fr-FR", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
+  element.textContent = new Date().toLocaleDateString("fr-FR", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
 }
 
-// Affiche un verset différent à chaque actualisation de la page.
-function showVerse() {
-    const arabicText = document.getElementById("verset-ar");
-    const frenchText = document.getElementById("verset-fr");
-    const reference = document.getElementById("reference");
+/* =========================================================
+   VERSETS DU CORAN
+   ========================================================= */
 
-    if (!arabicText || !frenchText || !reference) return;
+let versetsAnNoor = [];
+let dernierVersetIndex = -1;
+let chargementVersetsPromise = null;
 
-    const verses = [
-        { arabic: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", french: "Avec la difficulté vient la facilité.", source: "Sourate 94, verset 6" },
-        { arabic: "اللَّهُ نُورُ السَّمَاوَاتِ وَالْأَرْضِ", french: "Allah est la lumière des cieux et de la terre.", source: "Sourate 24, verset 35" },
-        { arabic: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", french: "Les cœurs trouvent la paix dans le rappel d’Allah.", source: "Sourate 13, verset 28" },
-        { arabic: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", french: "Allah n’impose à personne une charge supérieure à sa capacité.", source: "Sourate 2, verset 286" }
-    ];
+async function charger100Versets() {
+  const [arabicResponse, frenchResponse] = await Promise.all([
+    fetch(`${QURAN_API}/quran/quran-uthmani`),
+    fetch(`${QURAN_API}/quran/fr.hamidullah`)
+  ]);
 
-    let verseIndex = Math.floor(Math.random() * verses.length);
+  if (!arabicResponse.ok || !frenchResponse.ok) {
+    throw new Error("Impossible de contacter la source coranique.");
+  }
 
-    // Si le hasard choisit le même verset, on passe au suivant.
-    try {
-        const previousIndex = localStorage.getItem("lastVerseIndex");
+  const [arabicData, frenchData] = await Promise.all([
+    arabicResponse.json(),
+    frenchResponse.json()
+  ]);
 
-        if (previousIndex !== null && verseIndex === Number(previousIndex)) {
-            verseIndex = (verseIndex + 1) % verses.length;
-        }
+  if (
+    arabicData.code !== 200 ||
+    frenchData.code !== 200 ||
+    !Array.isArray(arabicData.data?.surahs) ||
+    !Array.isArray(frenchData.data?.surahs)
+  ) {
+    throw new Error("Les données coraniques reçues sont invalides.");
+  }
 
-        localStorage.setItem("lastVerseIndex", verseIndex);
-    } catch (error) {
-        // Le choix aléatoire fonctionne aussi si le navigateur bloque le stockage.
+  function flattenSurahs(data) {
+    return data.surahs.flatMap(surah =>
+      surah.ayahs.map(ayah => ({
+        ...ayah,
+        surahNumber: surah.number
+      }))
+    );
+  }
+
+  const arabicAyahs = flattenSurahs(arabicData.data);
+  const frenchAyahs = flattenSurahs(frenchData.data);
+
+  if (
+    arabicAyahs.length === 0 ||
+    arabicAyahs.length !== frenchAyahs.length
+  ) {
+    throw new Error("Les éditions arabe et française ne correspondent pas.");
+  }
+
+  const verses = [];
+  const total = arabicAyahs.length;
+
+  // Sélection de 100 versets répartis dans le Coran.
+  for (let i = 0; i < 100; i++) {
+    const index = Math.round(i * (total - 1) / 99);
+    const ar = arabicAyahs[index];
+    const fr = frenchAyahs[index];
+
+    if (
+      !ar ||
+      !fr ||
+      ar.number !== fr.number ||
+      ar.surahNumber !== fr.surahNumber ||
+      ar.numberInSurah !== fr.numberInSurah ||
+      !ar.text ||
+      !fr.text
+    ) {
+      throw new Error(
+        `Vérification échouée pour le verset sélectionné ${i + 1}.`
+      );
     }
 
-    const verse = verses[verseIndex];
+    verses.push({
+      arabic: ar.text,
+      french: fr.text,
+      source: `Sourate ${ar.surahNumber}, verset ${ar.numberInSurah}`
+    });
+  }
+
+  return verses;
+}
+
+async function getVersetsAnNoor() {
+  if (versetsAnNoor.length === 100) return versetsAnNoor;
+
+  if (!chargementVersetsPromise) {
+    chargementVersetsPromise = charger100Versets()
+      .then(verses => {
+        versetsAnNoor = verses;
+        return verses;
+      })
+      .finally(() => {
+        chargementVersetsPromise = null;
+      });
+  }
+
+  return chargementVersetsPromise;
+}
+
+async function showVerse() {
+  const arabicText = document.getElementById("verset-ar");
+  const frenchText = document.getElementById("verset-fr");
+  const reference = document.getElementById("reference");
+
+  if (!arabicText || !frenchText || !reference) return;
+
+  arabicText.textContent = "جاري التحميل…";
+  frenchText.textContent = "Chargement du verset…";
+  reference.textContent = "";
+
+  try {
+    const verses = await getVersetsAnNoor();
+
+    if (!verses.length) {
+      throw new Error("Aucun verset disponible.");
+    }
+
+    let index = Math.floor(Math.random() * verses.length);
+
+    if (verses.length > 1 && index === dernierVersetIndex) {
+      index = (index + 1) % verses.length;
+    }
+
+    dernierVersetIndex = index;
+
+    const verse = verses[index];
 
     arabicText.textContent = verse.arabic;
     frenchText.textContent = verse.french;
     reference.textContent = verse.source;
+  } catch (error) {
+    console.error("An•noor — erreur de chargement des versets :", error);
+
+    arabicText.textContent = "";
+    frenchText.textContent =
+      "Le verset n’a pas pu être chargé. Vérifie ta connexion et réessaie.";
+    reference.textContent = "";
+  }
 }
 
-// Permet de choisir et de contrôler les récitations.
+/* =========================================================
+   LECTEUR AUDIO
+   Sourates dynamiques • Lecture • Pause • Suivant • Précédent
+   Progression • Volume facultatif • Récitateurs
+   ========================================================= */
+
 function setupPlayer() {
-    const audio = document.getElementById("player");
-    const sourates = document.querySelectorAll(".sourate");
-    const title = document.getElementById("currentTrack");
-    const playButton = document.getElementById("playPause");
-    const nextButton = document.getElementById("next");
-    const previousButton = document.getElementById("prev");
-    const volumeInput = document.getElementById("volume");
-    const progress = document.getElementById("progress");
-    const progressContainer = document.querySelector(".progress-container");
-    const currentTime = document.getElementById("currentTime");
-    const duration = document.getElementById("duration");
-    const reciterSelect = document.getElementById("reciter");
+  const audio = document.getElementById("player");
+  const title = document.getElementById("currentTrack");
+  const playButton = document.getElementById("playPause");
+  const nextButton = document.getElementById("next");
+  const previousButton = document.getElementById("prev");
+  const volumeInput = document.getElementById("volume");
+  const progress = document.getElementById("progress");
+  const progressContainer = document.querySelector(".progress-container");
+  const currentTime = document.getElementById("currentTime");
+  const duration = document.getElementById("duration");
+  const reciterSelect = document.getElementById("reciter");
 
-    if (!audio || sourates.length === 0) return;
+  if (!audio) {
+    console.error("An•noor : élément audio #player introuvable.");
+    return;
+  }
 
-    let currentIndex = 0;
-    let audioQueue = [];
-    let queueIndex = 0;
-    let requestNumber = 0;
+  let currentIndex = 0;
+  let audioQueue = [];
+  let queueIndex = 0;
+  let requestNumber = 0;
+  let currentSurahName = "";
 
-    async function playCurrentAyah() {
-        const audioUrl = audioQueue[queueIndex];
-        if (!audioUrl) return;
-        audio.src = audioUrl;
-        try {
-            await audio.play();
-        } catch (error) {
-            title.textContent = "Appuie sur lecture pour démarrer l’audio";
-        }
-    }
+  audio.preload = "metadata";
 
-    async function playSourate(index, shouldPlay) {
-        currentIndex = index;
-        const selectedSourate = sourates[currentIndex];
-        const name = selectedSourate.querySelector(".title").textContent;
-        const thisRequest = ++requestNumber;
-        const edition = reciterSelect ? reciterSelect.value : "ar.alafasy";
-        title.textContent = "Chargement : " + name;
-        audio.pause();
+  if (volumeInput) {
+    const initialVolume = Number(volumeInput.value);
 
-        try {
-            const response = await fetch("https://api.alquran.cloud/v1/surah/" + selectedSourate.dataset.number + "/" + edition);
-            if (!response.ok) throw new Error("API indisponible");
-            const result = await response.json();
-            if (result.code !== 200 || !result.data || !Array.isArray(result.data.ayahs)) throw new Error("Audio introuvable");
-            if (thisRequest !== requestNumber) return;
+    audio.volume = Number.isFinite(initialVolume)
+      ? Math.min(1, Math.max(0, initialVolume))
+      : 1;
+  }
 
-            audioQueue = result.data.ayahs.map(function (ayah) { return ayah.audio; }).filter(Boolean);
-            if (audioQueue.length === 0) throw new Error("Aucun audio disponible");
-            queueIndex = 0;
-            title.textContent = "Lecture : " + name;
-            audio.src = audioQueue[queueIndex];
-            if (shouldPlay !== false) await playCurrentAyah();
-        } catch (error) {
-            if (thisRequest !== requestNumber) return;
-            audioQueue = [];
-            title.textContent = "Audio indisponible. Vérifie ta connexion.";
-        }
-    }
+  function getSourates() {
+    return Array.from(document.querySelectorAll(".sourate"));
+  }
 
-    function playNext() {
-        const nextIndex = (currentIndex + 1) % sourates.length;
-        playSourate(nextIndex);
-    }
+  function setTitle(message) {
+    if (title) title.textContent = message;
+  }
 
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, "0");
-        return minutes + ":" + remainingSeconds;
-    }
+  function formatTime(seconds) {
+    if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
 
-    // Clique sur une sourate pour la lancer.
-    sourates.forEach(function (sourate, index) {
-        sourate.addEventListener("click", function () {
-            playSourate(index);
-        });
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, "0");
+
+    return `${minutes}:${secondsLeft}`;
+  }
+
+  function markSelectedSourate() {
+    const sourates = getSourates();
+
+    sourates.forEach(sourate => {
+      const number = Number(sourate.dataset.number);
+      sourate.classList.toggle(
+        "is-playing",
+        number === currentIndex + 1
+      );
     });
+  }
 
-    playButton.addEventListener("click", function () {
-        if (!audio.src) {
-            playSourate(currentIndex);
-        } else if (audio.paused) {
-            audio.play();
-        } else {
-            audio.pause();
-        }
-    });
+  async function playCurrentAyah() {
+    const audioUrl = audioQueue[queueIndex];
+    if (!audioUrl) return;
 
-    nextButton.addEventListener("click", playNext);
-
-    previousButton.addEventListener("click", function () {
-        const previousIndex = (currentIndex - 1 + sourates.length) % sourates.length;
-        playSourate(previousIndex);
-    });
-
-    audio.addEventListener("play", function () {
-        playButton.textContent = "Ⅱ";
-    });
-
-    audio.addEventListener("pause", function () {
-        playButton.textContent = "▶";
-    });
-
-    audio.addEventListener("ended", function () {
-        if (queueIndex < audioQueue.length - 1) {
-            queueIndex += 1;
-            playCurrentAyah();
-        } else {
-            playNext();
-        }
-    });
-
-    if (reciterSelect) {
-        reciterSelect.addEventListener("change", function () {
-            if (!audio.getAttribute("src")) return;
-            playSourate(currentIndex, !audio.paused);
-        });
-    }
-
-    if (volumeInput) {
-        volumeInput.addEventListener("input", function () {
-            audio.volume = volumeInput.value;
-        });
-    }
-
-    audio.addEventListener("timeupdate", function () {
-        if (!audio.duration) return;
-
-        const percent = (audio.currentTime / audio.duration) * 100;
-        progress.style.width = percent + "%";
-        currentTime.textContent = formatTime(audio.currentTime);
-    });
-
-    audio.addEventListener("loadedmetadata", function () {
-        duration.textContent = formatTime(audio.duration);
-    });
-
-    if (progressContainer) {
-        progressContainer.addEventListener("click", function (event) {
-            if (!audio.duration) return;
-
-            const rectangle = progressContainer.getBoundingClientRect();
-            const clickPosition = event.clientX - rectangle.left;
-            const percent = clickPosition / rectangle.width;
-            audio.currentTime = percent * audio.duration;
-        });
-    }
-}
-
-// Récupère la liste des récitateurs arabophones disponibles.
-async function setupReciters() {
-    const select = document.getElementById("reciter");
-    if (!select) return;
-
-    const frenchNames = {
-        "ar.alafasy": "Mishary Al-Afasy",
-        "ar.husary": "Mahmoud Al-Housary",
-        "ar.minshawi": "Mohamed Al-Minchaoui",
-        "ar.minshawimujawwad": "Mohamed Al-Minchaoui (Mujawwad)",
-        "ar.sudais": "Abderrahman As-Soudaïs",
-        "ar.shuraim": "Saoud Ach-Chouraïm",
-        "ar.abdulbasit": "Abdelbassit Abdessamad",
-        "ar.abdulbasitmujawwad": "Abdelbassit (Mujawwad)",
-        "ar.ajamy": "Ahmed Al-Ajami",
-        "ar.muhammadayoub": "Mohamed Ayoub",
-        "ar.hudhaify": "Ali Al-Houdhaïfi",
-        "ar.muhammadjibreel": "Mohamed Jibril",
-        "ar.parhizgar": "Mahmoud Parhizgar (Muallim)"
-    };
-
-    function frenchifyReciterName(name, identifier) {
-        const sourceName = name || identifier.split(".").pop();
-        const spellings = [
-            [/Abdul\s*Rahman/gi, "Abderrahman"],
-            [/Abdur\s*Rahman/gi, "Abderrahman"],
-            [/Abdul\s*Basit/gi, "Abdelbassit"],
-            [/Abdus\s*Samad/gi, "Abdessamad"],
-            [/Muhammad|Mohammed/gi, "Mohamed"],
-            [/Mishary/gi, "Mishary"],
-            [/Alafasy/gi, "Al-Afasy"],
-            [/Husary/gi, "Housary"],
-            [/Minshawi/gi, "Minchaoui"],
-            [/Sudais/gi, "Soudaïs"],
-            [/Shuraim/gi, "Chouraïm"],
-            [/Ajamy/gi, "Ajami"],
-            [/Hudhaify/gi, "Houdhaïfi"],
-            [/Jibreel/gi, "Jibril"],
-            [/Mujawwad/gi, "Mujawwad"],
-            [/Mahmoud/gi, "Mahmoud"],
-            [/Ahmed/gi, "Ahmed"],
-            [/Saud/gi, "Saoud"]
-        ];
-
-        return spellings.reduce(function (frenchName, spelling) {
-            return frenchName.replace(spelling[0], spelling[1]);
-        }, sourceName);
-    }
+    audio.src = audioUrl;
+    audio.load();
 
     try {
-        const response = await fetch("https://api.alquran.cloud/v1/edition?format=audio&language=ar&type=versebyverse");
-        if (!response.ok) throw new Error("Liste indisponible");
-        const result = await response.json();
-        if (result.code !== 200 || !Array.isArray(result.data)) throw new Error("Liste invalide");
-
-        const reciters = result.data.filter(function (edition) {
-            return edition.format === "audio" && edition.language === "ar";
-        });
-        if (reciters.length === 0) throw new Error("Aucun récitateur trouvé");
-
-        const currentValue = select.value;
-        select.replaceChildren();
-        reciters.forEach(function (reciter) {
-            const option = document.createElement("option");
-            option.value = reciter.identifier;
-            option.textContent = frenchNames[reciter.identifier] || frenchifyReciterName(reciter.name, reciter.identifier);
-            select.appendChild(option);
-        });
-
-        if (reciters.some(function (reciter) { return reciter.identifier === currentValue; })) {
-            select.value = currentValue;
-        }
+      await audio.play();
     } catch (error) {
-        // Les deux choix intégrés dans le HTML restent disponibles sans la liste API.
+      setTitle("Appuie sur lecture pour démarrer l’audio.");
+      console.warn("An•noor : lecture audio impossible.", error);
     }
+  }
+
+  async function playSourate(index, shouldPlay = true) {
+    const sourates = getSourates();
+
+    if (index < 0 || index >= sourates.length) return;
+
+    currentIndex = index;
+
+    const selectedSourate = sourates[currentIndex];
+    const titleElement = selectedSourate.querySelector(".title");
+
+    currentSurahName = titleElement
+      ? titleElement.textContent.trim()
+      : `Sourate ${selectedSourate.dataset.number || index + 1}`;
+
+    const surahNumber = Number(
+      selectedSourate.dataset.number || index + 1
+    );
+
+    const edition = reciterSelect?.value || "ar.alafasy";
+    const thisRequest = ++requestNumber;
+
+    if (
+      !Number.isInteger(surahNumber) ||
+      surahNumber < 1 ||
+      surahNumber > 114
+    ) {
+      setTitle("Numéro de sourate invalide.");
+      return;
+    }
+
+    audio.pause();
+    audioQueue = [];
+    queueIndex = 0;
+
+    setTitle(`Chargement : ${currentSurahName}`);
+    markSelectedSourate();
+
+    try {
+      const response = await fetch(
+        `${QURAN_API}/surah/${surahNumber}/${encodeURIComponent(edition)}`
+      );
+
+      if (!response.ok) {
+        throw new Error("API audio indisponible.");
+      }
+
+      const result = await response.json();
+
+      if (
+        result.code !== 200 ||
+        !result.data ||
+        !Array.isArray(result.data.ayahs)
+      ) {
+        throw new Error("Données audio invalides.");
+      }
+
+      // Ignore une réponse ancienne si une autre sourate a été choisie.
+      if (thisRequest !== requestNumber) return;
+
+      audioQueue = result.data.ayahs
+        .map(ayah => ayah.audio)
+        .filter(url => typeof url === "string" && url.length > 0);
+
+      if (audioQueue.length === 0) {
+        throw new Error("Aucun fichier audio disponible.");
+      }
+
+      queueIndex = 0;
+      setTitle(`Lecture : ${currentSurahName}`);
+
+      if (shouldPlay) {
+        await playCurrentAyah();
+      } else {
+        audio.src = audioQueue[0];
+        audio.load();
+      }
+    } catch (error) {
+      if (thisRequest !== requestNumber) return;
+
+      audioQueue = [];
+      setTitle("Audio indisponible. Vérifie ta connexion ou le récitant.");
+      console.error("An•noor — erreur audio :", error);
+    }
+  }
+
+  function playNext() {
+    const sourates = getSourates();
+
+    if (sourates.length === 0) return;
+
+    const nextIndex = (currentIndex + 1) % sourates.length;
+    playSourate(nextIndex);
+  }
+
+  // Délégation d'événement : les cartes peuvent être créées
+  // avant ou après l'initialisation du lecteur.
+  document.addEventListener("click", event => {
+    const target = event.target;
+
+    if (!(target instanceof Element)) return;
+
+    const sourate = target.closest(".sourate");
+    if (!sourate) return;
+
+    // Ne lance pas la récitation si un contrôle interne est cliqué.
+    if (target.closest("a, input, select, textarea, [data-no-play]")) {
+      return;
+    }
+
+    const sourates = getSourates();
+    const index = sourates.indexOf(sourate);
+
+    if (index !== -1) playSourate(index);
+  });
+
+  // Lecture / pause
+  if (playButton) {
+    playButton.addEventListener("click", async () => {
+      if (!audioQueue.length) {
+        await playSourate(currentIndex);
+      } else if (audio.paused) {
+        try {
+          await audio.play();
+        } catch (error) {
+          setTitle("Lecture impossible. Réessaie.");
+        }
+      } else {
+        audio.pause();
+      }
+    });
+  }
+
+  // Sourate suivante
+  if (nextButton) {
+    nextButton.addEventListener("click", playNext);
+  }
+
+  // Sourate précédente
+  if (previousButton) {
+    previousButton.addEventListener("click", () => {
+      const sourates = getSourates();
+
+      if (sourates.length === 0) return;
+
+      const previousIndex =
+        (currentIndex - 1 + sourates.length) % sourates.length;
+
+      playSourate(previousIndex);
+    });
+  }
+
+  // Icône lecture
+  audio.addEventListener("play", () => {
+    if (playButton) playButton.textContent = "Ⅱ";
+  });
+
+  // Icône pause
+  audio.addEventListener("pause", () => {
+    if (playButton) playButton.textContent = "▶";
+  });
+
+  // Verset suivant, puis sourate suivante à la fin de la récitation
+  audio.addEventListener("ended", () => {
+    if (queueIndex < audioQueue.length - 1) {
+      queueIndex++;
+      playCurrentAyah();
+    } else if (audioQueue.length > 0) {
+      playNext();
+    }
+  });
+
+  audio.addEventListener("error", () => {
+    if (audioQueue.length > 0) {
+      setTitle("Erreur de lecture audio.");
+    }
+  });
+
+  // Changement de récitant
+  if (reciterSelect) {
+    reciterSelect.addEventListener("change", () => {
+      if (audioQueue.length === 0) return;
+
+      playSourate(currentIndex, !audio.paused);
+    });
+  }
+
+  // Volume : ce contrôle est facultatif dans le HTML.
+  if (volumeInput) {
+    volumeInput.addEventListener("input", () => {
+      const value = Number(volumeInput.value);
+
+      if (Number.isFinite(value)) {
+        audio.volume = Math.min(1, Math.max(0, value));
+      }
+    });
+  }
+
+  // Barre de progression et temps écoulé
+  audio.addEventListener("timeupdate", () => {
+    if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+
+    const percent = (audio.currentTime / audio.duration) * 100;
+
+    if (progress) {
+      progress.style.width = `${percent}%`;
+    }
+
+    if (progressContainer) {
+      progressContainer.setAttribute(
+        "aria-valuenow",
+        String(Math.round(percent))
+      );
+    }
+
+    if (currentTime) {
+      currentTime.textContent = formatTime(audio.currentTime);
+    }
+  });
+
+  // Durée totale
+  audio.addEventListener("loadedmetadata", () => {
+    if (duration) {
+      duration.textContent = formatTime(audio.duration);
+    }
+  });
+
+  // Cliquer sur la barre pour avancer ou reculer
+  if (progressContainer) {
+    progressContainer.addEventListener("click", event => {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+
+      const rectangle = progressContainer.getBoundingClientRect();
+      if (rectangle.width <= 0) return;
+
+      const position = (event.clientX - rectangle.left) / rectangle.width;
+      const percent = Math.min(1, Math.max(0, position));
+
+      audio.currentTime = percent * audio.duration;
+    });
+
+    // Flèches gauche/droite : déplacement de 5 secondes
+    progressContainer.addEventListener("keydown", event => {
+      if (
+        !Number.isFinite(audio.duration) ||
+        audio.duration <= 0 ||
+        !["ArrowLeft", "ArrowRight"].includes(event.key)
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const change = event.key === "ArrowRight" ? 5 : -5;
+
+      audio.currentTime = Math.min(
+        audio.duration,
+        Math.max(0, audio.currentTime + change)
+      );
+    });
+  }
 }
 
-// Remonte en haut de la page avec le bouton flèche.
-function setupBackToTop() {
-    const button = document.getElementById("scrolltop");
-    if (!button) return;
+/* =========================================================
+   LISTE DES RÉCITATEURS
+   ========================================================= */
 
-    button.addEventListener("click", function (event) {
-        event.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
+async function setupReciters() {
+  const select = document.getElementById("reciter");
+  if (!select) return;
+
+  const frenchNames = {
+    "ar.alafasy": "Mishary Al-Afasy",
+    "ar.husary": "Mahmoud Al-Housary",
+    "ar.minshawi": "Mohamed Al-Minchaoui",
+    "ar.minshawimujawwad": "Mohamed Al-Minchaoui — Mujawwad",
+    "ar.sudais": "Abderrahman As-Soudaïs",
+    "ar.shuraim": "Saoud Ach-Chouraïm",
+    "ar.abdulbasit": "Abdelbassit Abdessamad",
+    "ar.abdulbasitmujawwad": "Abdelbassit — Mujawwad",
+    "ar.ajamy": "Ahmed Al-Ajami",
+    "ar.muhammadayoub": "Mohamed Ayoub",
+    "ar.hudhaify": "Ali Al-Houdhaïfi",
+    "ar.muhammadjibreel": "Mohamed Jibril",
+    "ar.parhizgar": "Mahmoud Parhizgar"
+  };
+
+  try {
+    const response = await fetch(
+      `${QURAN_API}/edition?format=audio&language=ar&type=versebyverse`
+    );
+
+    if (!response.ok) {
+      throw new Error("Liste des récitateurs indisponible.");
+    }
+
+    const result = await response.json();
+
+    if (result.code !== 200 || !Array.isArray(result.data)) {
+      throw new Error("Réponse invalide.");
+    }
+
+    const reciters = result.data.filter(edition =>
+      edition.format === "audio" &&
+      edition.language === "ar" &&
+      edition.type === "versebyverse" &&
+      edition.identifier
+    );
+
+    if (!reciters.length) {
+      throw new Error("Aucun récitant disponible.");
+    }
+
+    const previousValue = select.value;
+    const fragment = document.createDocumentFragment();
+
+    reciters.forEach(reciter => {
+      const option = document.createElement("option");
+      option.value = reciter.identifier;
+      option.textContent =
+        frenchNames[reciter.identifier] ||
+        reciter.name ||
+        reciter.identifier;
+
+      fragment.appendChild(option);
     });
+
+    select.replaceChildren(fragment);
+
+    if (reciters.some(item => item.identifier === previousValue)) {
+      select.value = previousValue;
+    } else if (reciters.some(item => item.identifier === "ar.alafasy")) {
+      select.value = "ar.alafasy";
+    }
+  } catch (error) {
+    // Les options HTML sont conservées si l'API ne répond pas.
+    console.warn(
+      "An•noor — liste des récitateurs non actualisée :",
+      error
+    );
+  }
+}
+
+/* =========================================================
+   RETOUR EN HAUT DE PAGE
+   ========================================================= */
+
+function setupBackToTop() {
+  const button = document.getElementById("scrolltop");
+  if (!button) return;
+
+  button.addEventListener("click", event => {
+    if (button.tagName === "A") event.preventDefault();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
 }
