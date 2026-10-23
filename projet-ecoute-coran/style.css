@@ -152,3 +152,118 @@ footer {
         padding: 10px;
     }
 }
+@media (max-width: 850px) {
+  .header_menu { position: relative; flex-wrap: wrap; }
+  .hamburger { display: inline-flex; align-items: center; justify-content: center; }
+  .menu { position: absolute; top: 100%; right: 0; left: 0; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 20px 14px; background: var(--green); box-shadow: 0 8px 16px rgba(0,0,0,.12); }
+  .menu.active { display: flex; }
+  .menu a { padding: 11px 8px; }
+  .site-header-inner { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+  .site-nav { gap: 3px; }
+  .site-nav a { padding: 7px 8px; font-size: 12px; }
+}
+
+@media (max-width: 650px) {
+  .container, .page-main {
+    width: calc(100% - 28px);
+  }
+
+  #list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 14px 0 25px;
+  }
+
+  .sourate {
+    min-height: 62px;
+    padding: 13px 14px;
+  }
+
+  .quran-player {
+    right: 10px;
+    bottom: 10px;
+    width: calc(100% - 20px);
+    min-height: 0;
+    padding: 12px;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    transform: none;
+  }
+
+  .player-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  #currentTrack {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: 12px;
+  }
+
+  .reciter-control {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    width: 100%;
+  }
+
+  #search-reciter,
+  #reciter {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .player-center {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .player-center button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .player-center #playPause {
+    width: 40px;
+    height: 40px;
+  }
+
+  .progress-container {
+    min-width: 30px;
+  }
+
+  .player-right {
+    justify-content: center;
+  }
+
+  .space-to-top {
+    right: 14px;
+    bottom: 220px;
+  }
+
+  .site-footer {
+    padding-bottom: 230px;
+  }
+}
+
+@media (max-width: 380px) {
+  .header_menu,
+  .site-header-inner {
+    width: calc(100% - 24px);
+  }
+
+  .quran-player {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .time-display {
+    font-size: 11px;
+  }
+}
