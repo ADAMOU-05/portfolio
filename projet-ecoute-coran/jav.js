@@ -351,89 +351,60 @@ function setupPlayer() {
   }
 
   async function playSourate(index, shouldPlay = true) {
-    const sourates = getSourates();
+  const sourates = getSourates();
 
-    if (index < 0 || index >= sourates.length) return;
+  if (index < 0 || index >= sourates.length) return;
 
-    currentIndex = index;
+  currentIndex = index;
 
-    const selectedSourate = sourates[currentIndex];
-    const titleElement = selectedSourate.querySelector(".title");
+  const sourate = sourates[index];
+  const titleElement = sourate.querySelector(".title");
+  const numero = Number(sourate.dataset.number || index + 1);
 
-    currentSurahName = titleElement
-      ? titleElement.textContent.trim()
-      : `Sourate ${selectedSourate.dataset.number || index + 1}`;
+  currentSurahName = titleElement
+    ? titleElement.textContent.trim()
+    : `Sourate ${numero}`;
 
-    const surahNumber = Number(
-      selectedSourate.dataset.number || index + 1
-    );
+  let recitation;
 
-    const edition = reciterSelect?.value || "ar.alafasy";
-    const thisRequest = ++requestNumber;
-
-    if (
-      !Number.isInteger(surahNumber) ||
-      surahNumber < 1 ||
-      surahNumber > 114
-    ) {
-      setTitle("Numéro de sourate invalide.");
-      return;
-    }
-
-    audio.pause();
-    audioQueue = [];
-    queueIndex = 0;
-
-    setTitle(`Chargement : ${currentSurahName}`);
-    markSelectedSourate();
-
-    try {
-      const response = await fetch(
-        `${QURAN_API}/surah/${surahNumber}/${encodeURIComponent(edition)}`
-      );
-
-      if (!response.ok) {
-        throw new Error("API audio indisponible.");
-      }
-
-      const result = await response.json();
-
-      if (
-        result.code !== 200 ||
-        !result.data ||
-        !Array.isArray(result.data.ayahs)
-      ) {
-        throw new Error("Données audio invalides.");
-      }
-
-      // Ignore une réponse ancienne si une autre sourate a été choisie.
-      if (thisRequest !== requestNumber) return;
-
-      audioQueue = result.data.ayahs
-        .map(ayah => ayah.audio)
-        .filter(url => typeof url === "string" && url.length > 0);
-
-      if (audioQueue.length === 0) {
-        throw new Error("Aucun fichier audio disponible.");
-      }
-
-      queueIndex = 0;
-      setTitle(`Lecture : ${currentSurahName}`);
-
-      if (shouldPlay) {
-        await playCurrentAyah();
-      } else {
-        audio.src = audioQueue[0];
-        audio.load();
-      }
-    } catch (error) {
-      if (thisRequest !== requestNumber) return;
-
-      audioQueue = [];
-      setTitle("Audio indisponible. Vérifie ta connexion ou le récitant.");
-      console.error("An•noor — erreur audio :", error);
-    }
+  try {
+    recitation = JSON.parse(reciterSelect.value);
+  } catch {
+    setTitle("Chargement des récitateurs en cours...");
+    return;
   }
+
+  const souratesDisponibles = recitation.surahList
+    .split(",")
+    .map(numero => numero.trim());
+
+  if (!souratesDisponibles.includes(String(numero))) {
+    setTitle("Cette sourate n'est pas disponible pour ce récitant.");
+    return;
+  }
+
+  audio.pause();
+
+  const serveur = recitation.server.endsWith("/")
+    ? recitation.server
+    : recitation.server + "/";
+
+  audioQueue = [
+    serveur + String(numero).padStart(3, "0") + ".mp3"
+  ];
+
+  queueIndex = 0;
+
+  markSelectedSourate();
+  setTitle(`Lecture : ${currentSurahName}`);
+
+  if (shouldPlay) {
+    await playCurrentAyah();
+  } else {
+    audio.src = audioQueue[0];
+    audio.load();
+  }
+}
 
   function playNext() {
     const sourates = getSourates();
@@ -612,83 +583,55 @@ function setupPlayer() {
   }
 }
 
-/* =========================================================
-   LISTE DES RÉCITATEURS
-   ========================================================= */
-
+js
 async function setupReciters() {
   const select = document.getElementById("reciter");
-  if (!select) return;
+  const search = document.getElementById("search-reciter");
 
-  const frenchNames = {
-    "ar.alafasy": "Mishary Al-Afasy",
-    "ar.husary": "Mahmoud Al-Housary",
-    "ar.minshawi": "Mohamed Al-Minchaoui",
-    "ar.minshawimujawwad": "Mohamed Al-Minchaoui — Mujawwad",
-    "ar.sudais": "Abderrahman As-Soudaïs",
-    "ar.shuraim": "Saoud Ach-Chouraïm",
-    "ar.abdulbasit": "Abdelbassit Abdessamad",
-    "ar.abdulbasitmujawwad": "Abdelbassit — Mujawwad",
-    "ar.ajamy": "Ahmed Al-Ajami",
-    "ar.muhammadayoub": "Mohamed Ayoub",
-    "ar.hudhaify": "Ali Al-Houdhaïfi",
-    "ar.muhammadjibreel": "Mohamed Jibril",
-    "ar.parhizgar": "Mahmoud Parhizgar"
-  };
+  if (!select) return;
 
   try {
     const response = await fetch(
-      `${QURAN_API}/edition?format=audio&language=ar&type=versebyverse`
+      "https://www.mp3quran.net/api/v3/reciters?language=fr"
     );
 
-    if (!response.ok) {
-      throw new Error("Liste des récitateurs indisponible.");
-    }
+    const data = await response.json();
+    select.innerHTML = "";
 
-    const result = await response.json();
+    data.reciters.forEach(reciter => {
+      reciter.moshaf.forEach(moshaf => {
+        if (!moshaf.server || !moshaf.surah_list) return;
 
-    if (result.code !== 200 || !Array.isArray(result.data)) {
-      throw new Error("Réponse invalide.");
-    }
+        const option = document.createElement("option");
 
-    const reciters = result.data.filter(edition =>
-      edition.format === "audio" &&
-      edition.language === "ar" &&
-      edition.type === "versebyverse" &&
-      edition.identifier
-    );
+        option.value = JSON.stringify({
+          server: moshaf.server,
+          surahList: moshaf.surah_list
+        });
 
-    if (!reciters.length) {
-      throw new Error("Aucun récitant disponible.");
-    }
-
-    const previousValue = select.value;
-    const fragment = document.createDocumentFragment();
-
-    reciters.forEach(reciter => {
-      const option = document.createElement("option");
-      option.value = reciter.identifier;
-      option.textContent =
-        frenchNames[reciter.identifier] ||
-        reciter.name ||
-        reciter.identifier;
-
-      fragment.appendChild(option);
+        option.textContent = `${reciter.name} — ${moshaf.name}`;
+        select.appendChild(option);
+      });
     });
 
-    select.replaceChildren(fragment);
+    if (search) {
+      search.addEventListener("input", () => {
+        const recherche = search.value.toLowerCase();
 
-    if (reciters.some(item => item.identifier === previousValue)) {
-      select.value = previousValue;
-    } else if (reciters.some(item => item.identifier === "ar.alafasy")) {
-      select.value = "ar.alafasy";
+        Array.from(select.options).forEach(option => {
+          option.hidden = !option.textContent
+            .toLowerCase()
+            .includes(recherche);
+        });
+
+        const premier = Array.from(select.options)
+          .find(option => !option.hidden);
+
+        if (premier) select.value = premier.value;
+      });
     }
   } catch (error) {
-    // Les options HTML sont conservées si l'API ne répond pas.
-    console.warn(
-      "An•noor — liste des récitateurs non actualisée :",
-      error
-    );
+    console.error("Erreur de chargement des récitateurs :", error);
   }
 }
 

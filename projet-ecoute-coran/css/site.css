@@ -105,8 +105,7 @@ body { padding-bottom: 120px; }
 .site-footer { padding: 24px 20px 155px; background: var(--green); color: var(--white); text-align: center; }
 .site-footer p { margin: 0; color: #e5eee9; font-size: 13px; }
 .site-footer a { color: var(--white); }
-.footer-links { margin-top: 10px; display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; font-size: 13px; }
-
+.footer-links { margin: 18px 0 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
 @media (max-width: 850px) {
   .header_menu { position: relative; flex-wrap: wrap; }
   .hamburger { display: inline-flex; align-items: center; justify-content: center; }

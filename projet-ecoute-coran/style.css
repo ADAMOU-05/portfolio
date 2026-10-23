@@ -15,7 +15,7 @@
     cursor: pointer;
 
     background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-    color: #031472;
+    color: hsl(196, 95%, 23%);
     font-weight: 600;
 
     display: flex;
@@ -29,47 +29,11 @@
     transform: scale(1.1);
     box-shadow: 0 0 30px var(--color-primary);
 }
-/* Arrière-plan clair et couleurs simples du site. */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
 
+/* Arrière-plan clair et couleurs simples du site. */
 body {
     background: #f4f6f5;
     color: #25332d;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 16px;
-}
-
-figure {
-    width: 100%;
-    margin: 24px auto;
-}
-
-figure img {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-#search {
-    width: min(100%, 420px) !important;
-}
-
-#days {
-    margin: 16px auto;
-    color: #45564c;
-    font-size: 16px;
-    text-align: center;
 }
 
 body::before,
@@ -94,68 +58,6 @@ body::before,
 
 .menu a::after {
     background: #cfe3d7;
-}
-
-.header_nav {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.header_menu {
-    position: relative;
-    width: min(100%, 1200px);
-    min-height: 68px;
-    padding: 10px 20px;
-}
-
-.logo {
-    padding: 0;
-    font-size: 24px;
-    text-decoration: none;
-}
-
-.logo::after {
-    display: none;
-}
-
-.menu {
-    align-items: center;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-}
-
-.menu a {
-    display: block;
-    padding: 10px 12px;
-    border-radius: 6px;
-    font-size: 15px;
-}
-
-.menu a:hover {
-    background: #426b55;
-}
-
-.menu a.portfolio-link {
-    border: 1px solid #a9c2b1;
-    color: #ffffff;
-    font-weight: 700;
-}
-
-.menu a::after {
-    display: none;
-}
-
-.hamburger {
-    display: none;
-    padding: 7px 12px;
-    border: 1px solid #688876;
-    border-radius: 6px;
-    background: transparent;
-    color: #ffffff;
-    font-size: 24px;
-    cursor: pointer;
 }
 
 .section-description,
@@ -201,32 +103,6 @@ body::before,
     color: #25332d;
 }
 
-.player-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 3px;
-    min-width: 150px;
-}
-
-.reciter-control {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #5d6862;
-    font-size: 11px;
-}
-
-#reciter {
-    max-width: 180px;
-    padding: 4px 20px 4px 7px;
-    border: 1px solid #dce3df;
-    border-radius: 5px;
-    background: #fff;
-    color: #25332d;
-    font: inherit;
-}
-
 .time-display {
     color: #5d6862;
 }
@@ -243,19 +119,6 @@ body::before,
 .player-center button {
     background: #eaf0ec;
     color: #25332d;
-}
-
-.player-center #playPause {
-    width: 48px;
-    height: 48px;
-    padding: 0;
-    background: #315341;
-    color: #ffffff;
-    font-size: 20px;
-}
-
-#volume {
-    accent-color: #4b8068;
 }
 
 footer {
@@ -284,184 +147,8 @@ footer {
 
 @media (max-width: 700px) {
     .quran-player {
-        left: 10px;
-        bottom: 10px;
-        width: calc(100% - 20px);
-        max-width: none;
         height: auto;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 8px 10px;
-        padding: 10px 12px;
-        border-radius: 14px;
-        transform: none;
-    }
-
-    .quran-player:hover {
-        transform: none;
-    }
-
-    .player-left {
-        grid-column: 1 / -1;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        min-width: 0;
-        gap: 8px;
-        overflow: hidden;
-        font-size: 13px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    #currentTrack {
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .reciter-control {
-        flex: 0 0 auto;
-    }
-
-    #reciter {
-        max-width: min(48vw, 190px);
-    }
-
-    .player-center {
-        grid-column: 1 / -1;
-        display: grid;
-        grid-template-columns: 40px 40px 40px minmax(50px, 1fr);
-        align-items: center;
-        gap: 6px;
-        width: 100%;
-    }
-
-    .player-center button,
-    .player-center #playPause {
-        width: 38px;
-        height: 38px;
-        margin: 0;
-        padding: 0;
-        font-size: 16px;
-    }
-
-    .player-center #playPause {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-
-    .progress-container {
-        width: 100%;
-        min-width: 0;
-    }
-
-    .player-right {
-        grid-column: 1 / -1;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        gap: 8px;
-        min-width: 0;
-    }
-
-    .time-display {
-        gap: 4px;
-        font-size: 12px;
-        letter-spacing: 0;
-    }
-
-    #volume {
-        flex: 0 1 100px;
-        width: clamp(75px, 28vw, 100px);
-        min-width: 70px;
-        margin: 0 2px 0 8px;
-    }
-
-    body {
-        padding-bottom: 150px;
-    }
-
-    #list {
-        gap: 16px;
-        padding: 24px 8px;
-    }
-
-    .sourate {
-        padding: 18px 12px;
-    }
-
-    .section-description {
-        padding: 24px 18px;
-    }
-
-    .coran-section {
-        margin: 18px 0;
-        padding: 20px 14px;
-    }
-
-    .arabe {
-        font-size: 24px;
-    }
-
-    .traduction {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 380px) {
-    .quran-player {
-        padding: 9px 10px;
-    }
-
-    .player-right {
-        gap: 4px;
-    }
-
-    .time-display {
-        font-size: 11px;
-    }
-
-    #volume {
-        width: 74px;
-        min-width: 65px;
-        margin-left: 4px;
-    }
-}
-
-@media (max-width: 850px) {
-    .header_menu {
         flex-wrap: wrap;
-    }
-
-    .hamburger {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .menu {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        left: 0;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 8px 20px 14px;
-        background: #315341;
-    }
-
-    .menu.active {
-        display: flex;
-    }
-
-    .menu a {
-        padding: 12px 8px;
-        border-bottom: 1px solid #426b55;
-        border-radius: 0;
+        padding: 10px;
     }
 }

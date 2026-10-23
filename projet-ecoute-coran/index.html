@@ -45,6 +45,9 @@
         <p class="traduction" id="verset-fr"></p>
         <span id="reference"></span>
       </div>
+      <div class="partage">
+        <button class="button" aria-label="Partager ce verset">Partager</button>
+      </div>
     </section>
 
     <section aria-label="Chercher une sourate">
@@ -66,38 +69,61 @@
 
   <footer class="site-footer">
     <p>© 2026 An•noor · Un projet personnel pour apprendre et partager.</p>
-    <div class="footer-links">
-      <a href="mailto:adamoubabaina7@gmail.com">Me contacter</a>
-      <a class="button button-light" href="../index.html#projets">Retourner au portfolio <span aria-hidden="true">↗</span></a>
-    </div>
   </footer>
-
   <div class="space-to-top"><a href="#" id="scrolltop" aria-label="Retourner en haut de la page">↑</a></div>
+  
+<section class="quran-player" aria-label="Lecteur audio du Coran">
+  <div class="player-left">
+    <span id="currentTrack" aria-live="polite">
+      Choisis une sourate pour commencer
+    </span>
 
-  <section class="quran-player" aria-label="Lecteur audio du Coran">
-    <div class="player-left">
-      <span id="currentTrack" aria-live="polite">Choisis une sourate pour commencer</span>
-      <label class="reciter-control" for="reciter">Récitateur
-        <select id="reciter" aria-label="Choisir un récitateur">
-          <option value="ar.alafasy">Mishary Al-Afasy</option>
-          <option value="ar.sudais">Abderrahman As-Soudaïs</option>
-        </select>
-      </label>
+    <label class="reciter-control" for="search-reciter">
+      Rechercher un récitant
+      <input
+        type="text"
+        id="search-reciter"
+        placeholder="Nom du récitant..."
+      >
+    </label>
+
+    <label class="reciter-control" for="reciter">
+      Récitateur
+      <select id="reciter" aria-label="Choisir un récitant">
+        <option value="">Chargement des récitateurs...</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="player-center">
+    <button id="prev" type="button" aria-label="Sourate précédente">⏮</button>
+    <button id="playPause" type="button" aria-label="Lire ou mettre en pause">▶</button>
+    <button id="next" type="button" aria-label="Sourate suivante">⏭</button>
+
+    <div
+      class="progress-container"
+      role="slider"
+      tabindex="0"
+      aria-label="Position dans la récitation"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div id="progress"></div>
     </div>
-    <div class="player-center">
-      <button id="prev" type="button" aria-label="Sourate précédente" title="Précédente">⏮</button>
-      <button id="playPause" type="button" aria-label="Lire ou mettre en pause" title="Lire ou mettre en pause">▶</button>
-      <button id="next" type="button" aria-label="Sourate suivante" title="Suivante">⏭</button>
-      <div class="progress-container" role="slider" tabindex="0" aria-label="Position dans la récitation" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div id="progress"></div>
-      </div>
+  </div>
+
+  <div class="player-right">
+    <div class="time-display">
+      <span id="currentTime">0:00</span>
+      <span>/</span>
+      <span id="duration">0:00</span>
     </div>
-    <div class="player-right">
-      <div class="time-display"><span id="currentTime">0:00</span><span>/</span><span id="duration">0:00</span></div>
-      <audio id="player" preload="none"></audio>
-    </div>
-  </section>
+    <audio id="player" preload="none"></audio>
+  </div>
+</section>
   <script src="list-sourates.js"></script>
   <script src="jav.js"></script>
+  <script src="javloc.js"></script>
 </body>
 </html>
