@@ -1,166 +1,1394 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biographie - Abdul-Rahman Al-Sudais</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
+  <meta name="theme-color" content="#09130f">
+  <meta name="description" content="Découvrez la biographie du cheikh Abdul-Rahman Al-Sudais, imam de la Grande Mosquée de La Mecque, son parcours et son lien avec la récitation du Coran.">
 
-/* Reset simple */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+  <meta property="og:title" content="Abdul-Rahman Al-Sudais — An•Noor">
+  <meta property="og:description" content="Un parcours consacré au Coran, à l'étude et à l'enseignement.">
+  <meta property="og:type" content="article">
 
-/* Corps de la page */
-body{
-font-family: Arial, Helvetica, sans-serif;
-background:#f5f7fa;
-color:#222;
-padding:40px 20px;
-line-height:1.7;
-}
+  <title>Abdul-Rahman Al-Sudais — An•Noor</title>
 
-/* Titre */
-h1{
-text-align:center;
-font-size:2.5rem;
-margin-bottom:40px;
-color:#0a84ff;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-/* Section */
-section{
-max-width:800px;
-margin:auto;
-}
+  <style>
+    /* =========================================
+       AN•NOOR — IDENTITÉ VISUELLE
+       Vert profond, or discret, ivoire
+    ========================================= */
 
-/* Paragraphes */
-.p-wrapper{
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-margin-bottom:20px;
-opacity:0;
-transform:translateY(20px);
-transition:0.6s;
-}
+    :root {
+      color-scheme: dark;
 
-.p-wrapper.visible{
-opacity:1;
-transform:translateY(0);
-}
+      --bg: #09130f;
+      --bg-soft: #0d1b15;
+      --surface: #11221a;
+      --surface-hover: #162a20;
+      --gold: #d6b779;
+      --gold-light: #ead8ad;
+      --text: #f1eee5;
+      --muted: #a9b4aa;
+      --border: rgba(214, 183, 121, 0.18);
+      --border-strong: rgba(214, 183, 121, 0.38);
+      --radius: 20px;
+      --content: 1080px;
+    }
 
-/* Texte */
-p{
-font-size:1.1rem;
-}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-/* Bouton retour */
-.btn-retour{
-display:inline-block;
-background:#0a84ff;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-margin-bottom:30px;
-transition:0.3s;
-}
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
 
-.btn-retour:hover{
-background:#0066cc;
-}
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(
+          ellipse at 50% 0%,
+          rgba(35, 75, 51, 0.24),
+          transparent 48%
+        ),
+        var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
 
-/* Responsive */
-@media(max-width:600px){
+    a {
+      color: inherit;
+    }
 
-body{
-padding:20px 10px;
-}
+    a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 5px;
+      border-radius: 5px;
+    }
 
-h1{
-font-size:2rem;
-}
+    ::selection {
+      color: var(--bg);
+      background: var(--gold);
+    }
 
-}
+    .container {
+      width: min(var(--content), calc(100% - 40px));
+      margin-inline: auto;
+    }
 
-</style>
+    .skip-link {
+      position: absolute;
+      z-index: 100;
+      top: 10px;
+      left: 10px;
+      padding: 10px 14px;
+      transform: translateY(-150%);
+      background: var(--gold);
+      color: var(--bg);
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 19, 15, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 26px;
+      line-height: 1;
+      background: linear-gradient(
+        145deg,
+        rgba(214, 183, 121, 0.12),
+        rgba(214, 183, 121, 0.02)
+      );
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-caption {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .nav-links .nav-portfolio {
+      color: var(--gold);
+      border: 1px solid var(--border-strong);
+      padding: 8px 13px;
+      border-radius: 999px;
+    }
+
+    .nav-links .nav-portfolio:hover {
+      background: rgba(214, 183, 121, 0.1);
+    }
+
+    /* =========================================
+       HERO
+    ========================================= */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 82px 0 66px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      width: 260px;
+      height: 260px;
+      border: 1px solid rgba(214, 183, 121, 0.07);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -145px;
+      left: -125px;
+      box-shadow:
+        0 0 0 25px rgba(214, 183, 121, 0.015),
+        0 0 0 50px rgba(214, 183, 121, 0.012);
+    }
+
+    .hero::after {
+      right: -125px;
+      bottom: -180px;
+      box-shadow:
+        0 0 0 25px rgba(214, 183, 121, 0.015),
+        0 0 0 50px rgba(214, 183, 121, 0.012);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      width: 22px;
+      height: 1px;
+      content: "";
+      background: var(--gold);
+      opacity: 0.65;
+    }
+
+    .hero-symbol {
+      display: grid;
+      place-items: center;
+      width: 94px;
+      height: 94px;
+      margin: 0 auto 27px;
+      border: 1px solid var(--border-strong);
+      border-radius: 50%;
+      background:
+        radial-gradient(
+          circle,
+          rgba(214, 183, 121, 0.1),
+          rgba(214, 183, 121, 0.015)
+        );
+      box-shadow: 0 0 60px rgba(214, 183, 121, 0.055);
+    }
+
+    .hero-symbol span {
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 52px;
+      line-height: 1;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 0 auto 14px;
+      font-size: clamp(34px, 5.7vw, 61px);
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+      font-weight: 600;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 0.84em;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .hero-description {
+      max-width: 630px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .meta-pill {
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(17, 34, 26, 0.55);
+    }
+
+    .meta-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* =========================================
+       CONTENU
+    ========================================= */
+
+    main {
+      padding: 54px 0 80px;
+    }
+
+    .intro-card {
+      position: relative;
+      padding: 30px 32px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(
+          125deg,
+          rgba(214, 183, 121, 0.055),
+          transparent 60%
+        ),
+        var(--bg-soft);
+    }
+
+    .intro-card::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      content: "";
+      background: var(--gold);
+      opacity: 0.8;
+    }
+
+    .intro-label {
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .intro-card p {
+      max-width: 850px;
+      margin-bottom: 0;
+      color: #d6ddd5;
+      font-size: 16px;
+    }
+
+    .section {
+      margin-top: 72px;
+    }
+
+    .section-heading {
+      margin-bottom: 28px;
+    }
+
+    .section-kicker {
+      margin-bottom: 7px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 9px;
+      font-size: clamp(26px, 3.4vw, 37px);
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+      font-weight: 600;
+    }
+
+    .section-description {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================================
+       REPÈRES
+    ========================================= */
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .fact-card {
+      min-height: 142px;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      transition:
+        transform 200ms ease,
+        border-color 200ms ease,
+        background 200ms ease;
+    }
+
+    .fact-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-strong);
+      background: var(--surface-hover);
+    }
+
+    .fact-number {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--gold);
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .fact-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       BIOGRAPHIE CHRONOLOGIQUE
+    ========================================= */
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline::before {
+      position: absolute;
+      top: 12px;
+      bottom: 12px;
+      left: 101px;
+      width: 1px;
+      content: "";
+      background: var(--border-strong);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 48px;
+      padding: 0 0 30px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-year {
+      padding-top: 23px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .timeline-content {
+      position: relative;
+      padding: 21px 24px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+    }
+
+    .timeline-content::before {
+      position: absolute;
+      top: 27px;
+      left: -34px;
+      width: 9px;
+      height: 9px;
+      content: "";
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: 0 0 0 5px var(--bg);
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 7px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .timeline-content p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================================
+       RÉCITATION
+    ========================================= */
+
+    .recitation-card {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(
+          ellipse at 100% 0%,
+          rgba(214, 183, 121, 0.12),
+          transparent 50%
+        ),
+        linear-gradient(135deg, #12271c, #0d1a14);
+    }
+
+    .recitation-card::after {
+      position: absolute;
+      right: 15px;
+      bottom: -80px;
+      color: rgba(214, 183, 121, 0.045);
+      content: "نور";
+      font-family: "Amiri", serif;
+      font-size: 170px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .recitation-card h2 {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    .recitation-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin-bottom: 22px;
+      color: #c1ccc2;
+      font-size: 14px;
+    }
+
+    .recitation-note {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      padding: 9px 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--gold-light);
+      background: rgba(9, 19, 15, 0.42);
+      font-size: 12px;
+    }
+
+    /* =========================================
+       SOURCES
+    ========================================= */
+
+    .sources-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .source-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      text-decoration: none;
+      transition:
+        border-color 180ms ease,
+        background 180ms ease;
+    }
+
+    .source-link:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-hover);
+    }
+
+    .source-title {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .source-description {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .source-arrow {
+      flex-shrink: 0;
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .editorial-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================================
+       NAVIGATION BAS DE PAGE
+    ========================================= */
+
+    .closing {
+      margin-top: 76px;
+      padding: 36px 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-soft);
+      text-align: center;
+    }
+
+    .closing-symbol {
+      margin-bottom: 12px;
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 35px;
+      line-height: 1.3;
+    }
+
+    .closing h2 {
+      margin-bottom: 10px;
+      font-size: 25px;
+    }
+
+    .closing p {
+      max-width: 520px;
+      margin: 0 auto 23px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 45px;
+      padding: 11px 18px;
+      border: 1px solid var(--border-strong);
+      border-radius: 11px;
+      color: var(--gold-light);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition:
+        transform 180ms ease,
+        background 180ms ease,
+        color 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: rgba(214, 183, 121, 0.08);
+    }
+
+    .button-primary {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: #142017;
+    }
+
+    .button-primary:hover {
+      background: var(--gold-light);
+      color: #142017;
+    }
+
+    /* =========================================
+       PIED DE PAGE
+    ========================================= */
+
+    footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .footer-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    /* =========================================
+       ANIMATIONS ET RESPONSIVE
+    ========================================= */
+
+    @keyframes rise-in {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-content {
+      animation: rise-in 700ms ease both;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .intro-card,
+      .fact-card,
+      .timeline-content,
+      .recitation-card,
+      .closing {
+        animation: rise-in 500ms ease both;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        min-height: 70px;
+        align-items: flex-start;
+        padding-top: 13px;
+        padding-bottom: 13px;
+      }
+
+      .nav-links {
+        gap: 10px 14px;
+        padding-top: 5px;
+      }
+
+      .nav-links a {
+        font-size: 12px;
+      }
+
+      .nav-links a[href="#sources"] {
+        display: none;
+      }
+
+      .facts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .timeline::before {
+        left: 76px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 58px 1fr;
+        gap: 36px;
+      }
+
+      .timeline-year {
+        font-size: 12px;
+      }
+
+      .timeline-content::before {
+        left: -27px;
+      }
+
+      .hero {
+        padding: 65px 0 54px;
+      }
+
+      .section {
+        margin-top: 58px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        width: min(100% - 28px, var(--content));
+      }
+
+      .nav {
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+        font-size: 23px;
+      }
+
+      .brand-name {
+        font-size: 14px;
+      }
+
+      .brand-caption {
+        font-size: 9px;
+      }
+
+      .nav-links {
+        gap: 8px;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .nav-links a[href="#parcours"] {
+        display: none;
+      }
+
+      .nav-links .nav-portfolio {
+        padding: 7px 9px;
+      }
+
+      .hero {
+        padding: 53px 0 45px;
+      }
+
+      .hero-symbol {
+        width: 78px;
+        height: 78px;
+      }
+
+      .hero-symbol span {
+        font-size: 44px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-meta {
+        gap: 7px;
+        font-size: 11px;
+      }
+
+      main {
+        padding-top: 30px;
+        padding-bottom: 55px;
+      }
+
+      .intro-card {
+        padding: 23px 20px;
+      }
+
+      .intro-card p {
+        font-size: 14px;
+      }
+
+      .facts-grid {
+        gap: 10px;
+      }
+
+      .fact-card {
+        min-height: 130px;
+        padding: 16px;
+      }
+
+      .fact-number {
+        font-size: 22px;
+      }
+
+      .fact-card p {
+        font-size: 12px;
+      }
+
+      .timeline::before {
+        left: 0;
+      }
+
+      .timeline-item {
+        display: block;
+        padding: 0 0 23px 22px;
+      }
+
+      .timeline-year {
+        padding: 0 0 9px;
+        text-align: left;
+      }
+
+      .timeline-content {
+        padding: 18px;
+      }
+
+      .timeline-content::before {
+        top: 5px;
+        left: -27px;
+      }
+
+      .timeline-content h3 {
+        font-size: 16px;
+      }
+
+      .timeline-content p {
+        font-size: 13px;
+      }
+
+      .recitation-card {
+        padding: 25px 21px;
+      }
+
+      .source-link {
+        padding: 15px;
+      }
+
+      .source-title {
+        font-size: 13px;
+      }
+
+      .source-description {
+        font-size: 11px;
+      }
+
+      .closing {
+        margin-top: 55px;
+        padding: 29px 19px;
+      }
+
+      .button-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-<button onclick="window.location.href='index.html'" class="btn-retour">
-↩ Retour à l'accueil
-</button>
+  <!-- Navigation principale -->
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="An-Noor, accueil">
+        <span class="brand-mark" aria-hidden="true">نور</span>
+        <span>
+          <span class="brand-name">An•Noor</span>
+          <span class="brand-caption">Écoute du Coran</span>
+        </span>
+      </a>
 
-<h1>Qui est Abdul-Rahman Al-Sudais ?</h1>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="#reperes">Repères</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#sources">Sources</a>
+        <a
+          class="nav-portfolio"
+          href="https://adamou-05.github.io/portfolio/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Portfolio AB ↗</a>
+      </nav>
+    </div>
+  </header>
 
-<section>
+  <!-- Présentation -->
+  <section class="hero" aria-labelledby="page-title">
+    <div class="container hero-content">
+      <p class="eyebrow">Les voix du Coran</p>
 
-<div class="p-wrapper">
-<p>
-Abdul-Rahman Al-Sudais est imam à la Grande Mosquée de La Mecque.
-Il est connu pour ses récitations du Coran.
-</p>
-</div>
+      <div class="hero-symbol" aria-hidden="true">
+        <span>نور</span>
+      </div>
 
-<div class="p-wrapper">
-<p>
-Il est né en Arabie saoudite et sa famille est liée au clan Anza.
-</p>
-</div>
+      <h1 id="page-title">
+        Abdul-Rahman Al-Sudais
+        <span lang="ar" dir="rtl">عبد الرحمن السديس</span>
+      </h1>
 
-<div class="p-wrapper">
-<p>
-Il a mémorisé le Coran à l’âge de 12 ans. En 1979, il a terminé ses études
-à l’institut scientifique de Riyad avec la mention « Excellent ».
-</p>
-</div>
+      <p class="hero-description">
+        À la découverte du parcours d'un imam et enseignant connu dans le monde
+        musulman pour sa récitation du Saint Coran.
+      </p>
 
-<div class="p-wrapper">
-<p>
-En 1983, il a commencé ses études à l’université Imam Muhammad ben Saud.
-Il y a obtenu une licence et une maîtrise en charia en 1987.
-</p>
-</div>
+      <div class="hero-meta" aria-label="Informations essentielles">
+        <span class="meta-pill">Né en 1962</span>
+        <span class="meta-dot" aria-hidden="true"></span>
+        <span class="meta-pill">Arabie saoudite</span>
+        <span class="meta-dot" aria-hidden="true"></span>
+        <span class="meta-pill">Imam depuis 1984</span>
+      </div>
+    </div>
+  </section>
 
-<div class="p-wrapper">
-<p>
-En 1995, il a obtenu un doctorat en charia islamique à l’université Umm al-Qura.
-</p>
-</div>
+  <main id="contenu" class="container">
+    <!-- Introduction -->
+    <section class="intro-card" aria-labelledby="introduction-title">
+      <p class="intro-label" id="introduction-title">En quelques mots</p>
+      <p>
+        Le cheikh Abdul-Rahman ibn Abdulaziz Al-Sudais est un imam, prédicateur
+        et spécialiste des sciences islamiques saoudien. Sa voix est connue de
+        nombreux musulmans, notamment grâce aux récitations du Coran à la
+        Mosquée sacrée de La Mecque. Son parcours associe mémorisation du
+        Coran, études en charia, enseignement et responsabilités religieuses.
+      </p>
+    </section>
 
-<div class="p-wrapper">
-<p>
-Il est connu pour sa voix et sa récitation du Coran.
-En 2005, il a reçu le prix « Personnalité islamique de l’année » à Dubaï.
-</p>
-</div>
+    <!-- Repères biographiques -->
+    <section class="section" id="reperes" aria-labelledby="reperes-title">
+      <div class="section-heading">
+        <p class="section-kicker">01 — L'essentiel</p>
+        <h2 id="reperes-title">Quelques repères</h2>
+        <p class="section-description">
+          Les étapes qui permettent de mieux comprendre son parcours.
+        </p>
+      </div>
 
-</section>
+      <div class="facts-grid">
+        <article class="fact-card">
+          <span class="fact-number">1962</span>
+          <p>Année de naissance indiquée par Saudipedia et Arab News.</p>
+        </article>
 
-<script>
+        <article class="fact-card">
+          <span class="fact-number">12 ans</span>
+          <p>Âge auquel il avait mémorisé le Coran, selon les biographies publiées.</p>
+        </article>
 
-/* Animation simple au scroll */
-const elements = document.querySelectorAll('.p-wrapper');
+        <article class="fact-card">
+          <span class="fact-number">1984</span>
+          <p>Début de ses fonctions d'imam à la Grande Mosquée de La Mecque.</p>
+        </article>
 
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add('visible');
-}
-});
-});
+        <article class="fact-card">
+          <span class="fact-number">1995</span>
+          <p>Année généralement indiquée pour l'obtention de son doctorat.</p>
+        </article>
 
-elements.forEach(el=>observer.observe(el));
+        <article class="fact-card">
+          <span class="fact-number">2005</span>
+          <p>Année de sa distinction comme personnalité islamique de l'année à Dubaï.</p>
+        </article>
 
-</script>
+        <article class="fact-card">
+          <span class="fact-number">2023</span>
+          <p>Nomination à la présidence des affaires religieuses des Deux Saintes Mosquées.</p>
+        </article>
+      </div>
+    </section>
 
+    <!-- Parcours -->
+    <section class="section" id="parcours" aria-labelledby="parcours-title">
+      <div class="section-heading">
+        <p class="section-kicker">02 — Son histoire</p>
+        <h2 id="parcours-title">Un parcours consacré au savoir</h2>
+        <p class="section-description">
+          Des premières années d'étude aux responsabilités exercées auprès des
+          Deux Saintes Mosquées.
+        </p>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-year">1962</div>
+          <article class="timeline-content">
+            <h3>Naissance en Arabie saoudite</h3>
+            <p>
+              Abdul-Rahman Al-Sudais naît en 1962. Saudipedia et Arab News
+              indiquent Riyad comme lieu de naissance.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">1979</div>
+          <article class="timeline-content">
+            <h3>Premières études achevées</h3>
+            <p>
+              Il termine ses études à l'Institut scientifique de Riyad avec
+              une mention d'excellence, selon sa biographie publiée par
+              Arab News.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">1983</div>
+          <article class="timeline-content">
+            <h3>Diplôme en charia</h3>
+            <p>
+              Il obtient son diplôme à la faculté de charia de Riyad et
+              commence ensuite à enseigner les fondements de la jurisprudence
+              islamique.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">1984</div>
+          <article class="timeline-content">
+            <h3>Imam à la Grande Mosquée</h3>
+            <p>
+              Il est nommé imam et prédicateur à la Mosquée sacrée de La
+              Mecque. Il y prononce également son premier sermon du vendredi
+              cette année-là.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">1987–1988</div>
+          <article class="timeline-content">
+            <h3>Master en sciences islamiques</h3>
+            <p>
+              Il poursuit ses études à l'université Imam Muhammad ibn Saud
+              Islamic University. Les sources consultées divergent sur l'année
+              exacte du master : 1987 ou 1988.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">1995–1996</div>
+          <article class="timeline-content">
+            <h3>Doctorat et enseignement universitaire</h3>
+            <p>
+              Il obtient un doctorat en charia à l'université Umm al-Qura.
+              Les biographies consultées indiquent 1995 ou 1996 selon les
+              sources et les conventions de datation.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">2005</div>
+          <article class="timeline-content">
+            <h3>Distinction à Dubaï</h3>
+            <p>
+              Il est choisi comme personnalité islamique de l'année dans le
+              cadre du Prix international du Saint Coran de Dubaï, selon
+              l'agence de presse émiratie et Arab News.
+            </p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <article class="timeline-content">
+            <h3>Une responsabilité religieuse majeure</h3>
+            <p>
+              Il est nommé président des affaires religieuses de la Grande
+              Mosquée de La Mecque et de la Mosquée du Prophète à Médine,
+              selon Saudipedia et le site officiel de la présidence.
+            </p>
+          </article>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Lien avec An-Noor -->
+    <section class="section" aria-labelledby="recitation-title">
+      <div class="recitation-card">
+        <p class="section-kicker">03 — Écoute et recueillement</p>
+        <h2 id="recitation-title">
+          Retrouver ses récitations sur An•Noor
+        </h2>
+        <p>
+          An•Noor est un projet personnel dédié à l'écoute du Coran.
+          Cette page biographique complète cette expérience en présentant
+          le parcours de l'un des récitateurs que l'on peut écouter sur
+          la plateforme.
+        </p>
+        <span class="recitation-note">
+          Une page informative — les informations biographiques sont
+          distinctes du contenu de récitation.
+        </span>
+      </div>
+    </section>
+
+    <!-- Sources vérifiables -->
+    <section class="section" id="sources" aria-labelledby="sources-title">
+      <div class="section-heading">
+        <p class="section-kicker">04 — Pour aller plus loin</p>
+        <h2 id="sources-title">Sources et références</h2>
+        <p class="section-description">
+          Pour approfondir le sujet, consulte les biographies et publications
+          utilisées pour préparer cette page.
+        </p>
+      </div>
+
+      <div class="sources-list">
+        <a
+          class="source-link"
+          href="https://prh.gov.sa/index.php?Itemid=101&catid=84%3Aimem-s&id=238%3A%D9%85%D8%B9%D8%A7%D9%84%D9%8A-%D8%A7%D9%84%D8%B4%D9%8A%D8%AE-%D8%A7%D9%84%D8%A3%D8%B3%D8%AA%D8%A7%D8%B0-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86-%D8%A8%D9%86-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2-%D8%A7%D9%84%D8%B3%D8%AF%D9%8A%D8%B3&lang=ar&option=com_content&view=article"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>
+            <span class="source-title">Présidence des affaires religieuses des Deux Saintes Mosquées</span>
+            <span class="source-description">Biographie institutionnelle officielle, en arabe.</span>
+          </span>
+          <span class="source-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="source-link"
+          href="https://saudipedia.com/en/abdulrahman-al-sudais"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>
+            <span class="source-title">Saudipedia</span>
+            <span class="source-description">Biographie, parcours et fonctions officielles.</span>
+          </span>
+          <span class="source-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="source-link"
+          href="https://www.arabnews.com/saudi-arabia/whos-who-dr-abdulrahman-al-sudais-president-of-the-general-presidency-for-the-affairs-of-the-two-holy-mosques-2056921"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>
+            <span class="source-title">Arab News</span>
+            <span class="source-description">Biographie et étapes du parcours universitaire.</span>
+          </span>
+          <span class="source-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="source-link"
+          href="https://www.wam.ae/en/article/hsyifqzk-dr-abdul-rahman-sudais-selected"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>
+            <span class="source-title">Emirates News Agency — WAM</span>
+            <span class="source-description">Annonce de la distinction de 2005.</span>
+          </span>
+          <span class="source-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <p class="editorial-note">
+        Note éditoriale : les dates universitaires peuvent varier selon les
+        sources. Les divergences connues sont signalées plutôt que présentées
+        comme des certitudes.
+      </p>
+    </section>
+
+    <!-- Fin de page -->
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="closing-symbol" lang="ar" dir="rtl" aria-hidden="true">وَنُورٌ عَلَىٰ نُورٍ</div>
+      <h2 id="closing-title">Poursuivre l'écoute</h2>
+      <p>
+        Reviens à An•Noor pour retrouver l'expérience d'écoute du Coran,
+        ou découvre les autres projets réalisés dans mon portfolio.
+      </p>
+
+      <div class="button-row">
+        <a class="button button-primary" href="index.html">
+          ↩ Retour à An•Noor
+        </a>
+
+        <a
+          class="button"
+          href="https://adamou-05.github.io/portfolio/#projets"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Découvrir mes projets ↗
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="footer-brand">An•Noor <span aria-hidden="true">✦</span></span>
+
+      <p class="footer-copy">
+        Un projet personnel d'Adamou Babaina.
+      </p>
+
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="#sources">Sources</a>
+        <a
+          href="https://adamou-05.github.io/portfolio/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Portfolio AB ↗</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

@@ -1,23 +1,59 @@
+(() => {
+  "use strict";
 
-document.querySelector(".partage .button").addEventListener("click", async () => {
-  const arabe = document.getElementById("verset-ar").textContent;
-  const francais = document.getElementById("verset-fr").textContent;
-  const reference = document.getElementById("reference").textContent;
-  const lien = window.location.href;
+  const boutonPartage = document.querySelector(".partage .button");
 
-  const texte = `${arabe}\n\n${francais}\n\n${reference}\n\nAn•noor\n${lien}`;
+  if (!boutonPartage) return;
 
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: "Verset du Coran — An•noor",
-        text: texte,
-        url: lien
-      });
-    } catch (erreur) {
-      if (erreur.name !== "AbortError") console.error(erreur);
+  boutonPartage.addEventListener("click", async () => {
+    const arabe = document.getElementById("verset-ar")?.textContent.trim();
+    const francais = document.getElementById("verset-fr")?.textContent.trim();
+    const reference = document.getElementById("reference")?.textContent.trim();
+    const lien = window.location.href;
+
+    // Éviter de partager un contenu incomplet.
+    if (!arabe || !francais || !reference) {
+      console.warn("An•Noor : le verset à partager est incomplet.");
+      return;
     }
-  } else {
-    alert("Le partage direct n'est pas disponible sur ce navigateur.");
-  }
-});
+
+    const texte = `${arabe}
+
+${francais}
+
+${reference}
+
+An•Noor — Écouter, méditer, se rapprocher.
+
+${lien}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Un verset du Coran — An•Noor",
+          text: texte
+        });
+      } catch (erreur) {
+        // Annuler le partage est un comportement normal.
+        if (erreur.name !== "AbortError") {
+          console.error("An•Noor : impossible de partager le verset.", erreur);
+        }
+      }
+
+      return;
+    }
+
+    // Solution de secours pour les navigateurs sans partage natif.
+    try {
+      await navigator.clipboard.writeText(texte);
+      boutonPartage.textContent = "Copié !";
+
+      window.setTimeout(() => {
+        boutonPartage.textContent = "Partager";
+      }, 2000);
+    } catch (erreur) {
+      console.error("An•Noor : impossible de copier le verset.", erreur);
+      alert("Le partage n'est pas disponible sur ce navigateur.");
+    }
+  });
+})();

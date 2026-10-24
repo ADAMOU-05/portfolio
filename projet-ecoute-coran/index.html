@@ -4,16 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Écouter des sourates du Coran et découvrir une récitation avec An•noor.">
-  <title>An•noor — Écouter le Coran</title>
-  <link rel="icon" href="icon.png" type="image/png">
+  <title>An•noor</title>
+  <link rel="icon" href="an.noor.jpeg" type="image/png">
   <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="afavoris.css">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400&display=swap" rel="stylesheet">
   <style>.button{margin-top:15px;min-height:44px;padding:10px 15px;display:inline-flex;align-items:center;gap:20px;border-radius:5px;background:var(--green);color:white;font-weight:700;font-size:13px}.button:hover{background:#244331}</style>
 </head>
 <body>
   <header class="header_nav">
     <nav class="header_menu" aria-label="Navigation principale">
-      <a class="logo" href="index.html">An•noor</a>
+      <a class="brand-signature" href="index.html" aria-label="An•Noor, accueil">
+  <img
+    class="brand-logo"
+    src="an.noor.jpeg"
+    alt="An•Noor — النور"
+  >
+</a>
       <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
       <ul class="menu" id="menu">
         <li><a class="button button-light" href="../index.html#projets">← Retour au portfolio</a></li>
@@ -122,8 +129,8 @@
     <audio id="player" preload="none"></audio>
   </div>
 </section>
-  <script src="list-sourates.js"></script>
   <script src="jav.js"></script>
   <script src="javloc.js"></script>
+  <script src="favoris.js"></script>
 </body>
 </html>

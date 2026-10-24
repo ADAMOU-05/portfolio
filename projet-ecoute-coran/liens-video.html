@@ -1,206 +1,1170 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liens Vidéo Pro</title>
-<style>
-/* Reset & base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09130f">
 
-body {
-    background: #f4f6f5;
-    color: #333;
-    line-height: 1.6;
-}
+  <meta
+    name="description"
+    content="Découvre des chaînes YouTube consacrées aux récitations du Coran, à l'apprentissage et aux contenus islamiques sur An•Noor."
+  >
 
-/* Main container */
-main {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 30px;
-}
+  <title>Découvertes & Inspirations — An•Noor</title>
 
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
+  <link rel="icon" type="image/png" href="icons8-more-info-50.png">
 
-header h1 {
-    font-size: 2.8rem;
-    color: #0c4586;
-    margin-bottom: 10px;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-header p {
-    font-size: 1.1rem;
-    color: #555;
-    max-width: 700px;
-    margin: 0 auto;
-}
+  <style>
+    /* ========================================
+       AN•NOOR — DÉCOUVERTES
+    ======================================== */
 
-/* Bouton retour */
-.btn-retour{
-display:inline-block;
-background:#0a84ff;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-margin-bottom:30px;
-transition:0.3s;
-}
+    :root {
+      color-scheme: dark;
 
-.btn-retour:hover{
-background:#0066cc;
-}
+      --bg: #09130f;
+      --bg-soft: #0d1b15;
+      --surface: #11221a;
+      --surface-hover: #172b20;
 
-/* Video cards grid */
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
+      --gold: #d6b779;
+      --gold-light: #ead8ad;
 
-/* Single video card */
-.video-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+      --text: #f1eee5;
+      --muted: #a9b4aa;
 
-.video-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
+      --border: rgba(214, 183, 121, 0.18);
+      --border-strong: rgba(214, 183, 121, 0.38);
 
-.video-card h3 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-    color: #0c4586;
-}
+      --content-width: 1080px;
+    }
 
-.video-card p {
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-    color: #555;
-}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-/* Bouton ouvrir YouTube */
-.video-card a {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #0c4586;
-    color: white;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
 
-.video-card a:hover {
-    background-color: #096ddf;
-    transform: scale(1.05);
-}
+    body {
+      margin: 0;
+      min-width: 320px;
 
-/* Section versets inspirants */
-section#versets-inspirant {
-    background: rgba(12,69,134,0.1);
-    color: #0c4586;
-    max-width: 800px;
-    margin: 50px auto 0;
-    padding: 25px 30px;
-    border-radius: 12px;
-    text-align: center;
-    font-style: italic;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
+      background:
+        radial-gradient(
+          ellipse at 50% 0%,
+          rgba(39, 82, 53, 0.22),
+          transparent 48%
+        ),
+        var(--bg);
 
-section#versets-inspirant:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
+      color: var(--text);
+      font-family: "DM Sans", Arial, sans-serif;
+      line-height: 1.75;
 
-/* Responsive */
-@media(max-width:600px){
-    header h1 { font-size: 2rem; }
-    header p { font-size: 1rem; }
-}
-</style>
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 5px;
+      border-radius: 5px;
+    }
+
+    ::selection {
+      color: var(--bg);
+      background: var(--gold);
+    }
+
+    .container {
+      width: min(var(--content-width), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      z-index: 100;
+      top: 10px;
+      left: 10px;
+
+      padding: 10px 14px;
+      border-radius: 8px;
+
+      background: var(--gold);
+      color: var(--bg);
+
+      font-weight: 700;
+      text-decoration: none;
+
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    /* Navigation */
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+
+      border-bottom: 1px solid var(--border);
+
+      background: rgba(9, 19, 15, 0.91);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 43px;
+      height: 43px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+
+      background: rgba(214, 183, 121, 0.06);
+
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .brand-name {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-caption {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 12px;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .nav-links .portfolio-link {
+      padding: 8px 13px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      color: var(--gold);
+    }
+
+    .nav-links .portfolio-link:hover {
+      background: rgba(214, 183, 121, 0.08);
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+
+      padding: 83px 0 67px;
+
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      z-index: -1;
+
+      width: 270px;
+      height: 270px;
+
+      border: 1px solid rgba(214, 183, 121, 0.07);
+      border-radius: 50%;
+
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -145px;
+      left: -125px;
+
+      box-shadow:
+        0 0 0 24px rgba(214, 183, 121, 0.015),
+        0 0 0 48px rgba(214, 183, 121, 0.01);
+    }
+
+    .hero::after {
+      right: -125px;
+      bottom: -185px;
+
+      box-shadow:
+        0 0 0 24px rgba(214, 183, 121, 0.015),
+        0 0 0 48px rgba(214, 183, 121, 0.01);
+    }
+
+    .hero-content {
+      animation: appear 650ms ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      margin: 0 0 22px;
+
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      width: 22px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.65;
+      content: "";
+    }
+
+    .hero-symbol {
+      width: 92px;
+      height: 92px;
+
+      display: grid;
+      place-items: center;
+
+      margin: 0 auto 25px;
+
+      border: 1px solid var(--border-strong);
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214, 183, 121, 0.12),
+          rgba(214, 183, 121, 0.015)
+        );
+
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 47px;
+      line-height: 1;
+
+      box-shadow: 0 0 55px rgba(214, 183, 121, 0.05);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+
+      font-size: clamp(35px, 5.5vw, 59px);
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      line-height: 1.12;
+    }
+
+    h1 span {
+      display: block;
+
+      margin-top: 12px;
+
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 0.75em;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .hero-description {
+      max-width: 650px;
+      margin: 0 auto;
+
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .hero-tags {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 25px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 999px;
+
+      background: rgba(17, 34, 26, 0.55);
+
+      color: #c7d0c6;
+      font-size: 11px;
+    }
+
+    /* Main content */
+
+    main {
+      padding: 54px 0 78px;
+    }
+
+    .section {
+      margin-top: 66px;
+    }
+
+    .section-heading {
+      margin-bottom: 25px;
+    }
+
+    .section-label {
+      margin-bottom: 8px;
+
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+
+    .section-description {
+      max-width: 670px;
+      margin-bottom: 0;
+
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Video cards */
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      min-height: 275px;
+      padding: 26px;
+
+      border: 1px solid var(--border);
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214, 183, 121, 0.045),
+          transparent 55%
+        ),
+        var(--surface);
+
+      transition:
+        transform 200ms ease,
+        border-color 200ms ease,
+        background 200ms ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-strong);
+      background-color: var(--surface-hover);
+    }
+
+    .video-symbol {
+      width: 49px;
+      height: 49px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 22px;
+
+      border: 1px solid var(--border-strong);
+      border-radius: 15px;
+
+      background: rgba(214, 183, 121, 0.06);
+
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .video-category {
+      margin-bottom: 7px;
+
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .video-card h3 {
+      margin-bottom: 9px;
+
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
+    .video-card p {
+      margin-bottom: 23px;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .video-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      min-height: 42px;
+      margin-top: auto;
+      padding: 10px 14px;
+
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+
+      color: var(--gold-light);
+      background: rgba(214, 183, 121, 0.055);
+
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+
+      transition:
+        background 180ms ease,
+        color 180ms ease;
+    }
+
+    .video-link:hover {
+      background: var(--gold);
+      color: #142017;
+    }
+
+    /* Verse */
+
+    .verse-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+
+      padding: 33px 29px;
+
+      border: 1px solid var(--border-strong);
+      border-radius: 21px;
+
+      background:
+        radial-gradient(
+          ellipse at 100% 0%,
+          rgba(214, 183, 121, 0.12),
+          transparent 55%
+        ),
+        linear-gradient(135deg, #12271c, #0d1a14);
+
+      text-align: center;
+    }
+
+    .verse-card::after {
+      position: absolute;
+      z-index: -1;
+      right: 8px;
+      bottom: -65px;
+
+      color: rgba(214, 183, 121, 0.045);
+      content: "نور";
+
+      font-family: "Amiri", serif;
+      font-size: 145px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .verse-arabic {
+      margin: 13px 0;
+
+      color: var(--gold-light);
+      font-family: "Amiri", serif;
+      font-size: clamp(28px, 4.5vw, 39px);
+      line-height: 1.8;
+    }
+
+    .verse-translation {
+      max-width: 740px;
+      margin: 0 auto 15px;
+
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .verse-reference {
+      display: inline-block;
+
+      color: var(--muted);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .verse-reference:hover {
+      color: var(--gold-light);
+    }
+
+    /* Final message */
+
+    .closing {
+      margin-top: 66px;
+      padding: 31px 25px;
+
+      border: 1px solid var(--border);
+      border-radius: 19px;
+
+      background: var(--bg-soft);
+      text-align: center;
+    }
+
+    .closing-symbol {
+      margin-bottom: 9px;
+
+      color: var(--gold);
+      font-family: "Amiri", serif;
+      font-size: 35px;
+    }
+
+    .closing h2 {
+      margin-bottom: 9px;
+      font-size: 24px;
+    }
+
+    .closing p {
+      max-width: 600px;
+      margin: 0 auto 21px;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 11px;
+    }
+
+    .button {
+      min-height: 44px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      padding: 10px 17px;
+
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+
+      color: var(--gold-light);
+      background: transparent;
+
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+
+      transition:
+        transform 180ms ease,
+        background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: rgba(214, 183, 121, 0.08);
+    }
+
+    .button-primary {
+      border-color: var(--gold);
+      background: var(--gold);
+      color: #142017;
+    }
+
+    .button-primary:hover {
+      background: var(--gold-light);
+    }
+
+    /* Footer */
+
+    footer {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .footer-brand {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    /* Motion and responsive */
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .video-card,
+      .verse-card,
+      .closing {
+        animation: appear 500ms ease both;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav {
+        min-height: 70px;
+      }
+
+      .nav-links {
+        gap: 10px;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .video-grid {
+        gap: 12px;
+      }
+
+      .video-card {
+        padding: 21px;
+      }
+
+      .hero {
+        padding: 65px 0 53px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .nav {
+        gap: 9px;
+      }
+
+      .brand {
+        gap: 7px;
+      }
+
+      .brand-mark {
+        width: 35px;
+        height: 35px;
+        border-radius: 11px;
+        font-size: 21px;
+      }
+
+      .brand-name {
+        font-size: 12px;
+      }
+
+      .brand-caption {
+        font-size: 8px;
+      }
+
+      .nav-links {
+        gap: 8px;
+      }
+
+      .nav-links a {
+        font-size: 10px;
+      }
+
+      .nav-links a[href="#verset"] {
+        display: none;
+      }
+
+      .nav-links .portfolio-link {
+        padding: 7px 9px;
+      }
+
+      .hero {
+        padding: 51px 0 43px;
+      }
+
+      .hero-symbol {
+        width: 77px;
+        height: 77px;
+        border-radius: 23px;
+        font-size: 41px;
+      }
+
+      h1 {
+        font-size: clamp(32px, 8.5vw, 43px);
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .tag {
+        padding: 5px 9px;
+        font-size: 10px;
+      }
+
+      main {
+        padding: 30px 0 54px;
+      }
+
+      .section {
+        margin-top: 52px;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-card {
+        min-height: 245px;
+      }
+
+      .verse-card {
+        padding: 24px 18px;
+      }
+
+      .verse-translation {
+        font-size: 13px;
+      }
+
+      .closing {
+        padding: 26px 18px;
+      }
+
+      .actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-<main>
+  <!-- Navigation principale -->
+  <header class="topbar">
+    <div class="container nav">
 
-<button onclick="window.location.href='index.html'" class="btn-retour">
-↩ Retour à l'accueil
-</button>
-</div>
-<header>
-    <h1>Vidéos à découvrir</h1>
-    <p>Voici quelques chaînes YouTube qui proposent des récitations du Coran et des contenus sur l’islam.</p>
-</header>
+      <a class="brand" href="index.html" aria-label="An-Noor, accueil">
+        <span class="brand-mark" aria-hidden="true">نور</span>
 
-<div class="video-grid">
+        <span>
+          <span class="brand-name">An•Noor</span>
+          <span class="brand-caption">Écoute du Coran</span>
+        </span>
+      </a>
 
-    <div class="video-card">
-        <h3>Mishary Alafasy</h3>
-        <p>Écoutez les récitations de Mishary Alafasy, un réciteur connu du Coran.</p>
-        <a href="https://youtube.com/@alafasy?si=pq8ZnBtADNDZGx34" target="_blank">Ouvrir la chaîne</a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="#chaines">Les chaînes</a>
+        <a href="#verset">Le verset</a>
+
+        <a
+          class="portfolio-link"
+          href="https://adamou-05.github.io/portfolio/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Portfolio AB ↗</a>
+      </nav>
+
     </div>
+  </header>
 
-    <div class="video-card">
-        <h3>Saudi Quran TV</h3>
-        <p>Cette chaîne propose des récitations du Coran et des émissions religieuses.</p>
-        <a href="https://www.youtube.com/@SaudiQuranTv" target="_blank">Ouvrir la chaîne</a>
+  <!-- Introduction -->
+  <section class="hero" aria-labelledby="page-title">
+    <div class="container hero-content">
+
+      <p class="eyebrow">Explorer · Écouter · Apprendre</p>
+
+      <div class="hero-symbol" aria-hidden="true">نور</div>
+
+      <h1 id="page-title">
+        Découvertes & Inspirations
+        <span>Un espace pour aller plus loin</span>
+      </h1>
+
+      <p class="hero-description">
+        Certaines chaînes nous permettent de découvrir de belles récitations
+        du Coran. D'autres proposent des explications, des conférences et des
+        rappels autour de l'islam. Voici une sélection de chaînes à explorer.
+      </p>
+
+      <div class="hero-tags" aria-label="Thèmes">
+        <span class="tag">Récitations du Coran</span>
+        <span class="tag">Culture islamique</span>
+        <span class="tag">Apprentissage</span>
+      </div>
+
     </div>
+  </section>
 
-    <div class="video-card">
-        <h3>Islamic Guidance</h3>
-        <p>Vous y trouverez des conférences et des discussions sur l’islam.</p>
-        <a href="https://www.youtube.com/@IslamicGuidance" target="_blank">Ouvrir la chaîne</a>
+  <main id="contenu" class="container">
+
+    <!-- Sélection de chaînes -->
+    <section id="chaines" class="section" aria-labelledby="chaines-title">
+
+      <div class="section-heading">
+        <p class="section-label">01 — La sélection</p>
+
+        <h2 id="chaines-title">Des chaînes à découvrir.</h2>
+
+        <p class="section-description">
+          Ouvre une chaîne pour consulter ses vidéos et choisir les contenus
+          qui t'intéressent. Les liens conduisent vers YouTube.
+        </p>
+      </div>
+
+      <div class="video-grid">
+
+        <article class="video-card">
+          <div class="video-symbol" aria-hidden="true">♪</div>
+
+          <p class="video-category">Récitation du Coran</p>
+
+          <h3>Mishary Alafasy</h3>
+
+          <p>
+            Découvre les récitations du cheikh Mishary Rashid Alafasy,
+            connu pour sa voix et ses enregistrements du Coran.
+          </p>
+
+          <a
+            class="video-link"
+            href="https://youtube.com/@alafasy"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Découvrir la chaîne YouTube de Mishary Alafasy"
+          >
+            Découvrir la chaîne <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="video-card">
+          <div class="video-symbol" aria-hidden="true">۞</div>
+
+          <p class="video-category">Coran et diffusion religieuse</p>
+
+          <h3>Saudi Quran TV</h3>
+
+          <p>
+            Une chaîne à consulter pour retrouver des contenus autour du
+            Coran et de la vie religieuse liés à la diffusion saoudienne.
+          </p>
+
+          <a
+            class="video-link"
+            href="https://www.youtube.com/@SaudiQuranTv"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Découvrir la chaîne Saudi Quran TV sur YouTube"
+          >
+            Découvrir la chaîne <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="video-card">
+          <div class="video-symbol" aria-hidden="true">◈</div>
+
+          <p class="video-category">Conférences et rappels</p>
+
+          <h3>Islamic Guidance</h3>
+
+          <p>
+            Des vidéos et des rappels sur différents sujets liés à la foi
+            et à la pratique de l'islam.
+          </p>
+
+          <a
+            class="video-link"
+            href="https://www.youtube.com/@IslamicGuidance"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Découvrir la chaîne Islamic Guidance sur YouTube"
+          >
+            Découvrir la chaîne <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="video-card">
+          <div class="video-symbol" aria-hidden="true">✧</div>
+
+          <p class="video-category">Histoires et enseignements</p>
+
+          <h3>Religious Story TV</h3>
+
+          <p>
+            Une autre piste pour explorer des vidéos autour des histoires,
+            des enseignements et des valeurs religieuses.
+          </p>
+
+          <a
+            class="video-link"
+            href="https://www.youtube.com/@ReligiousStoryTV"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Découvrir la chaîne Religious Story TV sur YouTube"
+          >
+            Découvrir la chaîne <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Verset coranique -->
+    <section id="verset" class="section" aria-labelledby="verset-title">
+
+      <div class="section-heading">
+        <p class="section-label">02 — Un rappel</p>
+
+        <h2 id="verset-title">Revenir à l'essentiel.</h2>
+
+        <p class="section-description">
+          Un passage du Coran qui invite à rechercher le pardon d'Allah
+          et à revenir vers Lui.
+        </p>
+      </div>
+
+      <div class="verse-card">
+
+        <p class="section-label">Sourate Hūd · Verset 3</p>
+
+        <p class="verse-arabic" lang="ar" dir="rtl">
+          وَأَنِ اسْتَغْفِرُوا رَبَّكُمْ ثُمَّ تُوبُوا إِلَيْهِ
+          يُمَتِّعْكُم مَّتَاعًا حَسَنًا إِلَىٰ أَجَلٍ مُّسَمًّى
+          وَيُؤْتِ كُلَّ ذِي فَضْلٍ فَضْلَهُ
+        </p>
+
+        <p class="verse-translation">
+          « Demandez pardon à votre Seigneur ; ensuite, revenez à Lui.
+          Il vous accordera une belle jouissance jusqu'à un terme fixé,
+          et Il accordera à chaque méritant l'honneur qu'il mérite. »
+        </p>
+
+        <a
+          class="verse-reference"
+          href="https://quran.com/fr/hud/3"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Coran, 11:3 — Lire le verset complet et sa suite ↗
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Fin de page -->
+    <section class="closing" aria-labelledby="closing-title">
+
+      <div class="closing-symbol" aria-hidden="true">نور</div>
+
+      <h2 id="closing-title">Continue ton exploration.</h2>
+
+      <p>
+        An•Noor est avant tout un projet dédié à l'écoute du Coran.
+        Cette sélection constitue un complément pour découvrir d'autres
+        contenus et poursuivre ton apprentissage.
+      </p>
+
+      <div class="actions">
+
+        <a class="button button-primary" href="index.html">
+          ↩ Retour à An•Noor
+        </a>
+
+        <a
+          class="button"
+          href="https://adamou-05.github.io/portfolio/#projets"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Découvrir mes projets ↗
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+
+      <span class="footer-brand">An•Noor ✦</span>
+
+      <p class="footer-copy">
+        Un projet personnel d'Adamou Babaina.
+      </p>
+
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="#chaines">Les chaînes</a>
+        <a href="#verset">Le verset</a>
+
+        <a
+          href="https://adamou-05.github.io/portfolio/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Portfolio AB ↗</a>
+      </div>
+
     </div>
+  </footer>
 
-    <div class="video-card">
-        <h3>Religious Story TV</h3>
-        <p>Cette chaîne partage des vidéos sur la foi et les valeurs de l’islam.</p>
-        <a href="https://www.youtube.com/@ReligiousStoryTV" target="_blank">Ouvrir la chaîne</a>
-    </div>
-
-</div>
-
-<section id="versets-inspirant">
-    <p>"Sourate Hūd, Verset 3"</p>
-    <p>“Demandez pardon à votre Seigneur; ensuite, revenez à Lui. Il vous accordera une belle jouissance jusqu'à un terme fixé, et Il accordera à chaque méritant l'honneur qu'il mérite. Mais si vous tournez le dos, je crains alors pour vous le châtiment d'un grand jour.”</p>
-</section>
-
-</main>
-<script>
-
-/* Animation simple au scroll */
-const elements = document.querySelectorAll('.p-wrapper');
-
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add('visible');
-}
-});
-});
-
-elements.forEach(el=>observer.observe(el));
-
-</script>
 </body>
 </html>

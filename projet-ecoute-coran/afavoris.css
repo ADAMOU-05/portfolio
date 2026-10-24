@@ -1,0 +1,537 @@
+/* ==========================================================
+   AN•NOOR — BIBLIOTHÈQUE PERSONNELLE
+   Identité : Editorial Luxury • Héritage • Sérénité
+   Palette : Vert profond • Or discret • Ivoire
+   ========================================================== */
+
+
+/* ==========================================================
+   01. CARTES DE SOURATES
+   ========================================================== */
+
+.sourate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  min-width: 0;
+  text-align: left;
+}
+
+.sourate .title {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  overflow-wrap: anywhere;
+}
+
+.sourate-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  flex: 0 0 auto;
+}
+
+.sourate-actions button {
+  display: inline-grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  border: 1px solid var(--gold-border);
+  border-radius: 50%;
+
+  background: var(--white);
+  color: var(--green);
+
+  font-size: 16px;
+  line-height: 1;
+
+  cursor: pointer;
+  touch-action: manipulation;
+
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.sourate-actions button:hover {
+  border-color: var(--gold);
+  background: var(--green-light);
+  transform: translateY(-1px);
+}
+
+.sourate-actions .favorite-surah.is-favorite {
+  border-color: var(--gold);
+  background: #f8f1df;
+  color: var(--gold-deep);
+}
+
+.sourate-actions button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================
+   02. CONTENEUR PRINCIPAL
+   Une bibliothèque raffinée, sans effet excessif
+   ========================================================== */
+
+.an-noor-library {
+  position: relative;
+  isolation: isolate;
+
+  width: min(100% - 2rem, 76rem);
+  margin: clamp(2rem, 5vw, 4rem) auto;
+  padding: clamp(1.25rem, 4vw, 2.75rem);
+
+  color: var(--ink);
+
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(185, 154, 96, 0.09),
+      transparent 42%
+    ),
+    var(--white);
+
+  box-shadow: var(--shadow);
+}
+
+/* Évite que les contenus longs débordent de la bibliothèque. */
+
+.an-noor-library * {
+  min-width: 0;
+}
+
+.an-noor-library h2 {
+  margin: 0;
+
+  color: var(--green);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+
+  text-wrap: balance;
+}
+
+.an-noor-library h2::after {
+  content: "";
+
+  display: block;
+  width: 3.25rem;
+  height: 2px;
+  margin: 1.1rem 0 1.4rem;
+
+  background: var(--gold);
+}
+
+.an-noor-library h3 {
+  margin: 2.25rem 0 0.85rem;
+  padding-bottom: 0.75rem;
+
+  color: var(--green);
+
+  border-bottom: 1px solid var(--line);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.an-noor-library h4 {
+  margin: 0 0 0.85rem;
+
+  color: var(--green);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================================
+   03. BOUTONS DE LA BIBLIOTHÈQUE
+   Élégants, lisibles et faciles à utiliser
+   ========================================================== */
+
+.an-noor-library button,
+#add-favorite-reciter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  min-height: 42px;
+  max-width: 100%;
+  padding: 0.65rem 1rem;
+
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-pill);
+
+  background: var(--white);
+  color: var(--green);
+
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+
+  cursor: pointer;
+  touch-action: manipulation;
+
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.an-noor-library button:hover,
+#add-favorite-reciter:hover {
+  border-color: var(--gold);
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.an-noor-library button:active,
+#add-favorite-reciter:active {
+  transform: translateY(1px);
+}
+
+.an-noor-library button:focus-visible,
+#add-favorite-reciter:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Action principale : créer une playlist. */
+
+.an-noor-library .library-create {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+
+  margin-top: 0.5rem;
+
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+
+  font-weight: 650;
+}
+
+.an-noor-library .library-create:hover {
+  border-color: var(--green-dark);
+  background: var(--green-dark);
+  color: var(--white);
+}
+
+/* Bouton d'ajout d'un réciteur favori. */
+
+#add-favorite-reciter {
+  margin-top: 0.5rem;
+
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+}
+
+#add-favorite-reciter:hover {
+  border-color: var(--green-dark);
+  background: var(--green-dark);
+  color: var(--white);
+}
+
+/* ==========================================================
+   AN•NOOR — BIBLIOTHÈQUE
+   Disposition des favoris et des playlists
+   ========================================================== */
+
+.an-noor-library .library-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(3, auto);
+  align-items: center;
+  gap: 10px 8px;
+
+  min-width: 0;
+  padding: 16px 0;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.an-noor-library .library-row > span:first-child {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+
+  color: var(--green-dark);
+  font-weight: 650;
+}
+
+.an-noor-library .library-row .library-arabic {
+  grid-column: 1;
+  grid-row: 2;
+
+  color: var(--green);
+  font-family: "Amiri", "Traditional Arabic", serif;
+  font-size: 24px;
+  line-height: 1.7;
+
+  direction: rtl;
+  text-align: left;
+}
+
+.an-noor-library .library-row > button {
+  grid-row: 1 / span 2;
+  justify-self: end;
+
+  min-height: 36px;
+  padding: 7px 12px;
+
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-pill);
+
+  background: var(--white);
+  color: var(--green);
+
+  font-size: 11px;
+  font-weight: 650;
+
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition);
+}
+
+.an-noor-library .library-row > button:hover {
+  transform: translateY(-1px);
+  background: var(--green-light);
+  border-color: var(--gold);
+}
+
+.an-noor-library .library-row > button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Mobile : chaque action reste accessible */
+
+@media (max-width: 650px) {
+  .an-noor-library .library-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+    padding: 18px 0;
+  }
+
+  .an-noor-library .library-row > span:first-child,
+  .an-noor-library .library-row .library-arabic {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .an-noor-library .library-row > button {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    max-width: 100%;
+  }
+}
+
+
+/* Texte des états vides. */
+
+.an-noor-library .library-empty {
+  margin: 0;
+  padding: 1rem 0 0;
+
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.8;
+}
+
+
+/* ==========================================================
+   05. PLAYLISTS PERSONNELLES
+   Des espaces de lecture cohérents avec l'identité An•Noor
+   ========================================================== */
+
+.an-noor-library .playlist-box {
+  margin: 1rem 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+
+  background: var(--paper);
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.an-noor-library .playlist-box:hover {
+  border-color: var(--gold-border);
+  box-shadow: var(--shadow);
+}
+
+.an-noor-library .playlist-box > h4 {
+  margin-bottom: 1rem;
+
+  color: var(--green);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.an-noor-library .playlist-box > button {
+  margin: 0.25rem 0.35rem 0.65rem 0;
+}
+
+.an-noor-library .playlist-box .library-row {
+  margin-top: 0.25rem;
+}
+
+
+/* ==========================================================
+   06. ÉTATS DE LECTURE
+   L'utilisateur doit toujours comprendre ce qui est actif
+   ========================================================== */
+
+#list .sourate.is-playing {
+  border-color: var(--gold);
+}
+
+#list .sourate.is-playing .title {
+  color: var(--green);
+}
+
+#list .favorite-surah.is-favorite {
+  border-color: var(--gold);
+  background: #f8f1df;
+  color: var(--gold-deep);
+}
+
+
+/* ==========================================================
+   07. RESPONSIVE : TABLETTES ET MOBILES
+   ========================================================== */
+
+@media (max-width: 650px) {
+  .sourate {
+    gap: 0.65rem;
+  }
+
+  .sourate-actions {
+    gap: 5px;
+  }
+
+  .sourate-actions button {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .an-noor-library {
+    width: calc(100% - 1rem);
+    margin: 1.75rem auto;
+    padding: 1.2rem 1rem;
+
+    border-radius: 20px;
+  }
+
+  .an-noor-library .library-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .an-noor-library .library-row > button {
+    grid-column: 1;
+    grid-row: auto;
+
+    justify-self: start;
+  }
+
+  .an-noor-library .library-row .library-arabic {
+    grid-column: 1;
+  }
+
+  .an-noor-library .playlist-box {
+    padding: 1rem;
+  }
+
+  .an-noor-library .playlist-box > button {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 380px) {
+  .sourate {
+    gap: 0.4rem;
+  }
+
+  .sourate .title {
+    font-size: 0.75rem;
+  }
+
+  .sourate-actions {
+    gap: 3px;
+  }
+
+  .sourate-actions button {
+    width: 29px;
+    height: 29px;
+    font-size: 13px;
+  }
+
+  .an-noor-library {
+    padding: 1rem 0.8rem;
+  }
+
+  .an-noor-library button,
+  #add-favorite-reciter {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+
+/* ==========================================================
+   08. ACCESSIBILITÉ : MOUVEMENTS RÉDUITS
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .sourate-actions button,
+  .an-noor-library button,
+  #add-favorite-reciter,
+  .an-noor-library .playlist-box {
+    scroll-behavior: auto;
+    animation: none;
+    transition: none;
+  }
+}

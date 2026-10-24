@@ -1,93 +1,951 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Quelques citations et bandes dessinées autour de la programmation.">
-  <title>Citations informatiques — Adamou Babaina</title>
+  <meta name="theme-color" content="#080b09">
+  <meta name="description" content="Une collection de citations, de réflexions et d'humour autour de la programmation, des algorithmes et de la pensée informatique. Un projet d'Adamou Babaina.">
+
+  <title>Code & Pensée — Adamou Babaina</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body id="top">
+
+  <!-- NAVIGATION -->
   <header class="topbar">
-    <a class="logo" href="../index.html">AB<span>.</span></a>
-    <nav aria-label="Navigation du site">
-      <a href="#programmeurs">Programmeurs</a>
+    <a class="logo" href="../index.html" aria-label="Retour au portfolio Adamou Babaina">AB<span>.</span></a>
+
+    <nav aria-label="Navigation principale">
+      <a href="#programmeurs">Le code</a>
+      <a href="#philosophie">Réflexion</a>
       <a href="#langages">Langages</a>
       <a href="#systemes">Systèmes</a>
       <a href="#geek">Humour</a>
     </nav>
+
     <a class="back-link" href="../index.html#projets">← Mon portfolio</a>
   </header>
 
   <main>
+
+    <!-- COUVERTURE -->
     <section class="hero">
       <div class="hero-text">
-        <p class="tag">Projet personnel · HTML et CSS</p>
-        <h1>Un peu d’humour<br><span>dans le code.</span></h1>
-        <p>Des citations et des bandes dessinées sur la programmation, les langages et la vie des développeurs.</p>
-        <a class="button" href="#citations">Voir les citations <span aria-hidden="true">↓</span></a>
+        <p class="tag">Carnet numérique · HTML & CSS</p>
+
+        <h1>Penser le code.<br><span>Comprendre le monde.</span></h1>
+
+        <p>
+          Des idées qui traversent les lignes de code, des principes qui
+          façonnent les logiciels et quelques vérités que seuls les
+          développeurs semblent comprendre.
+        </p>
+
+        <a class="button" href="#philosophie">
+          Explorer les idées <span aria-hidden="true">↓</span>
+        </a>
+
+        <p class="hero-signature">Un projet personnel d'Adamou Babaina.</p>
       </div>
-      <img class="hero-image" src="citations-informatique.webp" alt="Illustration sur les citations en informatique">
+
+      <img
+        class="hero-image"
+        src="citations-informatique.webp"
+        alt="Illustration consacrée à la programmation informatique"
+        fetchpriority="high"
+      >
     </section>
 
+    <!-- INTRODUCTION -->
     <section class="intro" id="citations">
-      <p class="eyebrow">Une pause entre deux lignes de code</p>
-      <h2>Des thèmes simples à parcourir</h2>
-      <p>Choisis un thème dans le menu, puis découvre quelques phrases et images qui parlent du quotidien en informatique.</p>
+      <p class="eyebrow">Au-delà de la syntaxe</p>
+
+      <h2>Le code est une pensée qui devient visible.</h2>
+
+      <p>
+        Programmer, ce n'est pas seulement donner des instructions à une
+        machine. C'est apprendre à décomposer les problèmes, à raisonner
+        avec précision et à transformer une idée abstraite en quelque chose
+        d'utile.
+      </p>
     </section>
 
-    <section class="quote-section" id="programmeurs">
-      <div class="section-title"><span>01</span><div><p class="eyebrow">Le métier</p><h2>Dans la tête d’un programmeur</h2></div></div>
+    <!-- 01 : PHILOSOPHIE -->
+    <section class="quote-section wisdom-section" id="philosophie">
+
+      <div class="section-title">
+        <span>01</span>
+        <div>
+          <p class="eyebrow">L'esprit du développeur</p>
+          <h2>La programmation est aussi une philosophie.</h2>
+        </div>
+      </div>
+
+      <div class="quote-feature">
+        <p class="feature-label">Une idée à garder</p>
+
+        <blockquote>
+          « La simplicité est une condition essentielle de la fiabilité. »
+        </blockquote>
+
+        <p class="quote-author">
+          — Aphorisme original · Conception logicielle
+        </p>
+
+        <p class="quote-note">
+          Un système facile à comprendre est souvent plus facile à tester,
+          à corriger et à faire évoluer. La simplicité ne signifie pas
+          faire moins d'efforts : elle signifie retirer ce qui n'est pas
+          nécessaire.
+        </p>
+      </div>
+
       <div class="quote-grid">
-        <article class="quote-card"><p>« Les ordinateurs sont rapides ; les programmeurs les gardent lents. »</p><span>Humour de programmeur</span></article>
-        <article class="quote-card"><p>« Un code supprimé est un code débogué. »</p><span>Parfois, la solution est plus simple qu’on pense.</span></article>
-        <article class="quote-card"><p>« Ça fonctionne sur ma machine. »</p><span>Une phrase bien connue des développeurs.</span></article>
-        <article class="quote-card"><p>« Algorithme : un mot utilisé quand on ne veut pas expliquer ce qu’on a fait. »</p><span>Une définition un peu taquine.</span></article>
-        <article class="quote-card"><p>« Combien de programmeurs faut-il pour changer une ampoule ? Aucun, c’est un problème de matériel. »</p><span>Quand le code n’est pas en cause !</span></article>
-        <article class="quote-card"><p>« Il n’y a pas de code plus rapide que l’absence de code. »</p><span>Moins de code, parfois moins de problèmes.</span></article>
+
+        <article class="quote-card">
+          <p>« La science est ce que nous comprenons assez bien pour l'expliquer à un ordinateur. L'art est tout le reste. »</p>
+          <span>— Donald Knuth · Traduction française</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Avant de chercher une solution brillante, assure-toi d'avoir bien compris le problème. »</p>
+          <span>Aphorisme original · Méthode</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La complexité ne disparaît pas lorsqu'on l'ignore ; elle attend simplement le mauvais moment pour réapparaître. »</p>
+          <span>Aphorisme original · Complexité</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Comprendre, c'est pouvoir expliquer sans se cacher derrière des mots compliqués. »</p>
+          <span>Aphorisme original · Compréhension</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La meilleure solution n'est pas celle qui impressionne, mais celle qui résout réellement le problème. »</p>
+          <span>Aphorisme original · Conception</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Une bonne idée devient précieuse lorsqu'elle se transforme en quelque chose d'utile. »</p>
+          <span>Aphorisme original · Créativité</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Chaque erreur est une information, à condition de prendre le temps de l'analyser. »</p>
+          <span>Aphorisme original · Apprentissage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La logique indique le chemin ; l'expérience apprend à reconnaître les détours. »</p>
+          <span>Aphorisme original · Expérience</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Apprendre à programmer, c'est apprendre à transformer une grande difficulté en petites questions. »</p>
+          <span>Aphorisme original · Résolution de problèmes</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La précision dans les détails donne de la solidité aux grandes idées. »</p>
+          <span>Aphorisme original · Rigueur</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La technologie est un outil ; c'est la réflexion qui lui donne une direction. »</p>
+          <span>Aphorisme original · Technologie</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un bon développeur ne cherche pas seulement à faire fonctionner son code. Il cherche à comprendre pourquoi il fonctionne. »</p>
+          <span>Aphorisme original · Compréhension</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La maîtrise commence quand on sait expliquer simplement ce que l'on a appris difficilement. »</p>
+          <span>Aphorisme original · Apprentissage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La technologie change vite ; les bases solides continuent de servir. »</p>
+          <span>Aphorisme original · Apprentissage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un projet terminé enseigne souvent davantage que dix idées jamais commencées. »</p>
+          <span>Aphorisme original · Discipline</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Tu n'as pas besoin de tout connaître pour construire quelque chose d'utile. »</p>
+          <span>Aphorisme original · Création</span>
+        </article>
+
       </div>
     </section>
 
+    <!-- 02 : PROGRAMMEURS -->
+    <section class="quote-section" id="programmeurs">
+
+      <div class="section-title">
+        <span>02</span>
+        <div>
+          <p class="eyebrow">L'art de programmer</p>
+          <h2>Dans la tête d'un programmeur.</h2>
+        </div>
+      </div>
+
+      <div class="quote-grid">
+
+        <article class="quote-card">
+          <p>« Tout le monde devrait apprendre à programmer un ordinateur, car cela apprend à penser. »</p>
+          <span>— Steve Jobs · Attribution et formulation à vérifier</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« N'importe quel imbécile peut écrire du code qu'un ordinateur comprend. Les bons programmeurs écrivent du code que les humains peuvent comprendre. »</p>
+          <span>— Martin Fowler · Traduction française</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Parler ne coûte pas cher. Montrez-moi le code. »</p>
+          <span>— Linus Torvalds · Traduction française</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« L'optimisation prématurée est la racine de nombreux maux en programmation. »</p>
+          <span>— Donald Knuth · Traduction française, formulation adaptée</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Attention aux bugs dans le code ci-dessus : j'ai seulement prouvé qu'il était correct, je ne l'ai pas testé. »</p>
+          <span>— Donald Knuth · Traduction française</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code le plus rapide est parfois celui qu'on n'a pas besoin d'exécuter. »</p>
+          <span>Aphorisme original · Efficacité</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un bug est une hypothèse sur le comportement du programme qui vient d'être réfutée. »</p>
+          <span>Aphorisme original · Débogage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Écrire du code est facile. Écrire du code que l'on pourra encore comprendre dans six mois est un autre exercice. »</p>
+          <span>Aphorisme original · Lisibilité</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un bon nom de variable peut éviter une longue explication. »</p>
+          <span>Aphorisme original · Lisibilité du code</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le débogage commence lorsque l'on cesse de supposer que le code devrait fonctionner. »</p>
+          <span>Aphorisme original · Débogage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un programme qui fonctionne une fois n'est pas encore une preuve qu'il fonctionne correctement. »</p>
+          <span>Aphorisme original · Tests</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Si tu ne peux pas expliquer ce que fait une fonction, elle mérite peut-être d'être simplifiée. »</p>
+          <span>Aphorisme original · Conception logicielle</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code le plus élégant est souvent celui qui n'oblige pas son lecteur à deviner. »</p>
+          <span>Aphorisme original · Élégance</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Les bugs ne lisent pas les commentaires : ils suivent exactement les instructions que tu as écrites. »</p>
+          <span>Aphorisme original · Humour et débogage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Corriger un bug sans comprendre sa cause, c'est parfois lui réserver un retour. »</p>
+          <span>Aphorisme original · Maintenance</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un programmeur ne résout pas toujours le problème du premier coup ; il apprend à poser de meilleures questions. »</p>
+          <span>Aphorisme original · Progression</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code que tu écris aujourd'hui sera peut-être le code que tu devras expliquer demain. »</p>
+          <span>Aphorisme original · Responsabilité</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La patience est une dépendance essentielle de tout bon débogage. »</p>
+          <span>Aphorisme original · Débogage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code est un passif : chaque ligne ajoutée demande potentiellement du temps pour être comprise et entretenue. »</p>
+          <span>Aphorisme original · Maintenance logicielle</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un développeur expérimenté n'évite pas toutes les erreurs ; il apprend à les repérer et à les corriger plus efficacement. »</p>
+          <span>Aphorisme original · Expérience</span>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 03 : LANGAGES -->
     <section class="quote-section tinted" id="langages">
-      <div class="section-title"><span>02</span><div><p class="eyebrow">Les outils</p><h2>Les langages ont leur caractère</h2></div></div>
-      <div class="image-text">
-        <img src="langages-programmation.jpg" alt="Bande dessinée qui compare les langages de programmation à des taxis" loading="lazy">
-        <div class="quote-card"><p>« Question : Qu’a dit le code Java au code C ? Réponse : Vous n’avez pas de classe. »</p><span>Une des blagues de ta liste sur les langages.</span></div>
+
+      <div class="section-title">
+        <span>03</span>
+        <div>
+          <p class="eyebrow">Les outils de création</p>
+          <h2>Chaque langage raconte une autre histoire.</h2>
+        </div>
       </div>
+
+      <div class="image-text">
+
+        <img
+          src="langages-programmation.jpg"
+          alt="Bande dessinée humoristique comparant les langages de programmation à des taxis"
+          loading="lazy"
+        >
+
+        <article class="quote-card language-feature">
+          <p>« Un langage de programmation n'est pas seulement un outil pour écrire des instructions : c'est aussi une manière d'exprimer une solution. »</p>
+          <span>Aphorisme original · Langages</span>
+        </article>
+
+      </div>
+
       <div class="quote-grid language-quotes">
-        <article class="quote-card"><p>« Une requête SQL entre dans un bar, s’approche de deux tables et demande : “Puis-je me joindre à vous ?” »</p><span>Un jeu de mots pour les amateurs de bases de données.</span></article>
-        <article class="quote-card"><p>« En C, nous devions coder nos propres bugs. En C++, nous pouvons en hériter. »</p><span>Un clin d’œil à la programmation orientée objet.</span></article>
-        <article class="quote-card"><p>« Il y a 10 sortes de personnes : celles qui connaissent le binaire et celles qui ne le connaissent pas. »</p><span>En binaire, 10 signifie deux.</span></article>
-        <article class="quote-card"><p>« Toc, toc… Qui est là ? … longue pause… Java. »</p><span>Une blague de développeur qui prend son temps.</span></article>
+
+        <article class="quote-card">
+          <p>« Que dit le code Java au code C ? Tu manques de classe ! »</p>
+          <span>Humour orienté objet</span>
+        </article>
+
+        <article class="quote-card">
+          <p>Une requête SQL entre dans un bar, s'approche de deux tables et demande : « Puis-je me joindre à vous ? »</p>
+          <span>Jeu de mots sur les jointures SQL</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« En C, on écrit ses propres bugs. En C++, on peut en hériter. »</p>
+          <span>Humour sur l'héritage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Il existe 10 sortes de personnes : celles qui comprennent le binaire et celles qui ne le comprennent pas. »</p>
+          <span>En base 2, 10 signifie deux.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« HTML donne une structure, CSS lui donne une apparence et JavaScript lui apporte du comportement. »</p>
+          <span>Principe du développement web</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le HTML répond à la question “qu'est-ce que c'est ?”, le CSS à “à quoi cela ressemble-t-il ?”. »</p>
+          <span>Aphorisme original · Développement web</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« En CSS, une petite marge peut parfois provoquer une grande discussion. »</p>
+          <span>Humour de développeur · CSS</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le navigateur n'a pas ignoré ton intention : il a simplement suivi tes instructions. »</p>
+          <span>Aphorisme original · Développement web</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un sélecteur CSS trop compliqué est parfois le signe qu'une structure plus simple serait préférable. »</p>
+          <span>Aphorisme original · CSS</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le JavaScript ne lit pas dans tes pensées ; il lit ce que tu lui as écrit. »</p>
+          <span>Aphorisme original · JavaScript</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« En programmation, la ponctuation peut avoir plus d'autorité que l'intention. »</p>
+          <span>Aphorisme original · Syntaxe</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Changer de langage ne supprime pas les problèmes de logique. »</p>
+          <span>Aphorisme original · Algorithmes</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le meilleur langage est souvent celui que l'équipe peut maintenir efficacement. »</p>
+          <span>Aphorisme original · Choix technique</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Une page web peut être belle sur ton écran et difficile à utiliser sur celui de quelqu'un d'autre. »</p>
+          <span>Aphorisme original · Responsive design</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Un site accessible ne demande pas à tous ses visiteurs de naviguer de la même manière. »</p>
+          <span>Principe d'accessibilité web</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code réutilisable fait gagner du temps, à condition de ne pas compliquer ce qui était simple. »</p>
+          <span>Aphorisme original · Réutilisation</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Une erreur de syntaxe peut être petite ; une erreur de raisonnement peut être beaucoup plus discrète. »</p>
+          <span>Aphorisme original · Programmation</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La technologie change vite ; les bases solides continuent de servir. »</p>
+          <span>Aphorisme original · Apprentissage</span>
+        </article>
+
       </div>
     </section>
 
+    <!-- 04 : SYSTÈMES -->
     <section class="quote-section system-quotes" id="systemes">
-      <div class="section-title"><span>03</span><div><p class="eyebrow">Les systèmes</p><h2>Quand l’ordinateur fait des siennes</h2></div></div>
+
+      <div class="section-title">
+        <span>04</span>
+        <div>
+          <p class="eyebrow">Machines et systèmes</p>
+          <h2>Quand la logique rencontre la réalité.</h2>
+        </div>
+      </div>
+
       <div class="image-text">
-        <img src="systemes.jpg" alt="Illustration sur les systèmes informatiques" loading="lazy">
+
+        <img
+          src="systemes.jpg"
+          alt="Illustration humoristique sur les systèmes informatiques"
+          loading="lazy"
+        >
+
         <div class="quote-grid">
-          <article class="quote-card"><p>« Défaillance du clavier. Appuyez sur F1 pour continuer. »</p><span>Mais comment appuyer sur F1 ?</span></article>
-          <article class="quote-card"><p>« Il n’y a pas d’endroit aussi bien que 127.0.0.1. »</p><span>127.0.0.1, c’est l’adresse de son propre ordinateur.</span></article>
-          <article class="quote-card"><p>« UNIX est simple. Il faut juste un génie pour comprendre sa simplicité. »</p><span>Une simplicité parfois mystérieuse.</span></article>
+
+          <article class="quote-card">
+            <p>« Erreur de clavier. Appuyez sur F1 pour continuer. »</p>
+            <span>Mais comment appuyer sur F1 ?</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Il n'y a pas d'endroit aussi accueillant que 127.0.0.1. »</p>
+            <span>Une référence à l'adresse locale de sa propre machine.</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« La machine exécute les instructions ; elle ne devine pas l'intention. »</p>
+            <span>Aphorisme original · Précision</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Un algorithme transforme une méthode de résolution en une suite d'étapes précises. »</p>
+            <span>Aphorisme original · Algorithmes</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Une base de données mal organisée peut transformer une question simple en enquête interminable. »</p>
+            <span>Aphorisme original · Bases de données</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Une jointure SQL bien pensée rapproche les données ; une jointure mal pensée rapproche surtout les problèmes. »</p>
+            <span>Aphorisme original · SQL</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Un système robuste ne suppose pas que tout se passera bien ; il prévoit ce qui arrivera lorsque cela ira mal. »</p>
+            <span>Aphorisme original · Fiabilité</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Une sauvegarde que tu n'as jamais testée est une promesse, pas une garantie. »</p>
+            <span>Aphorisme original · Sécurité des données</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« La sécurité informatique commence souvent par une question simple : qu'est-ce qui pourrait mal tourner ? »</p>
+            <span>Aphorisme original · Cybersécurité</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Un système fiable ne dépend pas uniquement de l'absence d'erreurs, mais aussi de sa capacité à les gérer. »</p>
+            <span>Aphorisme original · Fiabilité logicielle</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Quand un serveur tombe, les journaux deviennent les témoins de ce qui s'est passé. »</p>
+            <span>Aphorisme original · Logs et diagnostic</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« La performance se mesure ; elle ne se devine pas. »</p>
+            <span>Aphorisme original · Optimisation</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Une bonne architecture ne rend pas tous les problèmes impossibles ; elle les rend plus faciles à maîtriser. »</p>
+            <span>Aphorisme original · Architecture logicielle</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Derrière une interface simple se cachent parfois des dizaines de décisions complexes. »</p>
+            <span>Aphorisme original · Conception</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Le réseau fonctionne jusqu'au moment où il ne fonctionne plus ; c'est là que commence le diagnostic. »</p>
+            <span>Aphorisme original · Réseaux</span>
+          </article>
+
+          <article class="quote-card">
+            <p>« Un système complexe ne devient pas simple parce qu'on lui donne un nom compliqué. »</p>
+            <span>Aphorisme original · Conception des systèmes</span>
+          </article>
+
         </div>
       </div>
     </section>
 
+    <!-- 05 : HUMOUR -->
     <section class="quote-section" id="geek">
-      <div class="section-title"><span>04</span><div><p class="eyebrow">Les souvenirs</p><h2>Petites scènes de la vie geek</h2></div></div>
+
+      <div class="section-title">
+        <span>05</span>
+        <div>
+          <p class="eyebrow">La culture geek</p>
+          <h2>Le sérieux n'interdit pas l'humour.</h2>
+        </div>
+      </div>
+
       <div class="comic-grid">
-        <figure><img src="bios.jpg" alt="Bande dessinée : un débutant cherche la touche pour entrer dans le BIOS" loading="lazy"><figcaption>« C’est quoi déjà la touche pour entrer dans le BIOS ? »</figcaption></figure>
-        <figure><img src="langages-humour.jpg" alt="Bande dessinée humoristique sur la programmation" loading="lazy"><figcaption>« Si les langages de programmation étaient des taxis… »</figcaption></figure>
+
+        <figure>
+          <img
+            src="bios.jpg"
+            alt="Bande dessinée sur la recherche de la touche permettant d'entrer dans le BIOS"
+            loading="lazy"
+          >
+          <figcaption>
+            « C'est quoi déjà la touche pour entrer dans le BIOS ? »
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img
+            src="langages-humour.jpg"
+            alt="Bande dessinée humoristique sur les langages de programmation"
+            loading="lazy"
+          >
+          <figcaption>
+            Si les langages de programmation étaient des taxis…
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <div class="quote-grid">
+
+        <article class="quote-card">
+          <p>« Ça fonctionne sur ma machine. »</p>
+          <span>Le début d'une enquête internationale.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je vais juste corriger un petit détail. »</p>
+          <span>Trois heures plus tard : le site est entièrement refait.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je n'ai rien changé. »</p>
+          <span>Phrase prononcée quelques secondes avant la panne.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le problème vient forcément du serveur. »</p>
+          <span>Le serveur : innocent jusqu'à preuve du contraire.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Il me reste juste à tester. »</p>
+          <span>Les derniers mots avant une nouvelle série de bugs.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« J'ai trouvé le bug ! »</p>
+          <span>Le bug : il y en avait trois autres derrière.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Pourquoi ça ne fonctionne pas ? »</p>
+          <span>Parce que le point-virgule a décidé de prendre sa journée.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je vais chercher cinq minutes sur Internet. »</p>
+          <span>Deux heures plus tard, il apprend un nouveau langage.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code est terminé. »</p>
+          <span>Le client : « J'ai une petite modification à demander. »</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« J'ai commenté cette partie pour comprendre ce qu'elle fait. »</p>
+          <span>Le développeur de demain remercie celui d'hier.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je vais nettoyer un peu le code. »</p>
+          <span>Le nettoyage finit par durer plus longtemps que le projet.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« J'ai trouvé la solution ! »</p>
+          <span>Elle était dans le premier résultat de recherche.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Qui a modifié ce fichier ? »</p>
+          <span>Le coupable consulte l'historique Git en silence.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Ça marchait hier. »</p>
+          <span>Le mystère préféré des développeurs.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je vais juste renommer une variable. »</p>
+          <span>Une heure plus tard, le projet ne compile plus.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le bug a disparu ! »</p>
+          <span>Personne n'ose demander pourquoi.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je n'ai pas besoin de documentation. »</p>
+          <span>Six mois plus tard : « Mais qui a écrit ça ? »</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le site est presque fini. »</p>
+          <span>Il reste seulement le responsive, les tests, l'accessibilité et les détails.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je vais faire une pause après ce bug. »</p>
+          <span>Le bug suivant vient d'apparaître.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code est propre, je te jure. »</p>
+          <span>Le fichier : 2 000 lignes et une fonction nommée test2_final_v3.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je n'ai pas oublié le mot de passe. »</p>
+          <span>Le développeur qui tente sa douzième combinaison.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Il suffit de redémarrer. »</p>
+          <span>La solution informatique qui a sauvé bien des réputations.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Je vais faire une petite mise à jour en production. »</p>
+          <span>Les sauvegardes prennent soudain toute leur importance.</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le code est simple. »</p>
+          <span>Dit par la seule personne qui le comprend.</span>
+        </article>
+
       </div>
     </section>
 
-    <section class="ending">
-      <p class="eyebrow">Merci pour la visite</p>
-      <h2>À bientôt pour la suite !</h2>
-      <a class="button button-light" href="../index.html#projets">Retourner au portfolio <span aria-hidden="true">↗</span></a>
+    <!-- APPRENTISSAGE -->
+    <section class="quote-section tinted" id="apprentissage">
+
+      <div class="section-title">
+        <span>06</span>
+        <div>
+          <p class="eyebrow">Toujours progresser</p>
+          <h2>Apprendre, comprendre, recommencer.</h2>
+        </div>
+      </div>
+
+      <div class="quote-grid">
+
+        <article class="quote-card">
+          <p>« Chaque développeur a commencé par ne pas comprendre ce qu'il lit aujourd'hui. »</p>
+          <span>Aphorisme original · Débuter</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Ne compare pas ton premier projet au dixième projet de quelqu'un d'autre. »</p>
+          <span>Aphorisme original · Progression</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Copier un exemple peut aider à démarrer ; le comprendre permet de devenir autonome. »</p>
+          <span>Aphorisme original · Apprentissage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La documentation n'est pas un aveu d'ignorance : c'est un outil de travail. »</p>
+          <span>Aphorisme original · Apprentissage</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« La régularité transforme les petites séances de travail en compétences durables. »</p>
+          <span>Aphorisme original · Progression</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Lire du code apprend à reconnaître des solutions ; en écrire apprend à faire ses propres choix. »</p>
+          <span>Aphorisme original · Pratique</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Une erreur comprise est une leçon ; une erreur répétée sans réflexion est une habitude. »</p>
+          <span>Aphorisme original · Expérience</span>
+        </article>
+
+        <article class="quote-card">
+          <p>« Le meilleur moyen de comprendre une technologie est parfois de construire un petit projet avec elle. »</p>
+          <span>Aphorisme original · Apprentissage pratique</span>
+        </article>
+
+      </div>
     </section>
+
+    <!-- CONCLUSION -->
+    <section class="ending">
+
+      <p class="eyebrow">Une dernière réflexion</p>
+
+      <h2>Apprendre. Comprendre. Construire.</h2>
+
+      <p class="ending-text">
+        Chaque ligne de code est une occasion de progresser.
+        Le plus important n'est pas de tout savoir, mais de continuer à apprendre.
+      </p>
+
+      <a class="button button-light" href="../index.html#projets">
+        Découvrir mon portfolio <span aria-hidden="true">↗</span>
+      </a>
+
+    </section>
+
   </main>
-  <footer><a class="logo" href="../index.html">AB<span>.</span></a><p>Projet réalisé pour apprendre et progresser.</p><a href="#top">Retour en haut ↑</a></footer>
+
+  <!-- PIED DE PAGE -->
+  <footer>
+    <a class="logo" href="../index.html" aria-label="Portfolio Adamou Babaina">AB<span>.</span></a>
+
+    <p>Un projet personnel d'Adamou Babaina · HTML & CSS</p>
+
+    <a href="#top">Retour en haut ↑</a>
+  </footer>
+<script>/* Code et Pensée - améliorations progressives.
+   Le site reste lisible et complet sans ce script. */
+(function () {
+  "use strict";
+  var d = document;
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Nettoyage : retire les sélecteurs d'emoji (U+FE0F) des flèches décoratives */
+  d.querySelectorAll("[aria-hidden]").forEach(function (n) {
+    n.textContent = n.textContent.replace(/\uFE0F/g, "");
+  });
+
+  /* Barre de progression de lecture */
+  var bar = d.createElement("div");
+  bar.className = "progress";
+  bar.setAttribute("aria-hidden", "true");
+  d.body.prepend(bar);
+  addEventListener("scroll", function () {
+    var h = d.documentElement;
+    bar.style.setProperty("--p", (scrollY / Math.max(1, h.scrollHeight - innerHeight)).toFixed(4));
+  }, { passive: true });
+
+  /* Bouton Copier sur chaque citation */
+  var cards = [].slice.call(d.querySelectorAll(".quote-card"));
+  cards.forEach(function (card) {
+    var b = d.createElement("button");
+    b.type = "button";
+    b.className = "copy";
+    b.textContent = "Copier";
+    b.setAttribute("aria-label", "Copier cette citation");
+    card.appendChild(b);
+    b.addEventListener("click", function () {
+      var p = card.querySelector("p");
+      var s = card.querySelector("span");
+      var text = (p ? p.textContent : "") + (s ? " " + s.textContent : "");
+      var ok = function () {
+        b.textContent = "Copié";
+        b.classList.add("done");
+        setTimeout(function () { b.textContent = "Copier"; b.classList.remove("done"); }, 1600);
+      };
+      var ko = function () {
+        b.textContent = "Échec";
+        setTimeout(function () { b.textContent = "Copier"; }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text.trim()).then(ok, ko);
+      } else { ko(); }
+    });
+  });
+
+  /* Éléments filtrables : cartes + citation principale */
+  var items = [].slice.call(d.querySelectorAll(".quote-card, .quote-feature"));
+  var sections = [].slice.call(d.querySelectorAll(".quote-section"));
+
+  function norm(s) {
+    return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+  items.forEach(function (el) {
+    var clone = el.cloneNode(true);
+    clone.querySelectorAll(".copy").forEach(function (c) { c.remove(); });
+    el._t = norm(clone.textContent);
+  });
+
+  /* Pastilles de comptage dans les titres de section */
+  var badges = sections.map(function (sec) {
+    var title = sec.querySelector(".section-title");
+    var n = sec.querySelectorAll(".quote-card, .quote-feature").length;
+    if (!title || !n) { return null; }
+    var s = d.createElement("span");
+    s.className = "badge";
+    s.textContent = n + (n > 1 ? " citations" : " citation");
+    title.appendChild(s);
+    return { el: s, sec: sec, total: n };
+  });
+
+  /* Barre de recherche */
+  var intro = d.querySelector(".intro");
+  var tb = d.createElement("section");
+  tb.className = "toolbar";
+  tb.setAttribute("aria-label", "Recherche dans les citations");
+  tb.innerHTML =
+    '<label class="search"><span>Rechercher une citation</span>' +
+    '<input type="search" placeholder="Rechercher : bug, CSS, simplicité, tests" autocomplete="off"></label>' +
+    '<button type="button" class="chip">Citation au hasard</button>' +
+    '<p class="count" role="status" aria-live="polite"></p>';
+  if (intro) { intro.after(tb); }
+
+  var input = tb.querySelector("input");
+  var count = tb.querySelector(".count");
+
+  function clearMarks(el) {
+    el.querySelectorAll("mark").forEach(function (m) {
+      m.replaceWith(d.createTextNode(m.textContent));
+    });
+    el.normalize();
+  }
+
+  function mark(el, q) {
+    var p = el.querySelector("p, blockquote");
+    if (!p || !q) { return; }
+    var w = d.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+    var nodes = [], n;
+    while ((n = w.nextNode())) { nodes.push(n); }
+    nodes.forEach(function (node) {
+      var i = norm(node.nodeValue).indexOf(q);
+      if (i < 0 || norm(node.nodeValue).length !== node.nodeValue.length) { return; }
+      var m = d.createElement("mark");
+      var after = node.splitText(i);
+      after.splitText(q.length);
+      m.textContent = after.nodeValue;
+      after.replaceWith(m);
+    });
+  }
+
+  function filter() {
+    var q = norm(input.value.trim());
+    var shown = 0;
+    items.forEach(function (el) {
+      clearMarks(el);
+      var hit = !q || el._t.indexOf(q) > -1;
+      el.hidden = !hit;
+      if (hit) { shown++; mark(el, q); }
+    });
+    sections.forEach(function (sec) {
+      var any = sec.querySelector(".quote-card:not([hidden]), .quote-feature:not([hidden])");
+      var hasItems = sec.querySelector(".quote-card, .quote-feature");
+      sec.hidden = !!q && hasItems && !any;
+      var cg = sec.querySelector(".comic-grid");
+      if (cg) { cg.hidden = !!q; }
+    });
+    badges.forEach(function (b) {
+      if (!b) { return; }
+      var v = b.sec.querySelectorAll(".quote-card:not([hidden]), .quote-feature:not([hidden])").length;
+      b.el.textContent = q ? v + " / " + b.total : b.total + (b.total > 1 ? " citations" : " citation");
+    });
+    count.textContent = q
+      ? shown + (shown > 1 ? " citations trouvées" : " citation trouvée") + " sur " + items.length
+      : items.length + " citations à explorer";
+  }
+
+  input.addEventListener("input", filter);
+  filter();
+
+  /* Citation au hasard */
+  tb.querySelector(".chip").addEventListener("click", function () {
+    var pool = cards.filter(function (c) { return !c.hidden && !c.closest("[hidden]"); });
+    if (!pool.length) { return; }
+    var c = pool[Math.floor(Math.random() * pool.length)];
+    c.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    c.classList.remove("flash");
+    void c.offsetWidth;
+    c.classList.add("flash");
+    setTimeout(function () { c.classList.remove("flash"); }, 1900);
+  });
+
+  /* Navigation : section active */
+  if ("IntersectionObserver" in window) {
+    var links = [].slice.call(d.querySelectorAll(".topbar nav a[href^='#']"));
+    var spy = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) { return; }
+        links.forEach(function (a) {
+          if (a.getAttribute("href") === "#" + e.target.id) { a.setAttribute("aria-current", "true"); }
+          else { a.removeAttribute("aria-current"); }
+        });
+      });
+    }, { rootMargin: "-35% 0px -60% 0px" });
+    sections.forEach(function (s) { if (s.id) { spy.observe(s); } });
+  }
+})();
+</script>
 </body>
 </html>

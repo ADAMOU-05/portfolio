@@ -1,132 +1,63 @@
-const list = document.getElementById("list");
+function setupReciterSearch() {
+  const search = document.getElementById("search-reciter");
+  const select = document.getElementById("reciter");
 
-const sourates =[
-"Al-Fatiha — الفاتحة",
-"Al-Baqara — البقرة",
-"Al-Imran — آل عمران",
-"An-Nisa — النساء",
-"Al-Ma'idah — المائدة",
-"Al-An'am — الأنعام",
-"Al-A'raf — الأعراف",
-"Al-Anfal — الأنفال",
-"At-Tawbah — التوبة",
-"Yunus — يونس",
-"Hud — هود",
-"Yusuf — يوسف",
-"Ar-Ra'd — الرعد",
-"Ibrahim — إبراهيم",
-"Al-Hijr — الحجر",
-"An-Nahl — النحل",
-"Al-Isra — الإسراء",
-"Al-Kahf — الكهف",
-"Maryam — مريم",
-"Ta-Ha — طه",
-"Al-Anbiya — الأنبياء",
-"Al-Hajj — الحج",
-"Al-Mu'minun — المؤمنون",
-"An-Nur — النور",
-"Al-Furqan — الفرقان",
-"Ash-Shu'ara — الشعراء",
-"An-Naml — النمل",
-"Al-Qasas — القصص",
-"Al-Ankabut — العنكبوت",
-"Ar-Rum — الروم",
-"Luqman — لقمان",
-"As-Sajda — السجدة",
-"Al-Ahzab — الأحزاب",
-"Saba — سبأ",
-"Fatir — فاطر",
-"Ya-Sin — يس",
-"As-Saffat — الصافات",
-"Sad — ص",
-"Az-Zumar — الزمر",
-"Ghafir — غافر",
-"Fussilat — فصلت",
-"Ash-Shura — الشورى",
-"Az-Zukhruf — الزخرف",
-"Ad-Dukhan — الدخان",
-"Al-Jathiya — الجاثية",
-"Al-Ahqaf — الأحقاف",
-"Muhammad — محمد",
-"Al-Fath — الفتح",
-"Al-Hujurat — الحجرات",
-"Qaf — ق",
-"Adh-Dhariyat — الذاريات",
-"At-Tur — الطور",
-"An-Najm — النجم",
-"Al-Qamar — القمر",
-"Ar-Rahman — الرحمن",
-"Al-Waqia — الواقعة",
-"Al-Hadid — الحديد",
-"Al-Mujadila — المجادلة",
-"Al-Hashr — الحشر",
-"Al-Mumtahina — الممتحنة",
-"As-Saff — الصف",
-"Al-Jumu'a — الجمعة",
-"Al-Munafiqun — المنافقون",
-"At-Taghabun — التغابن",
-"At-Talaq — الطلاق",
-"At-Tahrim — التحريم",
-"Al-Mulk — الملك",
-"Al-Qalam — القلم",
-"Al-Haqqa — الحاقة",
-"Al-Ma'arij — المعارج",
-"Nuh — نوح",
-"Al-Jinn — الجن",
-"Al-Muzzammil — المزمل",
-"Al-Muddathir — المدثر",
-"Al-Qiyama — القيامة",
-"Al-Insan — الإنسان",
-"Al-Mursalat — المرسلات",
-"An-Naba — النبأ",
-"An-Nazi'at — النازعات",
-"Abasa — عبس",
-"At-Takwir — التكوير",
-"Al-Infitar — الانفطار",
-"Al-Mutaffifin — المطففين",
-"Al-Inshiqaq — الانشقاق",
-"Al-Buruj — البروج",
-"At-Tariq — الطارق",
-"Al-A'la — الأعلى",
-"Al-Ghashiya — الغاشية",
-"Al-Fajr — الفجر",
-"Al-Balad — البلد",
-"Ash-Shams — الشمس",
-"Al-Layl — الليل",
-"Ad-Duha — الضحى",
-"Ash-Sharh — الشرح",
-"At-Tin — التين",
-"Al-Alaq — العلق",
-"Al-Qadr — القدر",
-"Al-Bayyina — البينة",
-"Az-Zalzala — الزلزلة",
-"Al-Adiyat — العاديات",
-"Al-Qaria — القارعة",
-"At-Takathur — التكاثر",
-"Al-Asr — العصر",
-"Al-Humaza — الهمزة",
-"Al-Fil — الفيل",
-"Quraysh — قريش",
-"Al-Ma'un — الماعون",
-"Al-Kawthar — الكوثر",
-"Al-Kafirun — الكافرون",
-"An-Nasr — النصر",
-"Al-Masad — المسد",
-"Al-Ikhlas — الإخلاص",
-"Al-Falaq — الفلق",
-"An-Nas — الناس"
-];
+  if (!search || !select) {
+    console.error("An•Noor : champ de recherche ou menu des récitateurs introuvable.");
+    return;
+  }
 
-// Crée une carte pour chaque sourate de la liste.
-sourates.forEach(function (name, index) {
-    const number = String(index + 1).padStart(3, "0");
-    const card = document.createElement("button");
+  // Mémoriser les options originales
+  const originalOptions = Array.from(select.options).map(option => ({
+    value: option.value,
+    text: option.textContent
+  }));
 
-    card.classList.add("sourate");
-    card.type = "button";
-    card.dataset.number = String(index + 1);
-    card.setAttribute("aria-label", "Écouter la sourate " + name);
-    card.innerHTML = '<span class="title"></span>';
-    card.querySelector(".title").textContent = number + ". " + name;
-    list.appendChild(card);
-});
+  function normalize(text) {
+    return text
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase()
+      .trim();
+  }
+
+  function filterReciters() {
+    const query = normalize(search.value);
+    const previousValue = select.value;
+
+    const filtered = originalOptions.filter(option => {
+      return normalize(option.text).includes(query);
+    });
+
+    // Reconstruire la liste avec les résultats
+    select.replaceChildren();
+
+    if (filtered.length === 0) {
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "Aucun récitant trouvé";
+      option.disabled = true;
+      select.appendChild(option);
+      return;
+    }
+
+    filtered.forEach(item => {
+      const option = document.createElement("option");
+      option.value = item.value;
+      option.textContent = item.text;
+      select.appendChild(option);
+    });
+
+    // Conserver le récitant sélectionné s'il correspond encore
+    if (filtered.some(item => item.value === previousValue)) {
+      select.value = previousValue;
+    } else {
+      select.selectedIndex = 0;
+    }
+
+    // Signaler le changement au reste du site
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  search.addEventListener("input", filterReciters);
+}

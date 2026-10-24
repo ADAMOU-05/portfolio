@@ -1,107 +1,428 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400&display=swap" rel="stylesheet">
-<title>Verset du Coran</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-        text-align: center;
-        color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#09130f">
+    <meta name="description" content="Lis Ayat al-Kursî, le verset 255 de la sourate Al-Baqara, en arabe et en français sur An•Noor.">
 
-    h1 {
-        margin-bottom: 30px;
-        color: #007BFF;
-    }
+    <title>Ayat al-Kursî — An•Noor</title>
 
-    .verset {
-        border: 1px solid #ccc;
-        border-radius: 12px;
-        padding: 25px;
-        background-color: #fff;
-        max-width: 800px;
-        margin: 0 auto 30px auto;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    .arabe {
-        font-family: 'Amiri', serif; /* Police arabe */
-        font-size: 24px;
-        color: #000;
-        text-align: right;
-        direction: rtl;
-        margin-bottom: 20px;
-    }
-
-    .traduction {
-        color: #000;
-        text-align: center;
-        background-color: rgba(0,127,129,0.1);
-        box-shadow: 0px 5px 15px rgba(0,127,129,0.3);
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 700px;
-        margin: 0 auto;
-        font-size: 16px;
-        line-height: 1.6;
-    }
-
-    button {
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        padding: 12px 25px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 500;
-        margin-bottom: 40px;
-        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    button:hover {
-        background-color: #0066cc;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    }
-
-    @media (max-width: 600px) {
-        .arabe {
-            font-size: 20px;
+    <style>
+        :root {
+            --background: #09130f;
+            --surface: #101d17;
+            --surface-light: #17271f;
+            --gold: #d6b779;
+            --gold-light: #f0ddb0;
+            --text: #f3f0e8;
+            --muted: #a8b2a9;
+            --border: rgba(214, 183, 121, 0.23);
         }
-        .traduction {
-            font-size: 14px;
-            padding: 15px;
+
+        * {
+            box-sizing: border-box;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 14px;
+
+        html {
+            scroll-behavior: smooth;
         }
-    }
-</style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 28px 18px 20px;
+            background:
+                radial-gradient(
+                    ellipse at top,
+                    rgba(39, 76, 54, 0.28),
+                    transparent 55%
+                ),
+                var(--background);
+            color: var(--text);
+            font-family: "DM Sans", Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        a:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 5px;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 55px;
+        }
+
+        .brand {
+            color: var(--gold);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 15px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: var(--text);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .back-link:hover {
+            background-color: var(--surface-light);
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        .hero {
+            margin-bottom: 34px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            color: var(--gold);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--gold-light);
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            margin: 14px 0 0;
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .ornament {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 25px auto 0;
+            color: var(--gold);
+        }
+
+        .ornament::before,
+        .ornament::after {
+            width: 45px;
+            height: 1px;
+            background: var(--border);
+            content: "";
+        }
+
+        .verse-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            background: linear-gradient(
+                145deg,
+                rgba(23, 39, 31, 0.98),
+                rgba(13, 25, 19, 0.98)
+            );
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .verse-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 25px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(214, 183, 121, 0.035);
+        }
+
+        .verse-reference {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .verse-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 36px;
+            padding: 0 8px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--gold);
+            font-size: 0.85rem;
+        }
+
+        .verse-content {
+            padding: clamp(24px, 5vw, 48px);
+        }
+
+        .arabic {
+            margin: 0 0 38px;
+            color: var(--gold-light);
+            font-family: "Amiri", serif;
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
+            font-weight: 400;
+            line-height: 2.15;
+            text-align: right;
+            direction: rtl;
+            overflow-wrap: break-word;
+        }
+
+        .separator {
+            width: 70px;
+            height: 1px;
+            margin: 0 auto 30px;
+            background: var(--gold);
+            opacity: 0.55;
+        }
+
+        .translation-label {
+            margin: 0 0 12px;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .translation {
+            margin: 0;
+            color: #e0e5df;
+            font-size: 1rem;
+            line-height: 2;
+            text-align: left;
+        }
+
+        .source-link {
+            display: block;
+            width: fit-content;
+            margin: 24px auto 0;
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .source-link:hover {
+            color: var(--gold-light);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .closing {
+            margin: 32px 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 55px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(214, 183, 121, 0.12);
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 13px;
+            }
+
+            .topbar {
+                margin-bottom: 42px;
+            }
+
+            .brand {
+                font-size: 1.1rem;
+            }
+
+            .back-link {
+                padding: 8px 11px;
+                font-size: 0.82rem;
+            }
+
+            .verse-header {
+                padding: 15px 18px;
+            }
+
+            .verse-content {
+                padding: 25px 19px;
+            }
+
+            .arabic {
+                margin-bottom: 30px;
+                line-height: 2.05;
+            }
+
+            .translation {
+                font-size: 0.95rem;
+                line-height: 1.9;
+            }
+
+            footer {
+                margin-top: 40px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
+    <div class="page">
 
-<h1>Ayat al-Kursi — sourate 2, verset 255</h1>
+        <header class="topbar">
+            <a class="brand" href="index.html" aria-label="An-Noor, accueil">
+                An•Noor
+            </a>
 
-<!-- Bouton retour -->
-<button onclick="window.location.href='index.html'">&#x21a9; Retour</button>
+            <a class="back-link" href="index.html">
+                <span aria-hidden="true">←</span>
+                Retour à l'accueil
+            </a>
+        </header>
 
-<div class="verset">
-    <p class="arabe">
-        ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌۭ وَلَا نَوْمٌۭ ۚ لَّهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍۢ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ
-    </p>
-    <p class="traduction">
-        Allah! Point de divinité à part Lui, le Vivant, Celui qui subsiste par Lui-même (Al Qayyum). Ni somnolence ni sommeil ne Le saisissent. A Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans Sa permission? Il connaît leur passé et leur futur. Et, de Sa science, ils n’embrassent que ce qu’Il veut. Son Trône « Kursîy » déborde les cieux et la terre, dont la garde ne Lui coûte aucune peine. Et Il est le Très-Haut, le Très-Grand.
-    </p>
-</div>
+        <main>
+            <section class="hero" aria-labelledby="page-title">
+                <p class="eyebrow">Parole d'Allah</p>
 
+                <h1 id="page-title">Ayat al-Kursî</h1>
+
+                <p class="subtitle">
+                    Sourate Al-Baqara · Verset 255
+                </p>
+
+                <div class="ornament" aria-hidden="true">✧</div>
+            </section>
+
+            <article class="verse-card" aria-label="Ayat al-Kursî, verset 255">
+
+                <div class="verse-header">
+                    <span class="verse-reference">
+                        البقرة · ٢٥٥
+                    </span>
+
+                    <span class="verse-number" aria-label="Verset 255">
+                        255
+                    </span>
+                </div>
+
+                <div class="verse-content">
+
+                    <p class="arabic" lang="ar" dir="rtl">
+                        ٱللَّهُ لَآ إِلَـٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ
+                        لَا تَأْخُذُهُۥ سِنَةٌۭ وَلَا نَوْمٌۭ ۚ
+                        لَّهُۥ مَا فِى ٱلسَّمَـٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ
+                        مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ
+                        يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ
+                        وَلَا يُحِيطُونَ بِشَىْءٍۢ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ
+                        وَسِعَ كُرْسِيُّهُ ٱلسَّمَـٰوَٰتِ وَٱلْأَرْضَ ۖ
+                        وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ
+                        وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ
+                    </p>
+
+                    <div class="separator" aria-hidden="true"></div>
+
+                    <p class="translation-label">
+                        Traduction française
+                    </p>
+
+                    <p class="translation">
+                        Allah ! Point de divinité à part Lui, le Vivant,
+                        Celui qui subsiste par Lui-même (Al Qayyum).
+                        Ni somnolence ni sommeil ne Le saisissent.
+                        À Lui appartient tout ce qui est dans les cieux
+                        et sur la terre. Qui peut intercéder auprès de Lui
+                        sans Sa permission ? Il connaît leur passé et leur
+                        futur. Et, de Sa science, ils n’embrassent que ce
+                        qu’Il veut. Son Trône « Kursîy » déborde les cieux
+                        et la terre, dont la garde ne Lui coûte aucune peine.
+                        Et Il est le Très-Haut, le Très-Grand.
+                    </p>
+
+                    <a
+                        class="source-link"
+                        href="https://quran.com/2/255"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Consulter le verset complet ↗
+                    </a>
+
+                </div>
+            </article>
+
+            <p class="closing">
+                Prends un instant pour lire, méditer et te rapprocher d'Allah.
+            </p>
+        </main>
+
+        <footer>
+            <p>
+                Fait avec soin pour
+                <a href="index.html">An•Noor</a>
+                · Écouter, apprendre et se rapprocher du Coran.
+            </p>
+        </footer>
+
+    </div>
 </body>
 </html>

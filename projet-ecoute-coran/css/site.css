@@ -1,213 +1,2124 @@
-/* Style commun à toutes les pages d’An•noor. */
+/* ==========================================================
+   AN•NOOR — DIGITAL QURAN EXPERIENCE
+   Version 3.0
+   Art direction: Editorial Luxury / Quiet Technology
+   ========================================================== */
+
+
+/* 01 — IDENTITÉ VISUELLE
+   ---------------------------------------------------------- */
+
 :root {
-  --green: #315341;
-  --green-light: #eaf0ec;
-  --paper: #f4f6f5;
-  --white: #fff;
-  --ink: #25332d;
-  --muted: #5d6862;
-  --line: #dce3df;
-  --shadow: 0 8px 24px rgba(30, 50, 40, .08);
+  color-scheme: light;
+
+  --green: #123c30;
+  --green-light: #e7eee8;
+  --green-mid: #285a47;
+  --green-dark: #0a2921;
+
+  --gold: #b99a60;
+  --gold-light: #e5d5ae;
+  --gold-deep: #8c7040;
+  --gold-border: rgba(185, 154, 96, .30);
+
+  --paper: #f7f5ef;
+  --white: #fffefa;
+  --surface: #f0eee5;
+  --ink: #1d2c25;
+  --muted: #777d74;
+  --line: #e5e1d6;
+
+  --shadow:
+    0 2px 5px rgba(27, 42, 33, .025),
+    0 12px 35px rgba(27, 42, 33, .055);
+
+  --shadow-hover:
+    0 8px 18px rgba(18, 60, 48, .07),
+    0 24px 55px rgba(18, 60, 48, .11);
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --container: 1160px;
+  --page-width: 1040px;
+  --header-height: 78px;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --transition: 240ms var(--ease);
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 "Segoe UI", Arial, sans-serif; }
-a { color: inherit; }
-img { display: block; max-width: 100%; }
-h1, h2, h3, p { margin-top: 0; }
-h1, h2, h3 { line-height: 1.2; }
-:focus-visible { outline: 3px solid #b87519; outline-offset: 3px; }
 
-.header_nav, .site-header { position: sticky; top: 0; z-index: 20; background: var(--green); color: var(--white); box-shadow: 0 2px 10px rgba(0, 0, 0, .08); }
-.header_menu, .site-header-inner { width: min(1180px, calc(100% - 40px)); min-height: 70px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.logo, .site-brand { color: var(--white); text-decoration: none; font-size: 22px; font-weight: 700; letter-spacing: .2px; white-space: nowrap; }
-.menu, .site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin: 0; padding: 0; list-style: none; }
-.menu a, .site-nav a { display: block; padding: 9px 11px; border-radius: 6px; color: var(--white); text-decoration: none; font-size: 13px; font-weight: 600; }
-.menu a:hover, .site-nav a:hover { background: #456e58; }
-.menu a.portfolio-link, .site-nav a.portfolio-link { border: 1px solid #a9c2b1; }
-.hamburger { display: none; border: 1px solid #a9c2b1; border-radius: 6px; background: transparent; color: var(--white); padding: 7px 11px; font-size: 21px; cursor: pointer; }
+/* 02 — RESET & FONDATIONS
+   ---------------------------------------------------------- */
 
-.container, .page-main { width: min(1080px, calc(100% - 40px)); margin: auto; }
-.section-header { padding: 18px 0 0; text-align: center; }
-#days { margin: 0; color: var(--muted); font-size: 14px; text-transform: capitalize; }
-.section-description, .coran-section, .content-panel, .video-card, .timeline-card { border: 1px solid var(--line); border-radius: 14px; background: var(--white); box-shadow: var(--shadow); }
-.section-description { margin: 20px 0; padding: clamp(24px, 5vw, 48px); text-align: center; }
-.section-description .eyebrow, .page-kicker { margin-bottom: 8px; color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
-.section-description h1, .page-hero h1 { margin-bottom: 12px; font-size: clamp(30px, 5vw, 44px); }
-.section-description p:last-child { max-width: 760px; margin: 0 auto; color: var(--muted); }
-.coran-section { margin: 24px 0; padding: clamp(22px, 4vw, 36px); text-align: center; }
-.coran-section h2 { margin-bottom: 16px; font-size: 23px; }
-.citation { padding: 20px; border-radius: 10px; background: #f8faf8; }
-.arabe { margin-bottom: 12px; font-family: "Amiri", serif; font-size: clamp(25px, 4vw, 34px); line-height: 1.8; direction: rtl; text-align: center; }
-.traduction { margin-bottom: 8px; color: #3e4e44; }
-#reference { color: var(--muted); font-size: 13px; }
-.search-wrap { margin: 28px auto 18px; text-align: center; }
-.search-wrap label { display: block; margin-bottom: 7px; font-weight: 700; }
-#search { width: min(100%, 440px); min-height: 46px; padding: 10px 14px; border: 1px solid #bfcac2; border-radius: 8px; background: var(--white); color: var(--ink); font: inherit; }
-.reciter-note { margin: 0 auto 14px; color: var(--muted); text-align: center; font-size: 13px; }
-.reciter-note a { color: var(--green); }
-.reciter-image { width: min(100%, 720px); margin: 20px auto 8px; }
-.reciter-image img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; }
-.reciter-image figcaption { margin-top: 7px; color: var(--muted); font-size: 13px; }
-#list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)); gap: 14px; padding: 18px 0 35px; }
-.sourate { min-height: 78px; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--ink); text-align: left; font: inherit; cursor: pointer; box-shadow: 0 3px 10px rgba(30, 50, 40, .04); transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease; }
-.sourate:hover, .sourate:focus-visible { border-color: #86a18f; box-shadow: var(--shadow); transform: translateY(-2px); }
-.sourate .title { margin: 0; font-weight: 600; }
-.sourate.is-playing { border-color: var(--green); background: var(--green-light); }
-#no-results { padding: 20px; color: var(--muted); text-align: center; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 105px;
+  scrollbar-color: #a8b5a9 var(--paper);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 140px;
+  overflow-wrap: break-word;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(229, 213, 174, .12),
+      transparent 42%
+    ),
+    var(--paper);
+
+  color: var(--ink);
+
+  font-family:
+    "Segoe UI",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  font-size: 15px;
+  line-height: 1.8;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  color: var(--white);
+  background: var(--green);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--green-dark);
+  line-height: 1.25;
+  letter-spacing: -.035em;
+}
+
+h1,
+h2 {
+  font-weight: 650;
+}
+
+h3,
+h4 {
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(34px, 5vw, 56px);
+}
+
+h2 {
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+h3 {
+  font-size: 20px;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+
+/* 03 — NAVIGATION PRINCIPALE
+   ---------------------------------------------------------- */
+
+.header_nav,
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  color: var(--white);
+  background: rgba(18, 60, 48, .97);
+
+  border-bottom: 1px solid rgba(229, 213, 174, .18);
+
+  box-shadow: 0 4px 24px rgba(10, 41, 33, .09);
+
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.header_menu,
+.site-header-inner {
+  position: relative;
+
+  width: min(var(--container), calc(100% - 64px));
+  min-height: var(--header-height);
+  margin-inline: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo,
+.site-brand {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--white);
+  text-decoration: none;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.045em;
+  white-space: nowrap;
+
+  transition: color var(--transition);
+}
+
+.logo:hover,
+.site-brand:hover {
+  color: var(--gold-light);
+}
+
+/* Navigation desktop */
+
+.menu,
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu li,
+.site-nav li {
+  margin: 0;
+  padding: 0;
+}
+
+.menu a,
+.site-nav a {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  padding: 9px 11px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+
+  color: rgba(255, 254, 250, .80);
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .015em;
+
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.menu a:hover,
+.site-nav a:hover {
+  color: var(--white);
+  background: rgba(255, 255, 255, .08);
+}
+
+/* Retour au portfolio */
+
+.menu a.button-light,
+.site-nav a.button-light,
+.menu a.portfolio-link,
+.site-nav a.portfolio-link {
+  min-height: 38px;
+  padding: 8px 13px;
+
+  color: var(--gold-light);
+  background: rgba(229, 213, 174, .04);
+  border-color: rgba(229, 213, 174, .40);
+
+  font-size: 11px;
+}
+
+.menu a.button-light:hover,
+.site-nav a.button-light:hover,
+.menu a.portfolio-link:hover,
+.site-nav a.portfolio-link:hover {
+  color: var(--white);
+  background: rgba(229, 213, 174, .12);
+  border-color: var(--gold-light);
+}
+
+/* Hamburger */
+
+.hamburger {
+  display: none;
+  flex-shrink: 0;
+
+  width: 44px;
+  height: 44px;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(229, 213, 174, .35);
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+  color: var(--white);
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, .08);
+  border-color: var(--gold-light);
+}
+
+
+/* 04 — STRUCTURE GÉNÉRALE
+   ---------------------------------------------------------- */
+
+.container,
+.page-main {
+  width: min(var(--page-width), calc(100% - 64px));
+  margin-inline: auto;
+}
+
+.container {
+  min-width: 0;
+}
+
+.page-main {
+  padding-top: 58px;
+  padding-bottom: 65px;
+}
+
+.section-header {
+  padding-top: 30px;
+  text-align: center;
+}
+
+#days {
+  margin: 0;
+
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: capitalize;
+}
+
+.section-header h1,
+.section-header h2 {
+  margin-bottom: 16px;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+
+/* 05 — ACCUEIL : SIGNATURE AN•NOOR
+   ---------------------------------------------------------- */
+
+.section-description {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  margin: 28px 0 34px;
+  padding: clamp(40px, 7vw, 84px) clamp(24px, 6vw, 76px);
+
+  text-align: center;
+
+  border: 1px solid rgba(185, 154, 96, .28);
+  border-radius: var(--radius-lg);
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(185, 154, 96, .12),
+      transparent 65%
+    ),
+    linear-gradient(
+      145deg,
+      #fffefa 0%,
+      #f8f5ec 100%
+    );
+
+  box-shadow: var(--shadow);
+}
+
+.section-description::before,
+.section-description::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -100px;
+  left: 50%;
+
+  border: 1px solid rgba(185, 154, 96, .14);
+  border-radius: 50%;
+
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.section-description::before {
+  width: 240px;
+  height: 240px;
+}
+
+.section-description::after {
+  top: -65px;
+  width: 170px;
+  height: 170px;
+
+  border-color: rgba(185, 154, 96, .10);
+}
+
+.eyebrow,
+.page-kicker {
+  margin-bottom: 16px;
+
+  color: var(--gold-deep);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+}
+
+.section-description h1,
+.page-hero h1 {
+  margin-bottom: 22px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: 1.12;
+}
+
+.section-description p:last-child {
+  max-width: 620px;
+  margin-inline: auto;
+
+  color: #687168;
+  font-size: 15px;
+  line-height: 2;
+}
+
+
+/* 06 — VERSER À DÉCOUVRIR
+   ---------------------------------------------------------- */
+
+.coran-section,
+.content-panel,
+.video-card,
+.timeline-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.coran-section {
+  position: relative;
+
+  margin: 28px 0;
+  padding: clamp(24px, 5vw, 48px);
+
+  text-align: center;
+}
+
+.coran-section::before {
+  content: "";
+
+  display: block;
+  width: 48px;
+  height: 2px;
+
+  margin: 0 auto 22px;
+
+  background: var(--gold);
+}
+
+.coran-section h2 {
+  margin-bottom: 24px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(23px, 3vw, 31px);
+  font-weight: 500;
+}
+
+.citation {
+  padding: clamp(22px, 4vw, 40px);
+
+  border: 1px solid #eee8da;
+  border-radius: var(--radius-sm);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(247, 245, 239, .8),
+      rgba(255, 254, 250, .98)
+    );
+}
+
+.arabe,
+.arabic {
+  margin-bottom: 20px;
+
+  color: var(--green-dark);
+
+  font-family: "Amiri", "Traditional Arabic", serif;
+  font-size: clamp(30px, 5vw, 43px);
+  font-weight: 400;
+  line-height: 2.05;
+
+  direction: rtl;
+  text-align: center;
+}
+
+.traduction,
+.translation {
+  margin-bottom: 12px;
+
+  color: #47564b;
+  font-size: 14px;
+  line-height: 2;
+}
+
+#reference {
+  display: block;
+  margin-bottom: 0;
+
+  color: var(--gold-deep);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: .08em;
+}
+
+/* Partage du verset */
+
+.partage {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 44px;
+  padding: 11px 20px;
+
+  border: 1px solid var(--green);
+  border-radius: var(--radius-pill);
+
+  background: var(--green);
+  color: var(--white);
+
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+
+  background: var(--green-mid);
+  border-color: var(--green-mid);
+  color: var(--white);
+
+  box-shadow: 0 7px 18px rgba(18, 60, 48, .15);
+}
+
+.button-light {
+  color: var(--green);
+  background: var(--white);
+  border-color: var(--line);
+}
+
+.button-light:hover {
+  color: var(--green-dark);
+  background: var(--green-light);
+  border-color: var(--gold-border);
+}
+
+
+/* 07 — RECHERCHE DE SOURATES
+   ---------------------------------------------------------- */
+
+.search-wrap {
+  max-width: 600px;
+  margin: 44px auto 24px;
+  text-align: center;
+}
+
+.search-wrap label {
+  display: block;
+  margin-bottom: 12px;
+
+  color: var(--green-dark);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 500;
+}
+
+#search {
+  display: block;
+
+  width: min(100%, 480px);
+  min-height: 54px;
+  margin-inline: auto;
+  padding: 13px 20px;
+
+  border: 1px solid #d9ded5;
+  border-radius: var(--radius-pill);
+
+  background: var(--white);
+  color: var(--ink);
+
+  font-size: 14px;
+
+  box-shadow: 0 3px 12px rgba(27, 42, 33, .025);
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+#search::placeholder {
+  color: #9a9e96;
+}
+
+#search:focus {
+  border-color: var(--green-mid);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(40, 90, 71, .09);
+}
+
+
+/* 08 — INFORMATION SUR LA CONNEXION
+   ---------------------------------------------------------- */
+
+.internet-requirement {
+  margin: 20px 0;
+  padding: 16px 20px;
+
+  border: 1px solid #e6e1d4;
+  border-radius: var(--radius-sm);
+
+  background: rgba(255, 254, 250, .8);
+}
+
 .internet-requirement p {
-    color: #25332d;
-    font-size: 14px;
-    text-align: center;
-    margin-top: 10px;
-}
-.quran-player { position: fixed; z-index: 30; right: 50%; bottom: 14px; width: min(1000px, calc(100% - 32px)); min-height: 82px; padding: 12px 16px; display: grid; grid-template-columns: minmax(180px, 1fr) minmax(280px, 1.5fr) minmax(160px, .8fr); align-items: center; gap: 16px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .97); box-shadow: 0 8px 30px rgba(20, 40, 30, .16); transform: translateX(50%); }
-.player-left { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
-#currentTrack { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; }
-.reciter-control { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; }
-#reciter { min-width: 0; max-width: 190px; padding: 5px 7px; border: 1px solid var(--line); border-radius: 5px; background: var(--white); color: var(--ink); font: inherit; }
-.player-center { min-width: 0; display: flex; align-items: center; gap: 8px; }
-.player-center button { width: 38px; height: 38px; flex: 0 0 auto; margin: 0; padding: 0; border: 0; border-radius: 50%; background: var(--green-light); color: var(--green); font-size: 16px; cursor: pointer; }
-.player-center #playPause { width: 44px; height: 44px; background: var(--green); color: var(--white); font-size: 18px; }
-.player-center button:hover { filter: brightness(.94); }
-.progress-container { position: relative; height: 8px; min-width: 40px; flex: 1; overflow: hidden; border-radius: 8px; background: #e1e8e3; cursor: pointer; }
-#progress { width: 0; height: 100%; border-radius: inherit; background: #5b896d; }
-.player-right { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
-.time-display { display: flex; gap: 4px; color: var(--muted); font-size: 12px; white-space: nowrap; }
-#volume { width: 82px; margin: 0; accent-color: var(--green); }
-audio { display: none; }
-body { padding-bottom: 120px; }
-.space-to-top { position: fixed; z-index: 15; right: 20px; bottom: 115px; }
-#scrolltop { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--green); text-decoration: none; box-shadow: var(--shadow); }
+  margin: 0;
 
-.site-header { margin-bottom: 0; }
-.site-header-inner { min-height: 70px; }
-.page-main { padding-top: 36px; padding-bottom: 50px; }
-.page-hero { margin-bottom: 24px; text-align: center; }
-.page-hero h1 { margin-bottom: 8px; }
-.page-hero p:last-child { max-width: 720px; margin: auto; color: var(--muted); }
-.content-panel { margin: 18px 0; padding: clamp(20px, 4vw, 34px); }
-.content-panel p:last-child { margin-bottom: 0; }
-.quran-verse { margin: 22px 0; padding: clamp(22px, 5vw, 42px); border: 1px solid var(--line); border-radius: 14px; background: var(--white); box-shadow: var(--shadow); }
-.quran-verse .arabe { text-align: right; }
-.quran-verse .traduction { margin: 0; padding: 18px; border-radius: 9px; background: var(--green-light); line-height: 1.8; }
-.timeline-list { display: grid; gap: 14px; }
-.timeline-card { padding: 20px 22px; }
-.video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
-.video-card { padding: 20px; }
-.video-card h2 { margin-bottom: 8px; font-size: 18px; }
-.video-card p { color: var(--muted); }
-.button-link { min-height: 42px; padding: 9px 14px; display: inline-flex; align-items: center; border-radius: 6px; background: var(--green); color: var(--white); font-size: 13px; font-weight: 700; text-decoration: none; }
-.button-link:hover { background: #244331; }
-.inspiration { margin-top: 28px; padding: 24px; border-left: 4px solid #71937c; border-radius: 8px; background: var(--green-light); }
-.inspiration .arabe { margin-bottom: 7px; }
-.site-footer { padding: 24px 20px 155px; background: var(--green); color: var(--white); text-align: center; }
-.site-footer p { margin: 0; color: #e5eee9; font-size: 13px; }
-.site-footer a { color: var(--white); }
-.footer-links { margin: 18px 0 12px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  color: #626a60;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+/* 09 — IMAGE DU RÉCITATEUR
+   ---------------------------------------------------------- */
+
+.reciter-image {
+  width: min(100%, 780px);
+  margin: 28px auto 10px;
+}
+
+.reciter-image img {
+  width: 100%;
+  max-height: 360px;
+
+  object-fit: cover;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+
+  box-shadow: var(--shadow);
+}
+
+.reciter-image figcaption {
+  margin-top: 12px;
+
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-align: center;
+}
+
+
+/* 10 — COLLECTION DES SOURATES
+   ---------------------------------------------------------- */
+
+#list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+
+  padding: 22px 0 45px;
+}
+
+/*
+   Les éléments .sourate sont générés par le JavaScript.
+   Ces règles fonctionnent si le script crée des boutons,
+   des liens ou des blocs portant cette classe.
+*/
+
+.sourate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  min-width: 0;
+  min-height: 100px;
+  padding: 22px;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+
+  background: var(--white);
+  color: var(--ink);
+
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+
+  box-shadow: 0 2px 8px rgba(27, 42, 33, .025);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.sourate::before,
+.sourate::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -24px;
+  bottom: -34px;
+
+  border: 1px solid rgba(185, 154, 96, .13);
+  border-radius: 50%;
+
+  pointer-events: none;
+  transition: transform 450ms var(--ease);
+}
+
+.sourate::before {
+  width: 100px;
+  height: 100px;
+}
+
+.sourate::after {
+  right: -8px;
+  bottom: -18px;
+
+  width: 65px;
+  height: 65px;
+
+  border-color: rgba(185, 154, 96, .10);
+}
+
+.sourate:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(40, 90, 71, .38);
+  box-shadow: var(--shadow-hover);
+}
+
+.sourate:hover::before {
+  transform: scale(1.2);
+}
+
+.sourate:focus-visible {
+  outline-offset: 3px;
+}
+
+.sourate .title {
+  margin: 0;
+
+  color: var(--green-dark);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.sourate.is-playing {
+  border-color: var(--green);
+
+  background:
+    linear-gradient(
+      135deg,
+      #e7eee8,
+      #f5f6ed
+    );
+
+  box-shadow: inset 0 0 0 1px rgba(18, 60, 48, .05);
+}
+
+.sourate.is-playing .title {
+  color: var(--green);
+}
+
+#no-results {
+  padding: 32px 20px;
+
+  border: 1px dashed #d9ded5;
+  border-radius: var(--radius-md);
+
+  color: var(--muted);
+  text-align: center;
+}
+
+
+/* 11 — LECTEUR AUDIO AN•NOOR
+   ---------------------------------------------------------- */
+
+.quran-player {
+  position: fixed;
+  z-index: 1100;
+  right: 50%;
+  bottom: 18px;
+
+  width: min(1120px, calc(100% - 48px));
+  min-height: 100px;
+  padding: 17px 24px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(230px, 1.15fr)
+    minmax(95px, .45fr);
+
+  align-items: center;
+  gap: 22px;
+
+  border: 1px solid rgba(185, 154, 96, .30);
+  border-radius: 22px;
+
+  background: rgba(255, 254, 250, .97);
+
+  box-shadow:
+    0 8px 28px rgba(10, 41, 33, .08),
+    0 24px 80px rgba(10, 41, 33, .12);
+
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+
+  transform: translateX(50%);
+}
+
+.player-left {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  min-width: 0;
+}
+
+#currentTrack {
+  display: block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--green-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+/* Recherche du récitant et sélection */
+
+.reciter-control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+#search-reciter,
+#reciter {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  padding: 6px 10px;
+
+  border: 1px solid #e3e3d9;
+  border-radius: var(--radius-sm);
+
+  background: var(--white);
+  color: var(--green-dark);
+
+  font-size: 11px;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+#search-reciter::placeholder {
+  color: #9a9e96;
+}
+
+#search-reciter:focus,
+#reciter:focus {
+  border-color: var(--green-mid);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 90, 71, .08);
+}
+
+#reciter {
+  cursor: pointer;
+}
+
+/* Commandes */
+
+.player-center {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  min-width: 0;
+}
+
+.player-center button {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  padding: 0;
+
+  border: 1px solid transparent;
+  border-radius: 50%;
+
+  background: #edf1eb;
+  color: var(--green);
+
+  font-size: 14px;
+  cursor: pointer;
+
+  transition:
+    transform var(--transition),
+    color var(--transition),
+    background var(--transition);
+}
+
+.player-center button:hover {
+  background: #dce7dc;
+  transform: scale(1.06);
+}
+
+.player-center #playPause {
+  width: 46px;
+  height: 46px;
+
+  background: var(--green);
+  color: var(--white);
+
+  font-size: 17px;
+
+  box-shadow: 0 5px 14px rgba(18, 60, 48, .18);
+}
+
+.player-center #playPause:hover {
+  background: var(--green-mid);
+  transform: scale(1.05);
+}
+
+/* Barre de progression */
+
+.progress-container {
+  position: relative;
+
+  height: 7px;
+  min-width: 25px;
+  flex: 1;
+
+  overflow: hidden;
+
+  border-radius: var(--radius-pill);
+  background: #e7e8df;
+
+  cursor: pointer;
+}
+
+.progress-container:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+#progress {
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    var(--green-mid),
+    var(--gold)
+  );
+
+  transition: width 120ms linear;
+}
+
+/* Durée et audio */
+
+.player-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+#player {
+  display: none;
+}
+
+
+/* 12 — RETOUR EN HAUT
+   ---------------------------------------------------------- */
+
+.space-to-top {
+  position: fixed;
+  z-index: 1050;
+  right: 24px;
+  bottom: 140px;
+}
+
+#scrolltop {
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+
+  background: var(--white);
+  color: var(--green);
+
+  font-size: 19px;
+  text-decoration: none;
+
+  box-shadow: var(--shadow);
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    color var(--transition),
+    border-color var(--transition);
+}
+
+#scrolltop:hover {
+  transform: translateY(-3px);
+
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--green);
+}
+
+
+/* 13 — IDENTITÉ DES PAGES SECONDAIRES
+   ---------------------------------------------------------- */
+
+/* Introduction de page */
+
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  margin-bottom: 42px;
+  padding: clamp(40px, 7vw, 76px) 24px;
+
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(185, 154, 96, .13),
+      transparent 68%
+    ),
+    linear-gradient(145deg, var(--white), #f5f2e8);
+
+  text-align: center;
+}
+
+.page-hero::before {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+  top: -100px;
+  left: 50%;
+
+  width: 230px;
+  height: 230px;
+
+  border: 1px solid rgba(185, 154, 96, .13);
+  border-radius: 50%;
+
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.page-hero h1 {
+  margin-bottom: 18px;
+}
+
+.page-hero p {
+  max-width: 680px;
+  margin-inline: auto;
+
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 2;
+}
+
+/* Panneaux de contenu */
+
+.content-panel {
+  margin: 22px 0;
+  padding: clamp(24px, 5vw, 44px);
+}
+
+.content-panel h2,
+.content-panel h3 {
+  margin-bottom: 16px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+.content-panel p {
+  color: #58645a;
+}
+
+.content-panel p:last-child {
+  margin-bottom: 0;
+}
+
+/* Versets dans les pages secondaires */
+
+.quran-verse,
+.verse-card {
+  margin: 28px 0;
+  padding: clamp(24px, 5vw, 48px);
+
+  border: 1px solid rgba(185, 154, 96, .30);
+  border-radius: var(--radius-md);
+
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.quran-verse .arabe,
+.quran-verse .arabic,
+.verse-card .arabe,
+.verse-card .arabic {
+  margin-bottom: 26px;
+  line-height: 2.15;
+}
+
+.quran-verse .traduction,
+.quran-verse .translation,
+.verse-card .traduction,
+.verse-card .translation {
+  margin: 0;
+  padding: 22px;
+
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+
+  background: var(--green-light);
+  color: #47564b;
+
+  line-height: 2;
+}
+
+/* Référence et numéro de verset */
+
+.verse-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.verse-reference {
+  color: var(--gold-deep);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.verse-number {
+  display: inline-grid;
+  place-items: center;
+
+  width: 36px;
+  height: 36px;
+
+  border: 1px solid var(--gold-border);
+  border-radius: 50%;
+
+  background: var(--green-light);
+  color: var(--green);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.verse-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.verse-content .translation,
+.verse-content .traduction {
+  text-align: left;
+}
+
+.separator {
+  width: 58px;
+  height: 1px;
+  margin: 30px auto;
+
+  border: 0;
+  background: var(--gold);
+}
+
+.source-link {
+  color: var(--gold-deep);
+  font-size: 13px;
+  font-weight: 650;
+
+  text-decoration: underline;
+  text-decoration-color: var(--gold-border);
+  text-underline-offset: 4px;
+}
+
+.source-link:hover {
+  color: var(--green);
+}
+
+.closing {
+  margin-top: 30px;
+
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+}
+
+
+/* 14 — BIOGRAPHIE & CHRONOLOGIE
+   ---------------------------------------------------------- */
+
+.timeline-list {
+  display: grid;
+  gap: 18px;
+}
+
+.timeline-card {
+  position: relative;
+
+  padding: 26px 28px;
+
+  border-left: 3px solid var(--gold);
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.timeline-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.timeline-card h2,
+.timeline-card h3 {
+  margin-bottom: 12px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+.timeline-card p {
+  color: #58645a;
+}
+
+.timeline-date {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  color: var(--gold-deep);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+
+/* 15 — VIDÉOS & RESSOURCES
+   ---------------------------------------------------------- */
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.video-card {
+  overflow: hidden;
+  padding: 26px;
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(185, 154, 96, .45);
+  box-shadow: var(--shadow-hover);
+}
+
+.video-card h2,
+.video-card h3 {
+  margin-bottom: 12px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+.video-card h2 {
+  font-size: 21px;
+}
+
+.video-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.video-card iframe,
+.video-card video {
+  display: block;
+
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  border: 0;
+  border-radius: var(--radius-sm);
+
+  background: var(--green-dark);
+}
+
+.video-card iframe {
+  margin-bottom: 20px;
+}
+
+
+/* 16 — BOUTONS DE NAVIGATION DES PAGES
+   ---------------------------------------------------------- */
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  min-height: 46px;
+  padding: 12px 20px;
+
+  border: 1px solid var(--green);
+  border-radius: var(--radius-pill);
+
+  background: var(--green);
+  color: var(--white);
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .025em;
+
+  text-decoration: none;
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.button-link:hover {
+  transform: translateY(-2px);
+
+  background: var(--green-mid);
+  color: var(--white);
+
+  box-shadow: 0 7px 18px rgba(18, 60, 48, .15);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 24px;
+
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--gold-deep);
+  transform: translateX(-3px);
+}
+
+
+/* 17 — BLOC INSPIRATION
+   ---------------------------------------------------------- */
+
+.inspiration {
+  position: relative;
+
+  margin-top: 36px;
+  padding: clamp(24px, 5vw, 40px);
+
+  border: 1px solid rgba(185, 154, 96, .26);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-md);
+
+  background:
+    linear-gradient(
+      135deg,
+      #f1eee3,
+      #f8f6ef
+    );
+}
+
+.inspiration h2,
+.inspiration h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+}
+
+.inspiration p {
+  color: #58645a;
+}
+
+.inspiration .arabe,
+.inspiration .arabic {
+  margin-bottom: 12px;
+}
+
+
+/* 18 — PIED DE PAGE
+   ---------------------------------------------------------- */
+
+.site-footer {
+  position: relative;
+
+  margin-top: 45px;
+  padding: 48px 24px 155px;
+
+  border-top: 1px solid rgba(229, 213, 174, .22);
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(185, 154, 96, .12),
+      transparent 55%
+    ),
+    var(--green-dark);
+
+  color: var(--white);
+  text-align: center;
+}
+
+.site-footer p {
+  max-width: 620px;
+  margin: 0 auto;
+
+  color: rgba(255, 254, 250, .72);
+  font-size: 12px;
+  line-height: 2;
+}
+
+.site-footer a {
+  color: var(--gold-light);
+  text-underline-offset: 4px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 24px 0 18px;
+  padding: 0;
+
+  list-style: none;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 8px 13px;
+
+  border: 1px solid rgba(229, 213, 174, .22);
+  border-radius: var(--radius-pill);
+
+  color: rgba(255, 254, 250, .85);
+
+  font-size: 11px;
+  text-decoration: none;
+
+  transition:
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.footer-links a:hover {
+  border-color: rgba(229, 213, 174, .6);
+  background: rgba(255, 255, 255, .06);
+}
+
+
+/* 19 — RESPONSIVE TABLETTE
+   ---------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  :root {
+    --header-height: 72px;
+  }
+
+  .header_menu,
+  .site-header-inner {
+    width: calc(100% - 40px);
+    gap: 12px;
+  }
+
+  .menu,
+  .site-nav {
+    gap: 2px;
+  }
+
+  .menu a,
+  .site-nav a {
+    padding: 8px 9px;
+    font-size: 10px;
+  }
+
+  .logo,
+  .site-brand {
+    font-size: 23px;
+  }
+
+  #list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quran-player {
+    grid-template-columns:
+      minmax(190px, 1fr)
+      minmax(200px, 1.1fr)
+      auto;
+
+    gap: 14px;
+    padding-inline: 18px;
+  }
+
+  .player-center {
+    gap: 8px;
+  }
+
+  .player-center button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .player-center #playPause {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+
+/* 20 — MENU MOBILE
+   ---------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .header_menu,
+  .site-header-inner {
+    width: calc(100% - 32px);
+    min-height: var(--header-height);
+  }
+
+  .header_menu {
+    flex-wrap: nowrap;
+  }
+
+  .hamburger {
+    display: inline-flex;
+  }
+
+  /*
+    Le JavaScript doit ajouter la classe "active"
+    à #menu pour ouvrir la navigation.
+  */
+
+  .menu,
+  .site-nav {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: -16px;
+    left: -16px;
+    z-index: 1001;
+
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 3px;
+
+    max-height: calc(100dvh - var(--header-height));
+    padding: 14px 20px 20px;
+    overflow-y: auto;
+
+    border-bottom: 1px solid var(--gold-border);
+
+    background: var(--green-dark);
+
+    box-shadow: 0 16px 25px rgba(10, 41, 33, .18);
+  }
+
+  .menu.active,
+  .site-nav.active,
+  .menu.open,
+  .site-nav.open {
+    display: flex;
+  }
+
+  .menu li,
+  .site-nav li {
+    width: 100%;
+  }
+
+  .menu a,
+  .site-nav a {
+    display: flex;
+    justify-content: flex-start;
+
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 12px;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    font-size: 13px;
+  }
+
+  .menu a:hover,
+  .site-nav a:hover {
+    background: rgba(255, 255, 255, .07);
+  }
+
+  .menu a.button-light,
+  .site-nav a.button-light {
+    margin-bottom: 7px;
+
+    border-color: rgba(229, 213, 174, .35);
+    background: rgba(229, 213, 174, .05);
+  }
+}
+
+
+/* 21 — RESPONSIVE MOBILE
+   ---------------------------------------------------------- */
 
 @media (max-width: 650px) {
-  .container, .page-main {
+  :root {
+    --header-height: 66px;
+  }
+
+  body {
+    padding-bottom: 275px;
+    font-size: 14px;
+  }
+
+  .container,
+  .page-main {
     width: calc(100% - 28px);
+  }
+
+  .page-main {
+    padding-top: 38px;
+    padding-bottom: 40px;
+  }
+
+  .section-header {
+    padding-top: 22px;
+  }
+
+  .section-description {
+    margin: 20px 0 26px;
+    padding: 42px 22px;
+
+    border-radius: 22px;
+  }
+
+  .section-description h1,
+  .page-hero h1 {
+    font-size: clamp(34px, 9vw, 46px);
+  }
+
+  .section-description p:last-child {
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .coran-section {
+    margin: 20px 0;
+    padding: 22px 16px;
+  }
+
+  .citation {
+    padding: 22px 14px;
+  }
+
+  .arabe,
+  .arabic {
+    font-size: clamp(28px, 7vw, 36px);
+    line-height: 2;
+  }
+
+  .traduction,
+  .translation {
+    font-size: 13px;
+  }
+
+  .search-wrap {
+    margin: 32px auto 20px;
+  }
+
+  .search-wrap label {
+    font-size: 21px;
+  }
+
+  #search {
+    min-height: 50px;
+    padding-inline: 18px;
+    font-size: 13px;
   }
 
   #list {
     grid-template-columns: 1fr;
     gap: 10px;
-    padding: 14px 0 25px;
+    padding: 14px 0 30px;
   }
 
   .sourate {
-    min-height: 62px;
-    padding: 13px 14px;
+    min-height: 72px;
+    padding: 18px;
+
+    border-radius: 13px;
   }
+
+  .sourate .title {
+    font-size: 13px;
+  }
+
+  .reciter-image img {
+    max-height: 260px;
+  }
+
+  /* Pages secondaires */
+
+  .page-hero {
+    margin-bottom: 28px;
+    padding: 40px 18px;
+    border-radius: 22px;
+  }
+
+  .content-panel {
+    padding: 24px 20px;
+  }
+
+  .quran-verse,
+  .verse-card {
+    margin: 20px 0;
+    padding: 22px 18px;
+  }
+
+  .quran-verse .traduction,
+  .quran-verse .translation,
+  .verse-card .traduction,
+  .verse-card .translation {
+    padding: 17px;
+  }
+
+  .verse-header {
+    align-items: flex-start;
+  }
+
+  .verse-content {
+    gap: 20px;
+  }
+
+  .timeline-card {
+    padding: 22px;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .video-card {
+    padding: 22px;
+  }
+
+  /* Lecteur audio compact */
 
   .quran-player {
     right: 10px;
     bottom: 10px;
+
     width: calc(100% - 20px);
     min-height: 0;
-    padding: 12px;
-    grid-template-columns: 1fr;
+    padding: 13px 14px;
+
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
+
+    border-radius: 20px;
+
     transform: none;
   }
 
   .player-left {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
+    gap: 7px;
   }
 
   #currentTrack {
     white-space: normal;
     overflow-wrap: anywhere;
+
     font-size: 12px;
+    line-height: 1.5;
   }
 
   .reciter-control {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
     gap: 4px;
-    width: 100%;
+    font-size: 10px;
   }
 
   #search-reciter,
   #reciter {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    padding: 8px;
-    font-size: 13px;
+    min-height: 34px;
+    padding: 7px 10px;
+    font-size: 12px;
   }
 
   .player-center {
     width: 100%;
-    gap: 8px;
+    gap: 10px;
   }
 
   .player-center button {
-    width: 36px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
   }
 
   .player-center #playPause {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
   }
 
   .progress-container {
-    min-width: 30px;
+    height: 7px;
+    min-width: 24px;
   }
 
   .player-right {
-    justify-content: center;
-  }
-
-  .space-to-top {
-    right: 14px;
-    bottom: 220px;
-  }
-
-  .site-footer {
-    padding-bottom: 230px;
-  }
-}
-
-@media (max-width: 380px) {
-  .header_menu,
-  .site-header-inner {
-    width: calc(100% - 24px);
-  }
-
-  .quran-player {
-    gap: 8px;
-    padding: 10px;
+    justify-content: flex-end;
+    gap: 10px;
   }
 
   .time-display {
     font-size: 11px;
   }
+
+  .space-to-top {
+    right: 14px;
+    bottom: 285px;
+  }
+
+  #scrolltop {
+    width: 40px;
+    height: 40px;
+  }
+
+  .site-footer {
+    margin-top: 35px;
+    padding: 35px 20px 280px;
+  }
+
+  .footer-links {
+    gap: 8px;
+  }
 }
+
+
+/* 22 — PETITS ÉCRANS
+   ---------------------------------------------------------- */
+
+@media (max-width: 380px) {
+  .header_menu,
+  .site-header-inner {
+    width: calc(100% - 22px);
+  }
+
+  .container,
+  .page-main {
+    width: calc(100% - 24px);
+  }
+
+  .logo,
+  .site-brand {
+    font-size: 21px;
+  }
+
+  .section-description {
+    padding-inline: 17px;
+  }
+
+  .section-description h1,
+  .page-hero h1 {
+    font-size: 33px;
+  }
+
+  .quran-player {
+    padding: 11px;
+    gap: 9px;
+  }
+
+  .player-center {
+    gap: 7px;
+  }
+
+  .player-center button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .player-center #playPause {
+    width: 39px;
+    height: 39px;
+  }
+
+  .time-display {
+    font-size: 10px;
+  }
+
+  .space-to-top {
+    bottom: 285px;
+  }
+}
+/* 23 — IDENTITÉ DE LA MARQUE
+   ---------------------------------------------------------- */
+.brand-signature {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  line-height: 0;
+}
+
+.brand-logo {
+  display: block;
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 250ms ease;
+}
+
+.brand-signature:hover .brand-logo {
+  transform: scale(1.04);
+}
+
+.brand-signature:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+@media (max-width: 650px) {
+  .brand-logo {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* ==========================================================
+   FIN — AN•NOOR
+   ========================================================== */
