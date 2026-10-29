@@ -1,0 +1,641 @@
+/* =========================================================
+   AN•NOOR — FAVORIS, SOURATES ET BIBLIOTHÈQUE
+   Palette : vert profond, or doux, ivoire
+   Compatible avec jav.js
+   ========================================================= */
+/* =========================================================
+   1. VARIABLES
+   ========================================================= */
+:root {
+    --green: #174d3b;
+    --green-dark: #10392c;
+    --green-light: #e9f2ed;
+    --gold: #c5a15b;
+    --gold-dark: #a9853d;
+    --gold-border: rgba(197, 161, 91, 0.38);
+    --white: #ffffff;
+    --paper: #faf8f1;
+    --paper-dark: #f1ede2;
+    --ink: #24332c;
+    --muted: #788078;
+    --line: #e6e4da;
+    --danger: #b54747;
+    --danger-light: #fff0ef;
+    --shadow:
+        0 8px 24px rgba(24, 54, 40, 0.07);
+    --shadow-hover:
+        0 14px 32px rgba(24, 54, 40, 0.12);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-pill: 999px;
+    --transition: 0.25s ease;
+}
+/* =========================================================
+   2. BASE
+   ========================================================= */
+.an-noor-library,
+.sourate,
+.playlist-box {
+    box-sizing: border-box;
+}
+.an-noor-library *,
+.an-noor-library *::before,
+.an-noor-library *::after,
+.sourate *,
+.sourate *::before,
+.sourate *::after,
+.playlist-box *,
+.playlist-box *::before,
+.playlist-box *::after {
+    box-sizing: border-box;
+}
+.an-noor-library button,
+.sourate button,
+.playlist-box button {
+    font: inherit;
+}
+.an-noor-library button,
+.sourate button,
+.playlist-box button {
+    -webkit-tap-highlight-color: transparent;
+}
+.an-noor-library button:focus-visible,
+.sourate button:focus-visible,
+.playlist-box button:focus-visible {
+    outline: 3px solid rgba(197, 161, 91, 0.65);
+    outline-offset: 3px;
+}
+/* =========================================================
+   3. CARTES DES SOURATES
+   ========================================================= */
+.sourate {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+    padding: 20px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+}
+.sourate:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold-border);
+    box-shadow: var(--shadow-hover);
+}
+/* =========================================================
+   4. TEXTE DES SOURATES
+   ========================================================= */
+.sourate-text {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    min-width: 0;
+}
+.sourate .title {
+    display: block;
+    margin: 0;
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+.sourate .sourate-arabic {
+    display: block;
+    margin: 2px 0 0;
+    color: var(--green);
+    font-family: "Amiri", "Traditional Arabic", serif;
+    font-size: 1.45rem;
+    font-weight: 500;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+}
+.sourate-text p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+/* =========================================================
+   5. ACTIONS DES SOURATES
+   ========================================================= */
+.sourate-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-left: auto;
+}
+.sourate-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 10px 13px;
+    color: var(--green);
+    background: var(--green-light);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition:
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition),
+        transform var(--transition);
+}
+.sourate-actions button:hover {
+    color: var(--white);
+    background: var(--green);
+    transform: translateY(-2px);
+}
+.sourate-actions button:active {
+    transform: scale(0.96);
+}
+/* Bouton lecture */
+.sourate-actions .sourate-play {
+    color: var(--white);
+    background: var(--green);
+    border-color: var(--green);
+}
+.sourate-actions .sourate-play:hover {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+}
+/* Bouton favori */
+.sourate-actions .favorite-surah {
+    color: var(--gold-dark);
+    background: #fbf6e9;
+    border-color: var(--gold-border);
+}
+.sourate-actions .favorite-surah:hover {
+    color: var(--white);
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+}
+/* Bouton playlist */
+.sourate-actions .add-to-playlist {
+    color: var(--green);
+    background: var(--white);
+    border-color: var(--line);
+}
+.sourate-actions .add-to-playlist:hover {
+    color: var(--white);
+    background: var(--green);
+    border-color: var(--green);
+}
+/* =========================================================
+   6. BIBLIOTHÈQUE AN•NOOR
+   ========================================================= */
+.an-noor-library {
+    position: relative;
+    width: 100%;
+    margin: 40px auto;
+    padding: 30px;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--gold);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+.an-noor-library h2 {
+    margin: 0 0 12px;
+    color: var(--green);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    line-height: 1.3;
+}
+.an-noor-library h3 {
+    margin: 0 0 16px;
+    color: var(--green);
+    font-size: 1.15rem;
+    font-weight: 750;
+    line-height: 1.5;
+}
+.an-noor-library .library-intro {
+    margin: 0 0 25px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+/* =========================================================
+   7. SECTIONS DE LA BIBLIOTHÈQUE
+   ========================================================= */
+#favorite-reciter-area,
+#favorite-surahs-area,
+#playlists-area {
+    margin-top: 30px;
+}
+#favorite-reciter-area,
+#favorite-surahs-area,
+#playlists-area {
+    min-width: 0;
+}
+#favorite-reciter-area h3,
+#favorite-surahs-area h3,
+#playlists-area h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+}
+/* =========================================================
+   8. LIGNES DE LA BIBLIOTHÈQUE
+   ========================================================= */
+.an-noor-library .library-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    min-width: 0;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--line);
+    transition: background var(--transition);
+}
+.an-noor-library .library-row:last-child {
+    border-bottom: none;
+}
+.an-noor-library .library-row > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    color: var(--ink);
+    font-size: 0.96rem;
+    font-weight: 600;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+.an-noor-library .library-row > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+/* =========================================================
+   9. BOUTONS DE LA BIBLIOTHÈQUE
+   ========================================================= */
+.an-noor-library button,
+.playlist-box button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 9px 14px;
+    color: var(--green);
+    background: var(--green-light);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-size: 0.88rem;
+    font-weight: 650;
+    line-height: 1.4;
+    cursor: pointer;
+    transition:
+        color var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition);
+}
+.an-noor-library button:hover,
+.playlist-box button:hover {
+    color: var(--white);
+    background: var(--green);
+    transform: translateY(-1px);
+}
+.an-noor-library button:active,
+.playlist-box button:active {
+    transform: scale(0.97);
+}
+/* Boutons de lecture */
+.an-noor-library button[data-action="play"],
+.an-noor-library button.play,
+.playlist-box button[data-action="play"],
+.playlist-box button.play {
+    color: var(--white);
+    background: var(--green);
+}
+.an-noor-library button[data-action="play"]:hover,
+.an-noor-library button.play:hover,
+.playlist-box button[data-action="play"]:hover,
+.playlist-box button.play:hover {
+    background: var(--green-dark);
+}
+/* Boutons de suppression */
+.an-noor-library button[data-action="remove"],
+.an-noor-library button[data-action="delete"],
+.playlist-box button[data-action="remove"],
+.playlist-box button[data-action="delete"] {
+    color: var(--danger);
+    background: var(--danger-light);
+}
+.an-noor-library button[data-action="remove"]:hover,
+.an-noor-library button[data-action="delete"]:hover,
+.playlist-box button[data-action="remove"]:hover,
+.playlist-box button[data-action="delete"]:hover {
+    color: var(--white);
+    background: var(--danger);
+}
+/* =========================================================
+   10. PLAYLISTS
+   ========================================================= */
+#playlists-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#playlists-area > h3 {
+    width: 100%;
+}
+.playlist-box {
+    width: 100%;
+    min-width: 0;
+    padding: 20px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius-md);
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        transform var(--transition);
+}
+.playlist-box:hover {
+    border-color: var(--gold-border);
+    box-shadow: var(--shadow);
+}
+.playlist-box h4 {
+    margin: 0 0 12px;
+    color: var(--green);
+    font-size: 1.05rem;
+    font-weight: 750;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+.playlist-box p {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+.playlist-box .library-row {
+    padding: 12px 0;
+}
+/* =========================================================
+   11. FORMULAIRES DE CRÉATION ET DE RECHERCHE
+   ========================================================= */
+.an-noor-library input,
+.an-noor-library select,
+.an-noor-library textarea {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 14px;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    font: inherit;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+.an-noor-library input::placeholder,
+.an-noor-library textarea::placeholder {
+    color: #999e96;
+}
+.an-noor-library input:focus,
+.an-noor-library select:focus,
+.an-noor-library textarea:focus {
+    border-color: var(--gold);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(197, 161, 91, 0.15);
+}
+.an-noor-library textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+.an-noor-library form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.an-noor-library form input,
+.an-noor-library form select {
+    flex: 1 1 180px;
+}
+.an-noor-library form button {
+    flex: 0 0 auto;
+}
+/* =========================================================
+   12. ZONES VIDES
+   ========================================================= */
+#favorite-reciter-area:empty,
+#favorite-surahs-area:empty,
+#playlists-area:empty {
+    display: block;
+}
+.an-noor-library .empty-state,
+.playlist-box .empty-state {
+    padding: 20px;
+    color: var(--muted);
+    background: var(--paper);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-md);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    text-align: center;
+}
+/* =========================================================
+   13. BOUTON RETOUR EN HAUT
+   ========================================================= */
+#scrolltop {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    color: var(--white);
+    background: var(--green);
+    border: 1px solid var(--gold-border);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition:
+        background var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+#scrolltop:hover {
+    background: var(--green-dark);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+}
+#scrolltop:active {
+    transform: scale(0.95);
+}
+/* =========================================================
+   14. ACCESSIBILITÉ
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    .sourate,
+    .sourate-actions button,
+    .an-noor-library button,
+    .playlist-box,
+    .playlist-box button,
+    #scrolltop {
+        transition: none;
+    }
+    .sourate:hover,
+    .sourate-actions button:hover,
+    .an-noor-library button:hover,
+    .playlist-box button:hover,
+    #scrolltop:hover {
+        transform: none;
+    }
+}
+/* =========================================================
+   15. TABLETTES
+   ========================================================= */
+@media (max-width: 900px) {
+    .sourate {
+        gap: 12px;
+        padding: 17px;
+    }
+    .sourate-actions {
+        gap: 6px;
+    }
+    .sourate-actions button {
+        min-width: 40px;
+        min-height: 40px;
+        padding: 9px 11px;
+    }
+    .an-noor-library {
+        padding: 24px;
+    }
+}
+/* =========================================================
+   16. MOBILES
+   ========================================================= */
+@media (max-width: 650px) {
+    .sourate {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 16px;
+        border-radius: var(--radius-md);
+    }
+    .sourate-text {
+        flex: 1 1 calc(100% - 5px);
+        width: 100%;
+    }
+    .sourate .title {
+        font-size: 1rem;
+    }
+    .sourate .sourate-arabic {
+        font-size: 1.35rem;
+    }
+    .sourate-actions {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-left: 0;
+    }
+    .sourate-actions button {
+        min-height: 42px;
+    }
+    .an-noor-library {
+        margin: 25px auto;
+        padding: 19px;
+        border-radius: var(--radius-md);
+    }
+    .an-noor-library h2 {
+        font-size: 1.5rem;
+    }
+    .an-noor-library h3 {
+        font-size: 1.05rem;
+    }
+    .an-noor-library .library-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+    .an-noor-library .library-row > span:first-child {
+        width: 100%;
+    }
+    .an-noor-library .library-row > div {
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .an-noor-library .library-row > button {
+        min-height: 40px;
+    }
+    .playlist-box {
+        padding: 16px;
+    }
+    .an-noor-library form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .an-noor-library form input,
+    .an-noor-library form select,
+    .an-noor-library form button {
+        width: 100%;
+        flex: 1 1 auto;
+    }
+    #scrolltop {
+        right: 14px;
+        bottom: 14px;
+        width: 44px;
+        height: 44px;
+    }
+}
+/* =========================================================
+   17. PETITS ÉCRANS
+   ========================================================= */
+@media (max-width: 380px) {
+    .sourate {
+        padding: 13px;
+    }
+    .sourate-actions button {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+    .an-noor-library {
+        padding: 15px;
+    }
+    .an-noor-library button,
+    .playlist-box button {
+        padding: 8px 11px;
+        font-size: 0.82rem;
+    }
+    .playlist-box {
+        padding: 13px;
+    }
+}

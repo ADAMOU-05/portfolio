@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#09130f">
+<meta name="description" content="Lire le Coran en arabe et en français, écouter les versets et retrouver sa lecture sur An•Noor.">
+<title>Lire le Coran — An•Noor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09130f;--panel:#11221a;--panel2:#162a20;--gold:#d6b779;--goldlight:#ead8ad;--text:#f1eee5;--muted:#a9b4aa;--line:rgba(214,183,121,.2);--green:#244331}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:radial-gradient(ellipse at 50% 0%,rgba(35,75,51,.24),transparent 48%),var(--bg);color:var(--text);font:16px/1.7 "DM Sans",Arial,sans-serif}
+a{color:inherit}.topbar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:15px max(20px,calc((100% - 1100px)/2));border-bottom:1px solid var(--line);background:rgba(9,19,15,.94);backdrop-filter:blur(12px)}
+.brand{color:var(--gold);font-weight:700;text-decoration:none;letter-spacing:.05em}.back{border:1px solid var(--line);border-radius:999px;padding:8px 14px;text-decoration:none;font-size:.9rem}
+main{width:min(1100px,calc(100% - 32px));margin:34px auto 100px}.hero{text-align:center;margin:28px auto 34px}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.17em;font-size:.75rem;font-weight:700}.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;margin:8px 0}.muted{color:var(--muted)}
+.toolbar{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.65fr) auto;gap:10px;margin:24px 0}
+input,select,button{font:inherit}input,select{width:100%;min-height:44px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+button,.btn{cursor:pointer;border:1px solid var(--line);border-radius:999px;background:var(--panel2);color:var(--text);padding:9px 14px;text-decoration:none}
+button:hover,.btn:hover{border-color:var(--gold)}.status{color:var(--muted);font-size:.9rem;min-height:1.5em}
+.verse{padding:clamp(18px,4vw,30px);margin:14px 0;border:1px solid var(--line);border-radius:18px;background:linear-gradient(140deg,rgba(214,183,121,.045),transparent 60%),var(--panel)}
+.verse-head{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--gold);font-size:.85rem}.verse-actions{display:flex;gap:8px;flex-wrap:wrap}
+.arabic{font-family:"Amiri",serif;font-size:clamp(1.8rem,4vw,2.5rem);line-height:2.1;text-align:right;direction:rtl;margin:20px 0;overflow-wrap:anywhere}
+.translation{color:#d5ddd5;margin:0;line-height:1.9}.verse.saved{border-color:var(--gold)}
+.surah-title{text-align:center;margin:30px 0 18px}.surah-title .arabic{margin:0;font-size:2rem}
+.empty{padding:25px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);text-align:center}
+@media(max-width:700px){.toolbar{grid-template-columns:1fr}.topbar{padding:12px 16px}main{width:calc(100% - 24px);margin-top:20px}.verse-actions button{font-size:.85rem}}
+</style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="index.html">An•Noor <span lang="ar">النور</span></a><nav style="display:flex;gap:10px;flex-wrap:wrap"><a class="back" href="recherche.html">Recherche</a><a class="back" href="index.html">← Accueil</a></nav></header>
+<main>
+  <section class="hero">
+    <p class="eyebrow">Lire · écouter · méditer</p>
+    <h1>Le Noble Coran</h1>
+    <p class="muted">Le texte arabe, sa traduction française et l'écoute de chaque verset.</p>
+  </section>
+  <section aria-label="Choisir une sourate">
+    <div class="toolbar">
+      <label><span class="muted">Rechercher une sourate</span><input id="surahSearch" type="search" placeholder="Nom ou numéro…"></label>
+      <label><span class="muted">Sourate</span><select id="surahSelect"><option>Chargement des sourates…</option></select></label>
+      <button id="resumeBtn" type="button">Reprendre ma lecture</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite">Chargement du texte coranique…</p>
+  </section>
+  <section id="reader" aria-live="polite"><div class="empty">Le texte apparaîtra ici après le chargement.</div></section>
+</main>
+<audio id="audio" preload="none"></audio>
+<script>
+(() => {
+  "use strict";
+  const API = "https://api.alquran.cloud/v1";
+  const select = document.getElementById("surahSelect");
+  const search = document.getElementById("surahSearch");
+  const reader = document.getElementById("reader");
+  const status = document.getElementById("status");
+  const audio = document.getElementById("audio");
+  let surahs = [], currentSurah = 1, playingButton = null;
+  const savedKey = "anNoorReaderBookmarksV1";
+  const lastKey = "anNoorLastReadV1";
+  const bookmarks = () => { try { return JSON.parse(localStorage.getItem(savedKey) || "[]"); } catch { return []; } };
+  const keyFor = (s,a) => `${s}:${a}`;
+  const safe = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  async function getJSON(url) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("La source du texte n’a pas répondu correctement.");
+    const json = await response.json();
+    if (json.code !== 200) throw new Error(json.status || "Données indisponibles.");
+    return json.data;
+  }
+  async function init() {
+    try {
+      surahs = await getJSON(`${API}/surah`);
+      renderOptions(surahs);
+      const params = new URLSearchParams(location.search);
+      const requested = Number(params.get("surah")) || Number(localStorage.getItem(lastKey)) || 1;
+      await loadSurah(Math.min(114, Math.max(1, requested)));
+    } catch (error) {
+      status.textContent = "Impossible de charger le Coran. Vérifie ta connexion Internet puis actualise la page.";
+      reader.innerHTML = '<div class="empty">Le lecteur a besoin d’une connexion Internet pour récupérer le texte et les traductions.</div>';
+    }
+  }
+  function renderOptions(list) {
+    const query = search.value.trim().toLocaleLowerCase();
+    const filtered = list.filter(s => `${s.number} ${s.name} ${s.englishName} ${s.englishNameTranslation}`.toLocaleLowerCase().includes(query));
+    select.innerHTML = filtered.map(s => `<option value="${s.number}">${s.number}. ${safe(s.englishName)} — ${safe(s.name)}</option>`).join("");
+    if (!filtered.length) select.innerHTML = '<option value="">Aucune sourate trouvée</option>';
+    if (filtered.some(s => s.number === currentSurah)) select.value = String(currentSurah);
+  }
+  async function loadSurah(number) {
+    currentSurah = number;
+    status.textContent = "Chargement de la sourate…";
+    reader.innerHTML = '<div class="empty">Chargement des versets…</div>';
+    try {
+      const [arabicData, frenchData] = await Promise.all([
+        getJSON(`${API}/surah/${number}/quran-uthmani`),
+        getJSON(`${API}/surah/${number}/fr.hamidullah`)
+      ]);
+      const meta = arabicData;
+      localStorage.setItem(lastKey, String(number));
+      const title = `<header class="surah-title"><p class="eyebrow">Sourate ${meta.number} · ${meta.numberOfAyahs} versets</p><h2>${safe(meta.englishName)}</h2><p class="arabic" lang="ar" dir="rtl">${safe(meta.name)}</p><p class="muted">${safe(meta.englishNameTranslation)} · ${meta.revelationType === "Meccan" ? "Mecquoise" : "Médinoise"}</p></header>`;
+      const fr = new Map(frenchData.ayahs.map(a => [a.numberInSurah, a.text]));
+      const saved = bookmarks();
+      const verses = arabicData.ayahs.map(a => {
+        const bookmarked = saved.includes(keyFor(number, a.numberInSurah));
+        return `<article class="verse ${bookmarked ? "saved" : ""}" id="ayah-${a.numberInSurah}">
+          <div class="verse-head"><span>${number}:${a.numberInSurah}</span><div class="verse-actions">
+            <button type="button" data-play="${a.number}" data-surah="${number}" data-ayah="${a.numberInSurah}" aria-label="Écouter le verset ${a.numberInSurah}">▶ Écouter</button>
+            <button type="button" data-bookmark="${a.numberInSurah}" data-surah="${number}" aria-pressed="${bookmarked}">${bookmarked ? "★ Enregistré" : "☆ Signet"}</button>
+            <button type="button" data-share="${a.numberInSurah}" data-surah="${number}">Partager</button>
+          </div></div>
+          <p class="arabic" lang="ar" dir="rtl">${safe(a.text)}</p>
+          <p class="translation">${safe(fr.get(a.numberInSurah) || "Traduction indisponible.")}</p>
+        </article>`;
+      }).join("");
+      reader.innerHTML = title + verses;
+      status.textContent = "Texte chargé. Les signets et la dernière lecture sont conservés sur cet appareil.";
+      if ([...select.options].some(o => o.value === String(number))) select.value = String(number);
+    } catch (error) {
+      status.textContent = "Une erreur est survenue lors du chargement de cette sourate.";
+      reader.innerHTML = '<div class="empty">Réessaie dans quelques instants. Si le problème continue, vérifie ta connexion Internet.</div>';
+    }
+  }
+  select.addEventListener("change", () => { if (select.value) loadSurah(Number(select.value)); });
+  search.addEventListener("input", () => renderOptions(surahs));
+  document.getElementById("resumeBtn").addEventListener("click", () => loadSurah(Number(localStorage.getItem(lastKey)) || 1));
+  reader.addEventListener("click", async (event) => {
+    const play = event.target.closest("[data-play]");
+    const bookmark = event.target.closest("[data-bookmark]");
+    const share = event.target.closest("[data-share]");
+    if (play) {
+      const url = `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${play.dataset.play}.mp3`;
+      if (audio.src === url && !audio.paused) { audio.pause(); play.textContent = "▶ Écouter"; return; }
+      if (playingButton) playingButton.textContent = "▶ Écouter";
+      playingButton = play; play.textContent = "Ⅱ Pause";
+      audio.src = url;
+      try { await audio.play(); } catch { status.textContent = "La lecture audio n’a pas pu démarrer. Réessaie en appuyant sur Écouter."; play.textContent = "▶ Écouter"; }
+      audio.onended = () => { if (playingButton) playingButton.textContent = "▶ Écouter"; playingButton = null; };
+      audio.onpause = () => { if (playingButton && audio.ended) playingButton.textContent = "▶ Écouter"; };
+    } else if (bookmark) {
+      const id = keyFor(Number(bookmark.dataset.surah), Number(bookmark.dataset.bookmark));
+      const saved = bookmarks(); const exists = saved.includes(id);
+      const next = exists ? saved.filter(x => x !== id) : [...saved, id];
+      localStorage.setItem(savedKey, JSON.stringify(next));
+      const isSaved = !exists;
+      bookmark.textContent = isSaved ? "★ Enregistré" : "☆ Signet";
+      bookmark.setAttribute("aria-pressed", String(isSaved));
+      bookmark.closest(".verse").classList.toggle("saved", isSaved);
+      status.textContent = isSaved ? "Verset ajouté aux signets." : "Signet retiré.";
+    } else if (share) {
+      const surah = Number(share.dataset.surah), ayah = Number(share.dataset.share);
+      const url = `${location.origin}${location.pathname}?surah=${surah}#ayah-${ayah}`;
+      const text = `Coran — ${surah}:${ayah}\n${url}`;
+      try {
+        if (navigator.share) await navigator.share({title:"An•Noor — verset du Coran", text, url});
+        else if (navigator.clipboard) { await navigator.clipboard.writeText(text); status.textContent = "Lien du verset copié."; }
+        else window.prompt("Copie ce lien :", text);
+      } catch {}
+    }
+  });
+  init();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Écouter des sourates du Coran et découvrir une récitation avec An•noor.">
+  <title>An•noor</title>
+  <link rel="icon" href="an.noor.jpg" type="image/png">
+  <link rel="stylesheet" href="revoannor.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="header_nav">
+    <nav class="header_menu" aria-label="Navigation principale">
+      <a class="brand-signature" href="index.html" aria-label="An•Noor, accueil">
+  <img
+    class="brand-logo"
+    src="an.noor.jpg"
+    alt="An•Noor — النور"
+  >
+</a>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+      <ul class="menu" id="menu">
+        <li>
+        <a class="button" href="https://adamou-05.github.io/portfolio/#projets">← Retour au portfolio</a></li>
+        <li><a href="#list">Sourates</a></li>
+        <li><a href="lire.html">Lire le Coran</a></li>
+        <li><a href="recherche.html">Recherche</a></li>
+        <li><a href="ayah-al-kursi.html">Verset</a></li>
+        <li><a href="biographie.html">Biographie</a></li>
+        <li><a href="qui-suis-je.html">À propos</a></li>
+        <li><a href="liens-video.html">Vidéos</a></li>
+        <li><a href="mailto:adamoubabaina7@gmail.com">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <header class="section-header"><p id="days"></p></header>
+
+    <section class="section-description" aria-labelledby="welcome-title">
+      <p class="eyebrow">Bienvenue sur An•noor</p>
+      <h1 id="welcome-title">Un moment d’écoute et de recueillement</h1>
+      <p>Le Coran est le livre sacré de l’islam. Selon la foi musulmane, 
+        il a été révélé au prophète Muhammad ﷺ. Il contient 114 chapitres appelés sourates. 
+        Les musulmans le récitent et l’étudient dans le monde entier.</p>
+      <p><a class="button" href="lire.html">Lire le Coran <span aria-hidden="true">→</span></a> <a class="button" href="recherche.html">Rechercher un verset</a></p>
+    </section>
+
+    <section class="coran-section" aria-labelledby="verse-title">
+      <h2 id="verse-title">Un verset à découvrir</h2>
+      <div class="citation">
+        <p class="arabe" id="verset-ar" lang="ar" dir="rtl"></p>
+        <p class="traduction" id="verset-fr"></p>
+        <span id="reference"></span>
+      </div>
+      <div class="partage">
+        <button class="button" aria-label="Partager ce verset">Partager</button>
+      </div>
+    </section>
+
+    <section aria-label="Chercher une sourate">
+      <div class="search-wrap">
+        <label for="search">Trouver une sourate</label>
+        <input id="search" type="search" placeholder="Exemple : Al-Fatiha" autocomplete="off">
+      </div>
+      <div class="internet-requirement">
+        <p>Une connexion Internet est nécessaire.</p>
+      </div>
+      <figure class="reciter-image" id="recitation">
+        <img src="i-abdul-rahman-al-sudais.png" alt="Abdul-Rahman Al-Sudais à la Grande Mosquée de La Mecque" loading="lazy">
+        <figcaption>Abdul-Rahman Al-Sudais</figcaption>
+      </figure>
+      <div id="list" aria-label="Liste des sourates"></div>
+      <p id="no-results" hidden>Aucune sourate ne correspond à ta recherche.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 An•noor · Un projet personnel pour apprendre et partager.</p>
+  </footer>
+  <div class="space-to-top"><a href="#" id="scrolltop" aria-label="Retourner en haut de la page">↑</a></div>
+  
+<section class="quran-player" aria-label="Lecteur audio du Coran">
+  <div class="player-left">
+    <span id="currentTrack" aria-live="polite">
+      Choisis une sourate pour commencer
+    </span>
+
+    <label class="reciter-control" for="search-reciter">
+      Rechercher un récitant
+      <input
+        type="text"
+        id="search-reciter"
+        placeholder="Nom du récitant..."
+      >
+    </label>
+
+    <label class="reciter-control" for="reciter">
+      Récitateur
+      <select id="reciter" aria-label="Choisir un récitant">
+        <option value="">Chargement des récitateurs...</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="player-center">
+    <button id="prev" type="button" aria-label="Sourate précédente">⏮</button>
+    <button id="playPause" type="button" aria-label="Lire ou mettre en pause">▶</button>
+    <button id="next" type="button" aria-label="Sourate suivante">⏭</button>
+
+    <div
+      class="progress-container"
+      role="slider"
+      tabindex="0"
+      aria-label="Position dans la récitation"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div id="progress"></div>
+    </div>
+  </div>
+
+  <div class="player-right">
+    <div class="time-display">
+      <span id="currentTime">0:00</span>
+      <span>/</span>
+      <span id="duration">0:00</span>
+    </div>
+    <audio id="player" preload="none"></audio>
+  </div>
+</section>
+  <script src="jav.js"></script>
+  <script src="javloc.js"></script>
+  <script src="list-sourates.js"></script>
+</body>
+</html>
