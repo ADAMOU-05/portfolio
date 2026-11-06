@@ -105,11 +105,30 @@
   </div>
 
   <div class="player-center">
-    <button id="prev" type="button" aria-label="Sourate précédente">⏮</button>
-    <button id="playPause" type="button" aria-label="Lire ou mettre en pause">▶</button>
-    <button id="next" type="button" aria-label="Sourate suivante">⏭</button>
 
-    <div
+  <!-- Sourate précédente -->
+  <button id="prev" type="button" aria-label="Sourate précédente">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 5v14M19 5L8 12l11 7V5Z"/>
+    </svg>
+  </button>
+
+  <!-- Lecture / Pause -->
+  <button id="playPause" type="button" aria-label="Lire">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 5v14l11-7-11-7Z" class="play-icon"/>
+    </svg>
+  </button>
+
+  <!-- Sourate suivante -->
+  <button id="next" type="button" aria-label="Sourate suivante">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18 5v14M5 5l11 7-11 7V5Z"/>
+    </svg>
+  </button>
+
+</div>
+  <div
       class="progress-container"
       role="slider"
       tabindex="0"
